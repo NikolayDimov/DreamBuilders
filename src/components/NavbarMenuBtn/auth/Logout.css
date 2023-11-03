@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    margin: 2em auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    display: inline-block;
+    flex-basis: 35%;
+    margin-left: 1em;
+}
+
