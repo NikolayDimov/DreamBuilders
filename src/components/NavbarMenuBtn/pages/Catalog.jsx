@@ -1,19 +1,80 @@
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
+import { useState, useEffect } from 'react';
+import { firestore_db } from '../../../firebase';
+import { collection, doc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
+// import { collection, getDocs} from 'firebase/firestore';
+import ProjectItem from './ProjectItem';
+
+
+
 export default function Catalog() {
+    const { isLoggedIn } = useAuth();
+
+    const [items, setItems] = useState([]);
+    // const [newItem, setNewItem] = useState('');
+    const [editItem, setEditItem] = useState(null);
+
+    useEffect(() => {
+        const fetchItems = async () => {
+            const itemsCollection = collection(firestore_db, 'houses');
+            const querySnapshot = await getDocs(itemsCollection);
+            const itemsData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+            setItems(itemsData);
+        };
+
+        fetchItems();
+    }, []);
+
+
+
+    // const handleAddItem = async () => {
+    //     try {
+    //       const itemsCollection = collection(firestore_db, 'items');
+    //       await addDoc(itemsCollection, { name: newItem });
+    //       setNewItem('');
+    //     } catch (error) {
+    //       console.error('Error adding item:', error);
+    //     }
+    //   };
+    
+      const handleEditItem = async () => {
+        try {
+          const itemRef = doc(firestore_db, 'items', editItem.id);
+          await updateDoc(itemRef, { name: editItem.name });
+          setEditItem(null);
+        } catch (error) {
+          console.error('Error editing item:', error);
+        }
+      };
+    
+      const handleDeleteItem = async (itemId) => {
+        try {
+          const itemRef = doc(firestore_db, 'items', itemId);
+          await deleteDoc(itemRef);
+        } catch (error) {
+          console.error('Error deleting item:', error);
+        }
+      };
+
+
     return (
         <>
             {/* Page Header Start */}
             <div className="container-fluid page-header">
-                <h1 className="display-3 text-uppercase text-white mb-3">Blog Grid</h1>
+                <h1 className="display-3 text-uppercase text-white mb-3">All Projects</h1>
                 <div className="d-inline-flex text-white">
                     <h6 className="text-uppercase m-0">
-                        <a href="">Home</a>
+                        <Link to="/">Home</Link>
                     </h6>
                     <h6 className="text-white m-0 px-3">/</h6>
-                    <h6 className="text-uppercase text-white m-0">Blog Grid</h6>
+                    {isLoggedIn &&
+                        <h6 className="text-uppercase text-white m-0"><Link to="/myProjects">My Projects</Link></h6>
+                    }
                 </div>
             </div>
             {/* Page Header Start */}
-            
+
             {/* Blog Start */}
             <div className="container-fluid py-6 px-5">
                 <div className="text-center mx-auto mb-5" style={{ maxWidth: 600 }}>
@@ -22,318 +83,20 @@ export default function Catalog() {
                     </h1>
                 </div>
                 <div className="row g-5">
-                    <div className="col-lg-4 col-md-6">
-                        <div className="bg-light">
-                            <img className="img-fluid" src="img/blog-1.jpg" alt="" />
-                            <div className="p-4">
-                                <div className="d-flex justify-content-between mb-4">
-                                    <div className="d-flex align-items-center">
-                                        <img
-                                            className="rounded-circle me-2"
-                                            src="img/user.jpg"
-                                            width={35}
-                                            height={35}
-                                            alt=""
-                                        />
-                                        <span>John Doe</span>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="ms-3">
-                                            <i className="far fa-calendar-alt text-primary me-2" />
-                                            01 Jan, 2045
-                                        </span>
-                                    </div>
-                                </div>
-                                <h4 className="text-uppercase mb-3">
-                                    Rebum diam clita lorem erat magna est erat
-                                </h4>
-                                <a className="text-uppercase fw-bold" href="">
-                                    Read More <i className="bi bi-arrow-right" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="bg-light">
-                            <img className="img-fluid" src="img/blog-2.jpg" alt="" />
-                            <div className="p-4">
-                                <div className="d-flex justify-content-between mb-4">
-                                    <div className="d-flex align-items-center">
-                                        <img
-                                            className="rounded-circle me-2"
-                                            src="img/user.jpg"
-                                            width={35}
-                                            height={35}
-                                            alt=""
-                                        />
-                                        <span>John Doe</span>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="ms-3">
-                                            <i className="far fa-calendar-alt text-primary me-2" />
-                                            01 Jan, 2045
-                                        </span>
-                                    </div>
-                                </div>
-                                <h4 className="text-uppercase mb-3">
-                                    Rebum diam clita lorem erat magna est erat
-                                </h4>
-                                <a className="text-uppercase fw-bold" href="">
-                                    Read More <i className="bi bi-arrow-right" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="bg-light">
-                            <img className="img-fluid" src="img/blog-3.jpg" alt="" />
-                            <div className="p-4">
-                                <div className="d-flex justify-content-between mb-4">
-                                    <div className="d-flex align-items-center">
-                                        <img
-                                            className="rounded-circle me-2"
-                                            src="img/user.jpg"
-                                            width={35}
-                                            height={35}
-                                            alt=""
-                                        />
-                                        <span>John Doe</span>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="ms-3">
-                                            <i className="far fa-calendar-alt text-primary me-2" />
-                                            01 Jan, 2045
-                                        </span>
-                                    </div>
-                                </div>
-                                <h4 className="text-uppercase mb-3">
-                                    Rebum diam clita lorem erat magna est erat
-                                </h4>
-                                <a className="text-uppercase fw-bold" href="">
-                                    Read More <i className="bi bi-arrow-right" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="bg-light">
-                            <img className="img-fluid" src="img/blog-2.jpg" alt="" />
-                            <div className="p-4">
-                                <div className="d-flex justify-content-between mb-4">
-                                    <div className="d-flex align-items-center">
-                                        <img
-                                            className="rounded-circle me-2"
-                                            src="img/user.jpg"
-                                            width={35}
-                                            height={35}
-                                            alt=""
-                                        />
-                                        <span>John Doe</span>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="ms-3">
-                                            <i className="far fa-calendar-alt text-primary me-2" />
-                                            01 Jan, 2045
-                                        </span>
-                                    </div>
-                                </div>
-                                <h4 className="text-uppercase mb-3">
-                                    Rebum diam clita lorem erat magna est erat
-                                </h4>
-                                <a className="text-uppercase fw-bold" href="">
-                                    Read More <i className="bi bi-arrow-right" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="bg-light">
-                            <img className="img-fluid" src="img/blog-3.jpg" alt="" />
-                            <div className="p-4">
-                                <div className="d-flex justify-content-between mb-4">
-                                    <div className="d-flex align-items-center">
-                                        <img
-                                            className="rounded-circle me-2"
-                                            src="img/user.jpg"
-                                            width={35}
-                                            height={35}
-                                            alt=""
-                                        />
-                                        <span>John Doe</span>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="ms-3">
-                                            <i className="far fa-calendar-alt text-primary me-2" />
-                                            01 Jan, 2045
-                                        </span>
-                                    </div>
-                                </div>
-                                <h4 className="text-uppercase mb-3">
-                                    Rebum diam clita lorem erat magna est erat
-                                </h4>
-                                <a className="text-uppercase fw-bold" href="">
-                                    Read More <i className="bi bi-arrow-right" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="bg-light">
-                            <img className="img-fluid" src="img/blog-1.jpg" alt="" />
-                            <div className="p-4">
-                                <div className="d-flex justify-content-between mb-4">
-                                    <div className="d-flex align-items-center">
-                                        <img
-                                            className="rounded-circle me-2"
-                                            src="img/user.jpg"
-                                            width={35}
-                                            height={35}
-                                            alt=""
-                                        />
-                                        <span>John Doe</span>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="ms-3">
-                                            <i className="far fa-calendar-alt text-primary me-2" />
-                                            01 Jan, 2045
-                                        </span>
-                                    </div>
-                                </div>
-                                <h4 className="text-uppercase mb-3">
-                                    Rebum diam clita lorem erat magna est erat
-                                </h4>
-                                <a className="text-uppercase fw-bold" href="">
-                                    Read More <i className="bi bi-arrow-right" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="bg-light">
-                            <img className="img-fluid" src="img/blog-3.jpg" alt="" />
-                            <div className="p-4">
-                                <div className="d-flex justify-content-between mb-4">
-                                    <div className="d-flex align-items-center">
-                                        <img
-                                            className="rounded-circle me-2"
-                                            src="img/user.jpg"
-                                            width={35}
-                                            height={35}
-                                            alt=""
-                                        />
-                                        <span>John Doe</span>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="ms-3">
-                                            <i className="far fa-calendar-alt text-primary me-2" />
-                                            01 Jan, 2045
-                                        </span>
-                                    </div>
-                                </div>
-                                <h4 className="text-uppercase mb-3">
-                                    Rebum diam clita lorem erat magna est erat
-                                </h4>
-                                <a className="text-uppercase fw-bold" href="">
-                                    Read More <i className="bi bi-arrow-right" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="bg-light">
-                            <img className="img-fluid" src="img/blog-1.jpg" alt="" />
-                            <div className="p-4">
-                                <div className="d-flex justify-content-between mb-4">
-                                    <div className="d-flex align-items-center">
-                                        <img
-                                            className="rounded-circle me-2"
-                                            src="img/user.jpg"
-                                            width={35}
-                                            height={35}
-                                            alt=""
-                                        />
-                                        <span>John Doe</span>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="ms-3">
-                                            <i className="far fa-calendar-alt text-primary me-2" />
-                                            01 Jan, 2045
-                                        </span>
-                                    </div>
-                                </div>
-                                <h4 className="text-uppercase mb-3">
-                                    Rebum diam clita lorem erat magna est erat
-                                </h4>
-                                <a className="text-uppercase fw-bold" href="">
-                                    Read More <i className="bi bi-arrow-right" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="bg-light">
-                            <img className="img-fluid" src="img/blog-2.jpg" alt="" />
-                            <div className="p-4">
-                                <div className="d-flex justify-content-between mb-4">
-                                    <div className="d-flex align-items-center">
-                                        <img
-                                            className="rounded-circle me-2"
-                                            src="img/user.jpg"
-                                            width={35}
-                                            height={35}
-                                            alt=""
-                                        />
-                                        <span>John Doe</span>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="ms-3">
-                                            <i className="far fa-calendar-alt text-primary me-2" />
-                                            01 Jan, 2045
-                                        </span>
-                                    </div>
-                                </div>
-                                <h4 className="text-uppercase mb-3">
-                                    Rebum diam clita lorem erat magna est erat
-                                </h4>
-                                <a className="text-uppercase fw-bold" href="">
-                                    Read More <i className="bi bi-arrow-right" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-12">
-                        <nav aria-label="Page navigation">
-                            <ul className="pagination pagination-lg justify-content-center m-0">
-                                <li className="page-item disabled">
-                                    <a className="page-link rounded-0" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">«</span>
-                                        <span className="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li className="page-item active">
-                                    <a className="page-link" href="#">
-                                        1
-                                    </a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#">
-                                        2
-                                    </a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#">
-                                        3
-                                    </a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link rounded-0" href="#" aria-label="Next">
-                                        <span aria-hidden="true">»</span>
-                                        <span className="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+
+                    {items.map(item =>
+                        <ProjectItem
+                            key={item.id}
+                            item={item}
+                            onEdit={handleEditItem}
+                            onDelete={() => handleDeleteItem(item.id)}
+                        />
+                    )}
+
+                    {items.length === 0 && (
+                        <h3 className="no-articles">No Projects Items yet</h3>
+                    )}
+
                 </div>
             </div>
             {/* Blog End */}
