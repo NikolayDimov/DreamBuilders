@@ -23,6 +23,7 @@ export default function Create() {
     const [bathrooms, setBathrooms] = useState('');
     const [garage, setGarage] = useState('');
     const [pool, setPool] = useState('');
+    const [img, setImg] = useState('');
 
 
     async function createHouse(e) {
@@ -30,12 +31,14 @@ export default function Create() {
         try {
             await addDoc(userCollectionRef, {
                 owner_uid: user.uid,
+                owner_email: user.email,
                 projectName: projectName,
                 category: category,
                 bedrooms: bedrooms,
                 bathrooms: bathrooms,
                 garage: garage,
                 pool: pool,
+                img: img
             });
             nav('/catalog');
         } catch (error) {
@@ -49,7 +52,7 @@ export default function Create() {
 
                 <div className="form-block-create mx-auto">
                     <div className="title">
-                        <h3>Create you own house</h3>
+                        <h3>Create you own house {(user.email.split('@'))[0]} </h3>
                     </div>
                     <form onSubmit={createHouse}>
 
@@ -171,6 +174,18 @@ export default function Create() {
                                     <option value="circle">circle</option>
                                     <option value="nonStandardShape">non-standard shape</option>
                                 </select>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="Picture">Picture</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Enter picture"
+                                    id="projectName"
+                                    value={img}
+                                    onChange={(e) => setImg(e.target.value)}
+                                />
                             </div>
 
                         </section>
