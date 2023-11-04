@@ -1,31 +1,25 @@
-// import { useState } from 'react';
-// import reactLogo from './assets/react.svg';
-// import viteLogo from '/vite.svg';
-
 import { Routes, Route } from 'react-router-dom';
 
-
 import { AuthProvider } from './contexts/AuthContext';
-
 
 import './App.module.css';
 import Topbar from './components/common/Topbar';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import BackToTheTop from './components/common/BackToTheTop';
-import Home from './components/common/Home';
+import Home from './components/common/Home/Home';
 
 import Contacts from './components/NavbarMenuBtn/NavBarButtons/Contacts';
 import About from './components/NavbarMenuBtn/NavBarButtons/About';
 import Service from './components/NavbarMenuBtn/NavBarButtons/Service';
-import Catalog from './components/NavbarMenuBtn/pages/Catalog';
-import OfferDetails from './components/NavbarMenuBtn/pages/OfferDetails';
+import Catalog from './components/NavbarMenuBtn/pages/Catalog/Catalog';
+import OfferDetails from './components/NavbarMenuBtn/pages/Details/OfferDetails';
 
 import Login from './components/NavbarMenuBtn/auth/Login';
 import Register from './components/NavbarMenuBtn/auth/Register';
-import MyProjects from './components/MyProjects/MyProjects';
+import MyProjects from './components/NavbarMenuBtn/pages/MyProjects/MyProjects';
 import Logout from './components/NavbarMenuBtn/auth/Logout';
-import Create from './components/NavbarMenuBtn/pages/Create';
+import Create from './components/NavbarMenuBtn/pages/Create/Create';
 
 
 function App() {
@@ -42,7 +36,7 @@ function App() {
 				<Route path='/service' element={<Service />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/catalog' element={<Catalog />} />
-				<Route path='/offer-details' element={<OfferDetails />} />
+				<Route path='/details' element={<OfferDetails />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/myProjects' element={<MyProjects />} />
