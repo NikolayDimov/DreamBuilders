@@ -4,7 +4,7 @@ import { formatDate } from "../../../../utils/formatDAte";
 import './CatalogItem.css';
 
 export default function ProjectItem({ item }) {
-
+    
 
     return (
         <div className="col-lg-4 col-md-6">
@@ -26,7 +26,7 @@ export default function ProjectItem({ item }) {
                     <h4 className="text-uppercase mb-3">
                         {item.projectName}
                     </h4>
-                    <Link to="/details">
+                    <Link to={`/details/${item.id}`}>
                         <p className="text-uppercase fw-bold">
                             View the project<i className="bi bi-arrow-right" />
                         </p>
