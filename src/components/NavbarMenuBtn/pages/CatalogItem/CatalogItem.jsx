@@ -4,7 +4,7 @@ import { formatDate } from "../../../../utils/formatDAte";
 import './CatalogItem.css';
 
 export default function ProjectItem({ item }) {
-    
+    // console.log(item.id);
 
     return (
         <div className="col-lg-4 col-md-6">
