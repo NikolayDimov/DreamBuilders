@@ -36,14 +36,14 @@ export default function MyProjects() {
 
                             <section className='flex-two-buttons'>
                                 <Link to={"/create"}>
-                                    <section className='myProject-icons-section createBtn'>
+                                    <section className='myProject-icons-section createBtn btn btn-outline-dark m-1'>
                                         <i className="fa-solid fa-plus"></i>
                                         <p>Create you project</p>
                                     </section>
                                 </Link>
 
                                 <Link to='/catalog'>
-                                    <section className='myProject-icons-section catalogBtn'>
+                                    <section className='myProject-icons-section catalogBtn btn btn-outline-dark m-1'>
                                         <i className="fa-solid fa-house"></i>
                                         <p>Projects catalog</p>
                                     </section>

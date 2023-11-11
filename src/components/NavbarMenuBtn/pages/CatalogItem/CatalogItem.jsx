@@ -5,7 +5,7 @@ import { useAuth } from '../../../../contexts/AuthContext';
 
 import './CatalogItem.css';
 
-export default function ProjectItem({ item, children }) {
+export default function ProjectItem({ item }) {
     const { user } = useAuth();
 
 

@@ -1,30 +1,26 @@
-
-// import "firebase/firestore";
-// import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
-
-
-// import { firestore_db } from '../firebase';
+import { firestore_db } from '../../../../firebase';
 
 
 
-// // Create a new document in Firestore
-// const createItem = ('houses', data) => {
-//   return firestore_db.collection('houses').add(data);
-// };
+const handleEditItem = async () => {
+    try {
+        const itemRef = doc(firestore_db, 'items', editItem.id);
+        await updateDoc(itemRef, { name: editItem.name });
+        setEditItem(null);
+    } catch (error) {
+        console.error('Error editing item:', error);
+    }
+};
 
-// // Read documents from Firestore
-// const readItems = ('houses') => {
-//   return firestore_db.collection('houses').get();
-// };
 
-// // Update a document in Firestore
-// const updateItem = ('houses', docId, newData) => {
-//   return firestore_db.collection('houses').doc(docId).update(newData);
-// };
+const handleDeleteItem = async (itemId) => {
+    try {
+        const itemRef = doc(firestore_db, 'items', itemId);
+        await deleteDoc(itemRef);
+    } catch (error) {
+        console.error('Error deleting item:', error);
+    }
+};
 
-// // Delete a document in Firestore
-// const deleteItem = ('houses', docId) => {
-//   return firestore_db.collection('houses').doc(docId).delete();
-// };
 
-// export { createItem, readItems, updateItem, deleteItem };
+export { handleEditItem, handleDeleteItem };

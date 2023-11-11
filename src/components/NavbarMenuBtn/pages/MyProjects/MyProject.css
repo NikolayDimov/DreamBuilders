@@ -37,4 +37,7 @@ p {
 .createBtn:hover,
 .catalogBtn:hover {
     box-shadow: 2px 5px 18px 1px #615757;
+    /* color:#fff;
+    background-color:#040F28;
+    border-color:#040F28 */
 }

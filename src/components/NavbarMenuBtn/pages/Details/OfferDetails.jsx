@@ -214,45 +214,32 @@ export default function OfferDetails() {
                         </div>
                         {/* Sidebar Start */}
                         <div className="col-lg-4">
-                            {/* Search Form Start */}
-                            <div className="mb-5">
-                                <div className="input-group">
-                                    <input
-                                        type="text"
-                                        className="form-control p-3"
-                                        placeholder="Keyword"
-                                    />
-                                    <button className="btn btn-primary px-3">
-                                        <i className="fa fa-search" />
-                                    </button>
-                                </div>
-                            </div>
-                            {/* Search Form End */}
+                            
                             {/* Category Start */}
                             <div className="mb-5">
-                                <h3 className="text-uppercase mb-4">Categories</h3>
-                                <div className="d-flex flex-column justify-content-start bg-light p-4">
-                                    <a className="h6 text-uppercase mb-4" href="#">
+                                <h3 className="text-uppercase mb-4">Project Details</h3>
+                                <section className="d-flex flex-column justify-content-start bg-light p-4">
+                                    <p className="h6 text-uppercase mb-4" href="#">
                                         <i className="fa fa-angle-right me-2" />
-                                        Web Design
-                                    </a>
-                                    <a className="h6 text-uppercase mb-4" href="#">
+                                        Category - {projectDetails.category}
+                                    </p>
+                                    <p className="h6 text-uppercase mb-4" href="#">
                                         <i className="fa fa-angle-right me-2" />
-                                        Web Development
-                                    </a>
-                                    <a className="h6 text-uppercase mb-4" href="#">
+                                        Bedrooms - {projectDetails.bedrooms}
+                                    </p>
+                                    <p className="h6 text-uppercase mb-4" href="#">
                                         <i className="fa fa-angle-right me-2" />
-                                        Web Development
-                                    </a>
-                                    <a className="h6 text-uppercase mb-4" href="#">
+                                        Bathrooms - {projectDetails.bathrooms}
+                                    </p>
+                                    <p className="h6 text-uppercase mb-4" href="#">
                                         <i className="fa fa-angle-right me-2" />
-                                        Keyword Research
-                                    </a>
-                                    <a className="h6 text-uppercase mb-0" href="#">
+                                        Garage - {projectDetails.garage}
+                                    </p>
+                                    <p className="h6 text-uppercase mb-0" href="#">
                                         <i className="fa fa-angle-right me-2" />
-                                        Email Marketing
-                                    </a>
-                                </div>
+                                        Pool - {projectDetails.pool}
+                                    </p>
+                                </section>
                             </div>
                             {/* Category End */}
                             {/* Recent Post Start */}

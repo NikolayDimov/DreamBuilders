@@ -3,7 +3,6 @@ import { useAuth } from '../../../../contexts/AuthContext';
 import { useState, useEffect } from 'react';
 import { firestore_db } from '../../../../firebase';
 import { collection, doc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
-// import { collection, getDocs} from 'firebase/firestore';
 import CatalogItem from '../CatalogItem/CatalogItem';
 
 
@@ -28,24 +27,24 @@ export default function Catalog() {
     }, []);
 
 
-    const handleEditItem = async () => {
-        try {
-            const itemRef = doc(firestore_db, 'items', editItem.id);
-            await updateDoc(itemRef, { name: editItem.name });
-            setEditItem(null);
-        } catch (error) {
-            console.error('Error editing item:', error);
-        }
-    };
+    // const handleEditItem = async () => {
+    //     try {
+    //         const itemRef = doc(firestore_db, 'items', editItem.id);
+    //         await updateDoc(itemRef, { name: editItem.name });
+    //         setEditItem(null);
+    //     } catch (error) {
+    //         console.error('Error editing item:', error);
+    //     }
+    // };
 
-    const handleDeleteItem = async (itemId) => {
-        try {
-            const itemRef = doc(firestore_db, 'items', itemId);
-            await deleteDoc(itemRef);
-        } catch (error) {
-            console.error('Error deleting item:', error);
-        }
-    };
+    // const handleDeleteItem = async (itemId) => {
+    //     try {
+    //         const itemRef = doc(firestore_db, 'items', itemId);
+    //         await deleteDoc(itemRef);
+    //     } catch (error) {
+    //         console.error('Error deleting item:', error);
+    //     }
+    // };
 
 
     return (
@@ -78,8 +77,8 @@ export default function Catalog() {
                         <CatalogItem
                             key={item.id}
                             item={item}
-                            onEdit={handleEditItem}
-                            onDelete={() => handleDeleteItem(item.id)}
+                            // onEdit={handleEditItem}
+                            // onDelete={() => handleDeleteItem(item.id)}
                         />
                     )}
 
