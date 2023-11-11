@@ -81,45 +81,8 @@ export default function Footer() {
                                     </a>
                                 </div>
                             </div>
-                            <div className="col-sm-6">
-                                <h4 className="text-white text-uppercase mb-4">Popular Links</h4>
-                                <div className="d-flex flex-column justify-content-start">
-                                    <a className="text-white-50 mb-2" href="#">
-                                        <i className="fa fa-angle-right me-2" />
-                                        Home
-                                    </a>
-                                    <a className="text-white-50 mb-2" href="#">
-                                        <i className="fa fa-angle-right me-2" />
-                                        About Us
-                                    </a>
-                                    <a className="text-white-50 mb-2" href="#">
-                                        <i className="fa fa-angle-right me-2" />
-                                        Our Services
-                                    </a>
-                                    <a className="text-white-50 mb-2" href="#">
-                                        <i className="fa fa-angle-right me-2" />
-                                        Meet The Team
-                                    </a>
-                                    <a className="text-white-50" href="#">
-                                        <i className="fa fa-angle-right me-2" />
-                                        Contact Us
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-sm-12">
-                                <h4 className="text-white text-uppercase mb-4">Newsletter</h4>
-                                <div className="w-100">
-                                    <div className="input-group">
-                                        <input
-                                            type="text"
-                                            className="form-control border-light"
-                                            style={{ padding: "20px 30px" }}
-                                            placeholder="Your Email Address"
-                                        />
-                                        <button className="btn btn-primary px-4">Sign Up</button>
-                                    </div>
-                                </div>
-                            </div>
+                            
+                            
                         </div>
                     </div>
                 </div>
@@ -130,7 +93,7 @@ export default function Footer() {
                         <p className="mb-0">
                             ©{" "}
                             <a className="text-primary" href="#">
-                                Your Site Name
+                                Construction Company
                             </a>
                             . All Rights Reserved.
                         </p>

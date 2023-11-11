@@ -33,22 +33,23 @@ export default function MyProjects() {
                             <h2 className="text-uppercase mb-4">
                                 Create your new house project or choose from existing ones
                             </h2>
-                            <div>
+
+                            <section className='flex-two-buttons'>
                                 <Link to={"/create"}>
-                                    <section className='myProject-icons-section'>
+                                    <section className='myProject-icons-section createBtn'>
                                         <i className="fa-solid fa-plus"></i>
                                         <p>Create you project</p>
                                     </section>
                                 </Link>
 
                                 <Link to='/catalog'>
-                                    <section className='myProject-icons-section'>
+                                    <section className='myProject-icons-section catalogBtn'>
                                         <i className="fa-solid fa-house"></i>
                                         <p>Projects catalog</p>
                                     </section>
                                 </Link>
+                            </section>
 
-                            </div>
                             <img
                                 className="img-fluid w-100 rounded mb-5"
                                 src="img/blog-2.jpg"

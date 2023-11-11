@@ -1,6 +1,7 @@
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'); 
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
 
-*, p {
+*,
+p {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -15,4 +16,24 @@
 .fa-solid {
     margin-right: 1em;
     color: #fd5d14;
+}
+
+.flex-two-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8em;
+    margin-bottom: 2em;
+}
+
+.createBtn,
+.catalogBtn {
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px -3px #615757;
+    padding: 6px 12px;
+    background-color: #F4F6F8
+}
+
+.createBtn:hover,
+.catalogBtn:hover {
+    box-shadow: 2px 5px 18px 1px #615757;
 }
