@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { firestore_db } from '../../../../firebase';
 import { collection, doc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
 // import { collection, getDocs} from 'firebase/firestore';
-import ProjectItem from '../CatalogItem/CatalogItem';
+import CatalogItem from '../CatalogItem/CatalogItem';
 
 
 
@@ -82,10 +82,10 @@ export default function Catalog() {
                         Latest <span className="text-primary">Projects</span> In Our Catalog
                     </h1>
                 </div>
-                <div className="row g-5">
+                <article className="row g-5">
 
                     {items.map(item =>
-                        <ProjectItem
+                        <CatalogItem
                             key={item.id}
                             item={item}
                             onEdit={handleEditItem}
@@ -97,7 +97,7 @@ export default function Catalog() {
                         <h3 className="no-articles">No Projects Items yet</h3>
                     )}
 
-                </div>
+                </article>
             </div>
         </>
 
