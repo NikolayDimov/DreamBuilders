@@ -10,10 +10,11 @@ import CatalogItem from '../CatalogItem/CatalogItem';
 
 export default function Catalog() {
     const { isLoggedIn } = useAuth();
+	const { user } = useAuth();
 
     const [items, setItems] = useState([]);
-    // const [newItem, setNewItem] = useState('');
     const [editItem, setEditItem] = useState(null);
+    
 
     useEffect(() => {
         const fetchItems = async () => {
@@ -27,35 +28,24 @@ export default function Catalog() {
     }, []);
 
 
+    const handleEditItem = async () => {
+        try {
+            const itemRef = doc(firestore_db, 'items', editItem.id);
+            await updateDoc(itemRef, { name: editItem.name });
+            setEditItem(null);
+        } catch (error) {
+            console.error('Error editing item:', error);
+        }
+    };
 
-    // const handleAddItem = async () => {
-    //     try {
-    //       const itemsCollection = collection(firestore_db, 'items');
-    //       await addDoc(itemsCollection, { name: newItem });
-    //       setNewItem('');
-    //     } catch (error) {
-    //       console.error('Error adding item:', error);
-    //     }
-    //   };
-    
-      const handleEditItem = async () => {
+    const handleDeleteItem = async (itemId) => {
         try {
-          const itemRef = doc(firestore_db, 'items', editItem.id);
-          await updateDoc(itemRef, { name: editItem.name });
-          setEditItem(null);
+            const itemRef = doc(firestore_db, 'items', itemId);
+            await deleteDoc(itemRef);
         } catch (error) {
-          console.error('Error editing item:', error);
+            console.error('Error deleting item:', error);
         }
-      };
-    
-      const handleDeleteItem = async (itemId) => {
-        try {
-          const itemRef = doc(firestore_db, 'items', itemId);
-          await deleteDoc(itemRef);
-        } catch (error) {
-          console.error('Error deleting item:', error);
-        }
-      };
+    };
 
 
     return (
@@ -75,7 +65,7 @@ export default function Catalog() {
             </div>
             {/* Page Header Start */}
 
-           
+
             <div className="container-fluid py-6 px-5">
                 <div className="text-center mx-auto mb-5" style={{ maxWidth: 600 }}>
                     <h1 className="display-5 text-uppercase mb-4">

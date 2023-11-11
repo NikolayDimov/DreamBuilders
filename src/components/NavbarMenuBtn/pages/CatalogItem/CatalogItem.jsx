@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
 import { formatDate } from "../../../../utils/formatDAte";
+import { useAuth } from '../../../../contexts/AuthContext';
+
 
 import './CatalogItem.css';
 
-export default function ProjectItem({ item }) {
-    // console.log(item.id);
+export default function ProjectItem({ item, children }) {
+    const { user } = useAuth();
+
 
     return (
         <div className="col-lg-4 col-md-6">
@@ -28,7 +31,10 @@ export default function ProjectItem({ item }) {
                     </h4>
                     <Link to={`/details/${item.id}`}>
                         <p className="text-uppercase fw-bold">
-                            View the project<i className="bi bi-arrow-right" />
+                            {user?.uid && item.owner_uid === user.uid
+                                ? <span className='viewMyProject'>View My Project</span>
+                                : 'View the Project'}
+                            <i className="bi bi-arrow-right" />
                         </p>
                     </Link>
                 </div>
