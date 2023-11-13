@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { firestore_db } from '../../../../firebase';
+import { Link } from 'react-router-dom';
+import './Details.css';
 
-
-export default function OfferDetails() {
+export default function Details() {
     const { id } = useParams(); // Access the "id" parameter from the URL
     const [projectDetails, setProjectDetails] = useState(null);
 
@@ -44,7 +45,7 @@ export default function OfferDetails() {
                     <h1 className="display-3 text-uppercase text-white mb-3">Project Detail</h1>
                     <div className="d-inline-flex text-white">
                         <h6 className="text-uppercase m-0">
-                            <a href="">Home</a>
+                            <Link to="/">Home</Link>
                         </h6>
                         <h6 className="text-white m-0 px-3">/</h6>
                         <h6 className="text-uppercase text-white m-0">Back</h6>
@@ -59,17 +60,14 @@ export default function OfferDetails() {
                             <div className="mb-5">
 
                                 <img
-                                    className="img-fluid w-100 rounded mb-5"
+                                    className="img-fluid w-100 rounded mb-5 details-picture"
                                     src={projectDetails.img}
                                     alt=""
                                 />
 
-
                                 <h1 className="text-uppercase mb-4">
                                     {projectDetails.projectName}
                                 </h1>
-
-
 
                                 <p>
                                     Bedrooms:
@@ -97,74 +95,7 @@ export default function OfferDetails() {
                                 </p>
                             </div>
                             {/* Blog Detail End */}
-                            {/* Comment List Start */}
-                            <div className="mb-5">
-                                <h3 className="text-uppercase mb-4">3 Comments</h3>
-                                <div className="d-flex mb-4">
-                                    <img
-                                        src="img/user.jpg"
-                                        className="img-fluid"
-                                        style={{ width: 45, height: 45 }}
-                                    />
-                                    <div className="ps-3">
-                                        <h6>
-                                            <a href="">John Doe</a>{" "}
-                                            <small>
-                                                <i>01 Jan 2045</i>
-                                            </small>
-                                        </h6>
-                                        <p>
-                                            Diam amet duo labore stet elitr invidunt ea clita ipsum
-                                            voluptua, tempor labore accusam ipsum et no at. Kasd diam tempor
-                                            rebum magna dolores sed eirmod
-                                        </p>
-                                        <button className="btn btn-sm btn-light">Reply</button>
-                                    </div>
-                                </div>
-                                <div className="d-flex mb-4">
-                                    <img
-                                        src="img/user.jpg"
-                                        className="img-fluid"
-                                        style={{ width: 45, height: 45 }}
-                                    />
-                                    <div className="ps-3">
-                                        <h6>
-                                            <a href="">John Doe</a>{" "}
-                                            <small>
-                                                <i>01 Jan 2045</i>
-                                            </small>
-                                        </h6>
-                                        <p>
-                                            Diam amet duo labore stet elitr invidunt ea clita ipsum
-                                            voluptua, tempor labore accusam ipsum et no at. Kasd diam tempor
-                                            rebum magna dolores sed eirmod
-                                        </p>
-                                        <button className="btn btn-sm btn-light">Reply</button>
-                                    </div>
-                                </div>
-                                <div className="d-flex ms-5 mb-4">
-                                    <img
-                                        src="img/user.jpg"
-                                        className="img-fluid"
-                                        style={{ width: 45, height: 45 }}
-                                    />
-                                    <div className="ps-3">
-                                        <h6>
-                                            <a href="">John Doe</a>{" "}
-                                            <small>
-                                                <i>01 Jan 2045</i>
-                                            </small>
-                                        </h6>
-                                        <p>
-                                            Diam amet duo labore stet elitr invidunt ea clita ipsum
-                                            voluptua, tempor labore accusam ipsum et no at. Kasd diam tempor
-                                            rebum magna dolores sed eirmod
-                                        </p>
-                                        <button className="btn btn-sm btn-light">Reply</button>
-                                    </div>
-                                </div>
-                            </div>
-                            {/* Comment List End */}
+                           
                             {/* Comment Form Start */}
                             <div className="bg-light p-5">
                                 <h3 className="text-uppercase mb-4">Leave a comment</h3>
@@ -219,120 +150,30 @@ export default function OfferDetails() {
                             <div className="mb-5">
                                 <h3 className="text-uppercase mb-4">Project Details</h3>
                                 <section className="d-flex flex-column justify-content-start bg-light p-4">
-                                    <p className="h6 text-uppercase mb-4" href="#">
+                                    <p className="h6 text-uppercase mb-4 default-orange-color">
                                         <i className="fa fa-angle-right me-2" />
                                         Category - {projectDetails.category}
                                     </p>
-                                    <p className="h6 text-uppercase mb-4" href="#">
+                                    <p className="h6 text-uppercase mb-4 default-orange-color">
                                         <i className="fa fa-angle-right me-2" />
                                         Bedrooms - {projectDetails.bedrooms}
                                     </p>
-                                    <p className="h6 text-uppercase mb-4" href="#">
+                                    <p className="h6 text-uppercase mb-4 default-orange-color">
                                         <i className="fa fa-angle-right me-2" />
                                         Bathrooms - {projectDetails.bathrooms}
                                     </p>
-                                    <p className="h6 text-uppercase mb-4" href="#">
+                                    <p className="h6 text-uppercase mb-4 default-orange-color">
                                         <i className="fa fa-angle-right me-2" />
                                         Garage - {projectDetails.garage}
                                     </p>
-                                    <p className="h6 text-uppercase mb-0" href="#">
+                                    <p className="h6 text-uppercase mb-4 default-orange-color">
                                         <i className="fa fa-angle-right me-2" />
                                         Pool - {projectDetails.pool}
                                     </p>
                                 </section>
                             </div>
                             {/* Category End */}
-                            {/* Recent Post Start */}
-                            <div className="mb-5">
-                                <h3 className="text-uppercase mb-4">Recent Post</h3>
-                                <div className="bg-light p-4">
-                                    <div className="d-flex mb-3">
-                                        <img
-                                            className="img-fluid"
-                                            src="img/blog-1.jpg"
-                                            style={{ width: 100, height: 100, objectFit: "cover" }}
-                                            alt=""
-                                        />
-                                        <a
-                                            href=""
-                                            className="h6 d-flex align-items-center bg-white text-uppercase px-3 mb-0"
-                                        >
-                                            Lorem ipsum dolor sit amet consec adipis
-                                        </a>
-                                    </div>
-                                    <div className="d-flex mb-3">
-                                        <img
-                                            className="img-fluid"
-                                            src="img/blog-2.jpg"
-                                            style={{ width: 100, height: 100, objectFit: "cover" }}
-                                            alt=""
-                                        />
-                                        <a
-                                            href=""
-                                            className="h6 d-flex align-items-center bg-white text-uppercase px-3 mb-0"
-                                        >
-                                            Lorem ipsum dolor sit amet consec adipis
-                                        </a>
-                                    </div>
-                                    <div className="d-flex mb-3">
-                                        <img
-                                            className="img-fluid"
-                                            src="img/blog-3.jpg"
-                                            style={{ width: 100, height: 100, objectFit: "cover" }}
-                                            alt=""
-                                        />
-                                        <a
-                                            href=""
-                                            className="h6 d-flex align-items-center bg-white text-uppercase px-3 mb-0"
-                                        >
-                                            Lorem ipsum dolor sit amet consec adipis
-                                        </a>
-                                    </div>
-                                    <div className="d-flex mb-3">
-                                        <img
-                                            className="img-fluid"
-                                            src="img/blog-1.jpg"
-                                            style={{ width: 100, height: 100, objectFit: "cover" }}
-                                            alt=""
-                                        />
-                                        <a
-                                            href=""
-                                            className="h6 d-flex align-items-center bg-white text-uppercase px-3 mb-0"
-                                        >
-                                            Lorem ipsum dolor sit amet consec adipis
-                                        </a>
-                                    </div>
-                                    <div className="d-flex mb-3">
-                                        <img
-                                            className="img-fluid"
-                                            src="img/blog-2.jpg"
-                                            style={{ width: 100, height: 100, objectFit: "cover" }}
-                                            alt=""
-                                        />
-                                        <a
-                                            href=""
-                                            className="h6 d-flex align-items-center bg-white text-uppercase px-3 mb-0"
-                                        >
-                                            Lorem ipsum dolor sit amet consec adipis
-                                        </a>
-                                    </div>
-                                    <div className="d-flex">
-                                        <img
-                                            className="img-fluid"
-                                            src="img/blog-3.jpg"
-                                            style={{ width: 100, height: 100, objectFit: "cover" }}
-                                            alt=""
-                                        />
-                                        <a
-                                            href=""
-                                            className="h6 d-flex align-items-center bg-white text-uppercase px-3 mb-0"
-                                        >
-                                            Lorem ipsum dolor sit amet consec adipis
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            {/* Recent Post End */}
+                           
                             {/* Image Start */}
                             <div className="mb-5">
                                 <img src="img/blog-1.jpg" alt="" className="img-fluid rounded" />

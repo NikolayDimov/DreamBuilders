@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { firestore_db } from '../../../../firebase';
-import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
-import { Link } from 'react-router-dom';
+import { collection, addDoc } from 'firebase/firestore';
 import { useAuth } from '../../../../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 

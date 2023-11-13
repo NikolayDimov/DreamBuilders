@@ -1,0 +1,9 @@
+
+.default-orange-color:hover {
+    color: #FD5D14;
+    cursor: default;
+}
+
+.details-picture {
+    border-radius: 12px;
+}

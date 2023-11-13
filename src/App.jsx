@@ -13,7 +13,7 @@ import Contacts from './components/NavbarMenuBtn/NavBarButtons/Contacts';
 import About from './components/NavbarMenuBtn/NavBarButtons/About';
 import Service from './components/NavbarMenuBtn/NavBarButtons/Service';
 import Catalog from './components/NavbarMenuBtn/pages/Catalog/Catalog';
-import OfferDetails from './components/NavbarMenuBtn/pages/Details/OfferDetails';
+import Details from './components/NavbarMenuBtn/pages/Details/Details';
 
 import Login from './components/NavbarMenuBtn/auth/Login';
 import Register from './components/NavbarMenuBtn/auth/Register';
@@ -36,7 +36,7 @@ function App() {
 				<Route path='/service' element={<Service />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/catalog' element={<Catalog />} />
-				<Route path='/details/:id' element={<OfferDetails />} />
+				<Route path='/details/:id' element={<Details />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/myProjects' element={<MyProjects />} />
