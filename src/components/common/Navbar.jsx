@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-
 import { useAuth } from '../../contexts/AuthContext';
 
 
@@ -64,10 +63,6 @@ export default function Navbar() {
 								Login <i className="bi bi-arrow-right" />
 							</Link>
 						}
-
-						{/* <Link to="/login1" className="nav-item nav-link bg-primary text-white px-5 ms-3 d-none d-lg-block">
-							Login <i className="bi bi-arrow-right" />
-						</Link> */}
 
 					</div>
 				</div>

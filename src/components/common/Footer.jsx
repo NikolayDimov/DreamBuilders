@@ -1,15 +1,20 @@
+import { Link } from 'react-router-dom';
+
+
 export default function Footer() {
+
+
     return (
         <>
             <div className="footer container-fluid position-relative bg-dark bg-light-radial text-white-50 py-6 px-5">
                 <div className="row g-5">
                     <div className="col-lg-6 pe-lg-5">
-                        <a href="index.html" className="navbar-brand">
-                            <h1 className="m-0 display-4 text-uppercase text-white">
-                                <i className="bi bi-building text-primary me-2" />
-                                WEBUILD
+                        <Link to="/" className="navbar-brand">
+                        <h1 className="m-0 display-4 text-uppercase text-white">
+                            <i className="bi bi-building text-primary me-2" />
+                            WEBUILD
                             </h1>
-                        </a>
+                        </Link>
                         <p>
                             Aliquyam sed elitr elitr erat sed diam ipsum eirmod eos lorem nonumy.
                             Tempor sea ipsum diam sed clita dolore eos dolores magna erat dolore
@@ -59,30 +64,33 @@ export default function Footer() {
                             <div className="col-sm-6">
                                 <h4 className="text-white text-uppercase mb-4">Quick Links</h4>
                                 <div className="d-flex flex-column justify-content-start">
-                                    <a className="text-white-50 mb-2" href="#">
+
+                                    <Link to="/" className="text-white-50 mb-2">
                                         <i className="fa fa-angle-right me-2" />
                                         Home
-                                    </a>
-                                    <a className="text-white-50 mb-2" href="#">
+                                    </Link>
+                                    <Link to="/about" className="text-white-50 mb-2">
                                         <i className="fa fa-angle-right me-2" />
                                         About Us
-                                    </a>
-                                    <a className="text-white-50 mb-2" href="#">
+                                    </Link>
+                                    <Link to="/service" className="text-white-50 mb-2">
                                         <i className="fa fa-angle-right me-2" />
-                                        Our Services
-                                    </a>
-                                    <a className="text-white-50 mb-2" href="#">
+                                        Our Service
+                                    </Link>
+
+                                    <Link to="/catalog" className="text-white-50 mb-2">
                                         <i className="fa fa-angle-right me-2" />
-                                        Meet The Team
-                                    </a>
-                                    <a className="text-white-50" href="#">
+                                        Catalog
+                                    </Link>
+                                    <Link to="/contacts" className="text-white-50 mb-2">
                                         <i className="fa fa-angle-right me-2" />
                                         Contact Us
-                                    </a>
+                                    </Link>
+
                                 </div>
                             </div>
-                            
-                            
+
+
                         </div>
                     </div>
                 </div>

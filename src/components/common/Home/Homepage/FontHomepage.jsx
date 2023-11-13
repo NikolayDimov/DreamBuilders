@@ -1,4 +1,11 @@
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../../../contexts/AuthContext';
+
+
+
 export default function FontHomepage() {
+    const { isLoggedIn } = useAuth();
+
     return (
         <div className="container-fluid p-0">
             <div
@@ -15,9 +22,11 @@ export default function FontHomepage() {
                                 <h1 className="display-2 text-uppercase text-white mb-md-4">
                                     Build Your Dream House With Us
                                 </h1>
-                                <a href="" className="btn btn-primary py-md-3 px-md-5 mt-2">
-                                    Get A Quote
-                                </a>
+                                
+                                {isLoggedIn 
+                                    ? ''
+                                    : <Link to="/register" className="btn btn-primary py-md-3 px-md-5 mt-2">Register</Link>
+                                }
                             </div>
                         </div>
                     </div>
