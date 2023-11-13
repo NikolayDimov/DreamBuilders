@@ -7,3 +7,8 @@
 .details-picture {
     border-radius: 12px;
 }
+
+.details-icons {
+    width: 10%;
+    padding-right: 3px;
+}

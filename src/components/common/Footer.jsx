@@ -101,7 +101,7 @@ export default function Footer() {
                         <p className="mb-0">
                             ©{" "}
                             <a className="text-primary" href="#">
-                                Construction Company
+                                Building Company
                             </a>
                             . All Rights Reserved.
                         </p>

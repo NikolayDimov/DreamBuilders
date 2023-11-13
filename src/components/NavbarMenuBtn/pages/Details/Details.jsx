@@ -151,23 +151,23 @@ export default function Details() {
                                 <h3 className="text-uppercase mb-4">Project Details</h3>
                                 <section className="d-flex flex-column justify-content-start bg-light p-4">
                                     <p className="h6 text-uppercase mb-4 default-orange-color">
-                                        <i className="fa fa-angle-right me-2" />
+                                    <img className="details-icons"  src="../../../../public/img/icon-floors.svg" alt="icon-floors" />
                                         Category - {projectDetails.category}
                                     </p>
                                     <p className="h6 text-uppercase mb-4 default-orange-color">
-                                        <i className="fa fa-angle-right me-2" />
+                                    <img className="details-icons"  src="../../../../public/img/icon-beds.svg" alt="icon-beds" />
                                         Bedrooms - {projectDetails.bedrooms}
                                     </p>
                                     <p className="h6 text-uppercase mb-4 default-orange-color">
-                                        <i className="fa fa-angle-right me-2" />
+                                    <img className="details-icons"  src="../../../../public/img/icon-baths.svg" alt="icon-baths" />
                                         Bathrooms - {projectDetails.bathrooms}
                                     </p>
                                     <p className="h6 text-uppercase mb-4 default-orange-color">
-                                        <i className="fa fa-angle-right me-2" />
+                                        <img className="details-icons"  src="../../../../public/img/icon-garages.svg" alt="icon-garage" />
                                         Garage - {projectDetails.garage}
                                     </p>
                                     <p className="h6 text-uppercase mb-4 default-orange-color">
-                                        <i className="fa fa-angle-right me-2" />
+                                    <img className="details-icons"  src="../../../../public/img/icon-pool.png" alt="icon-pool" />
                                         Pool - {projectDetails.pool}
                                     </p>
                                 </section>
@@ -184,10 +184,10 @@ export default function Details() {
                                 <h3 className="text-uppercase mb-4">Tag Cloud</h3>
                                 <div className="d-flex flex-wrap m-n1">
                                     <a href="" className="btn btn-outline-dark m-1">
-                                        Design
+                                        Edit
                                     </a>
                                     <a href="" className="btn btn-outline-dark m-1">
-                                        Development
+                                        Delete
                                     </a>
                                     <a href="" className="btn btn-outline-dark m-1">
                                         Marketing

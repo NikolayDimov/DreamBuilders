@@ -16,10 +16,10 @@ export default function MyProjects() {
         <>
             {/* Page Header Start */}
             <div className="container-fluid page-header">
-                <h1 className="display-3 text-uppercase text-white mb-3">Welcome to your Projects</h1>
+                <h1 className="display-3 text-uppercase text-white mb-3">Welcome to your Profile page</h1>
                 <div className="d-inline-flex text-white">
                     <h6 className="text-uppercase m-0">
-                        <a href="">Your Projects are visible for other clients</a>
+                        <p className='text-banner'>Your Projects are visible for other clients</p>
                     </h6>
                 </div>
             </div>
