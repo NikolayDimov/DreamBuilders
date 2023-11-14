@@ -9,18 +9,27 @@ import CatalogItem from '../CatalogItem/CatalogItem';
 
 export default function Catalog() {
     const { isLoggedIn } = useAuth();
-	const { user } = useAuth();
+    const { user } = useAuth();
 
     const [items, setItems] = useState([]);
     const [editItem, setEditItem] = useState(null);
-    
+    const [isLoading, setIsLoading] = useState(true);
+
 
     useEffect(() => {
         const fetchItems = async () => {
-            const itemsCollection = collection(firestore_db, 'houses');
-            const querySnapshot = await getDocs(itemsCollection);
-            const itemsData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-            setItems(itemsData);
+            try {
+                const itemsCollection = collection(firestore_db, 'houses');
+                const querySnapshot = await getDocs(itemsCollection);
+                const itemsData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+                setItems(itemsData);
+            } catch (error) {
+                console.error("Error fetching items:", error);
+                // You can add additional error handling logic here if needed
+            } finally {
+                // Set isLoading to false regardless of success or failure
+                setIsLoading(false);
+            }
         };
 
         fetchItems();
@@ -66,27 +75,38 @@ export default function Catalog() {
 
 
             <div className="container-fluid py-6 px-5">
-                <div className="text-center mx-auto mb-5" style={{ maxWidth: 600 }}>
-                    <h1 className="display-5 text-uppercase mb-4">
-                        Latest <span className="text-primary">Projects</span> In Our Catalog
-                    </h1>
-                </div>
-                <article className="row g-5">
+                {isLoading ? (
+                    // Show a spinner or loading message while data is being fetched
+                    <div className="text-center">
+                        <h2>Loading...</h2>
+                        {/* You can replace this with an actual spinner component */}
+                    </div>
+                ) : (
+                    // Render the content when data has been loaded
+                    <>
+                        <div className="text-center mx-auto mb-5" style={{ maxWidth: 600 }}>
+                            <h1 className="display-5 text-uppercase mb-4">
+                                Latest <span className="text-primary">Projects</span> In Our Catalog
+                            </h1>
+                        </div>
+                        <article className="row g-5">
 
-                    {items.map(item =>
-                        <CatalogItem
-                            key={item.id}
-                            item={item}
-                            // onEdit={handleEditItem}
-                            // onDelete={() => handleDeleteItem(item.id)}
-                        />
-                    )}
+                            {items.map(item =>
+                                <CatalogItem
+                                    key={item.id}
+                                    item={item}
+                                // onEdit={handleEditItem}
+                                // onDelete={() => handleDeleteItem(item.id)}
+                                />
+                            )}
 
-                    {items.length === 0 && (
-                        <h3 className="no-articles">No Projects Items yet</h3>
-                    )}
+                            {items.length === 0 && (
+                                <h3 className="no-articles">No Projects Items yet</h3>
+                            )}
 
-                </article>
+                        </article>
+                    </>
+                )}
             </div>
         </>
 
