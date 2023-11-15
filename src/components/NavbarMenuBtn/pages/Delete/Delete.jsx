@@ -19,8 +19,8 @@ export default function DeleteModal({ onDelete, onCancel, itemToDelete }) {
     return (
         <div className={`delete-modal ${isVisible ? 'visible' : 'hidden'}`}>
             <p>Are you sure you want to delete?</p>
-            <button onClick={handleConfirm}>Confirm</button>
-            <button onClick={handleCancel}>Cancel</button>
+            <button className="btn btn-outline-dark m-1" onClick={handleConfirm}>Confirm</button>
+            <button className="btn btn-outline-dark m-1" onClick={handleCancel}>Cancel</button>
         </div>
     );
 }
