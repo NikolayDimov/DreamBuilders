@@ -3,23 +3,30 @@
     box-shadow: 4px 4px 8px -3px #615757;
 }
 
-.bg-light:hover{
+.bg-light:hover {
     box-shadow: 2px 5px 18px 1px #615757;
 }
 
 .fa-user {
     margin-right: 10px;
-    color:#fd5d14;
+    color: #fd5d14;
 }
 
 .card-image {
-    height: 200px; /* Adjust the height as needed */
-    object-fit: cover; /* This ensures that the image maintains its aspect ratio and covers the entire height */
-    width: 100%; /* Ensure the image width scales with its container */
+    height: 200px;
+    /* Adjust the height as needed */
+    object-fit: cover;
+    /* This ensures that the image maintains its aspect ratio and covers the entire height */
+    width: 100%;
+    /* Ensure the image width scales with its container */
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-  }
+}
 
-  .viewMyProject {
+.viewMyProject {
     color: blue;
-  }
+}
+
+.p-4:hover {
+    background-color: rgb(237, 239, 241);
+}

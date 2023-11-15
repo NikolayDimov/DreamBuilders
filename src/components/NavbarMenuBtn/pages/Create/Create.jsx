@@ -85,7 +85,7 @@ export default function Create() {
                                     <option value="oneStoryHouse">One-Story House</option>
                                     <option value="twoStoryHouse">Two-Story House</option>
                                     <option value="threeStoryHouse">Three-Story House</option>
-                                    <option value="apartment">Apartment</option>
+                                    <option value="townHouse">Town House</option>
                                     <option value="mansion">Mansion</option>
                                 </select>
                             </div>

@@ -4,9 +4,7 @@
 import Logout from '../../auth/Logout';
 import { Link } from 'react-router-dom';
 
-
 import './MyProject.css';
-
 
 
 export default function MyProjects() {
@@ -58,8 +56,8 @@ export default function MyProjects() {
                             <h1 className="text-uppercase mb-4">
                                 My Projects Here
                             </h1>
-                           
-                          
+
+
                             <p>
                                 Diam dolor est labore duo invidunt ipsum clita et, sed et lorem
                                 voluptua tempor invidunt at est sanctus sanctus. Clita dolores sit
@@ -108,7 +106,7 @@ export default function MyProjects() {
                                             className="form-control bg-white border-0"
                                             rows={5}
                                             placeholder="Comment"
-                                            // defaultValue={""}
+                                        // defaultValue={""}
                                         />
                                     </div>
                                     <div className="col-12">
@@ -142,7 +140,7 @@ export default function MyProjects() {
                                 </a>
                                 <a className="h6 text-uppercase mb-4" href="#">
                                     <i className="fa fa-angle-right me-2" />
-                                    Apartment
+                                    Town House
                                 </a>
                                 <a className="h6 text-uppercase mb-0" href="#">
                                     <i className="fa fa-angle-right me-2" />

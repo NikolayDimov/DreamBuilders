@@ -1,0 +1,9 @@
+.catalog_page {
+    display: flex;
+    margin: 0 auto 4em;
+}
+
+.g-5 {
+    --bs-gutter-y: 2rem;
+    --bs-gutter-x: 2rem;
+}

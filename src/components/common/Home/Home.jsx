@@ -10,7 +10,7 @@ import BlogPost from './Homepage/BlogPost';
 
 export default function Home() {
     return (
-        <div>
+        <>
             <FontHomepage />
             <AboutStart />
             <ServiceStart />
@@ -19,6 +19,6 @@ export default function Home() {
             <Team />
             <Testimonial />
             <BlogPost />
-        </div>
+        </>
     );
 }

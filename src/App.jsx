@@ -20,6 +20,7 @@ import Register from './components/NavbarMenuBtn/auth/Register';
 import MyProjects from './components/NavbarMenuBtn/pages/MyProjects/MyProjects';
 import Logout from './components/NavbarMenuBtn/auth/Logout';
 import Create from './components/NavbarMenuBtn/pages/Create/Create';
+import DeleteModal from './components/NavbarMenuBtn/pages/Delete/Delete';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
 				<Route path='/myProjects' element={<MyProjects />} />
 				<Route path='/create' element={<Create />} />
 				<Route path='/logout' element={<Logout />} />
+				<Route path='/delete' element={<DeleteModal />} />
 			</Routes>
 
 			<Footer />
