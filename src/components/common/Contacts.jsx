@@ -1,6 +1,9 @@
+import Topbar from './Topbar';
+
 export default function Contacts() {
     return (
         <>
+            <Topbar />
             {/* Page Header Start */}
             <div className="container-fluid page-header">
                 <h1 className="display-3 text-uppercase text-white mb-3">Contact</h1>

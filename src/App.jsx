@@ -3,15 +3,15 @@ import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 
 import './App.module.css';
-import Topbar from './components/common/Topbar';
+
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import BackToTheTop from './components/common/BackToTheTop';
 import Home from './components/common/Home/Home';
 
-import Contacts from './components/NavbarMenuBtn/NavBarButtons/Contacts';
-import About from './components/NavbarMenuBtn/NavBarButtons/About';
-import Service from './components/NavbarMenuBtn/NavBarButtons/Service';
+import Contacts from './components/common/Contacts';
+import About from './components/common/About';
+import Service from './components/common/Service';
 import Catalog from './components/NavbarMenuBtn/pages/Catalog/Catalog';
 import Details from './components/NavbarMenuBtn/pages/Details/Details';
 
@@ -27,7 +27,6 @@ function App() {
 
 	return (
 		<AuthProvider>
-			<Topbar />
 			<Navbar />
 
 			<Routes>

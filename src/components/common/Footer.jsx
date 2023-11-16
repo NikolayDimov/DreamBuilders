@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 
-
 export default function Footer() {
 
 
@@ -10,9 +9,9 @@ export default function Footer() {
                 <div className="row g-5">
                     <div className="col-lg-6 pe-lg-5">
                         <Link to="/" className="navbar-brand">
-                        <h1 className="m-0 display-4 text-uppercase text-white">
-                            <i className="bi bi-building text-primary me-2" />
-                            WEBUILD
+                            <h1 className="m-0 display-4 text-uppercase text-white">
+                                <i className="bi bi-building text-primary me-2" />
+                                WEBUILD
                             </h1>
                         </Link>
                         <p>

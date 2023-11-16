@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { doc, getDoc, deleteDoc } from 'firebase/firestore';
 import { firestore_db } from '../../../../firebase';
+import { useAuth } from '../../../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import DeleteModal from '../Delete/Delete';
@@ -10,9 +11,12 @@ import DeleteModal from '../Delete/Delete';
 import './Details.css';
 
 export default function Details() {
+    const { user } = useAuth();
     const nav = useNavigate();
     const { id } = useParams(); // Access the "id" parameter from the URL
     const [projectDetails, setProjectDetails] = useState(null);
+    const [isOwner, setIsOwner] = useState(false);
+
     const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
     const [itemToDeleteId, setItemToDeleteId] = useState(null);
     // const [editItem, setEditItem] = useState(null);
@@ -64,7 +68,15 @@ export default function Details() {
                 const projectDoc = await getDoc(projectRef);
 
                 if (projectDoc.exists()) {
-                    setProjectDetails(projectDoc.data());
+                    const projectData = projectDoc.data();
+                    setProjectDetails(projectData);
+
+                    if (projectData) {
+                        setIsOwner(user.uid && user.uid === projectData.owner_uid);
+                    } else {
+                        console.log("Project data is null");
+                    }
+
                 } else {
                     console.log("Project not found");
                 }
@@ -74,11 +86,13 @@ export default function Details() {
         };
 
         fetchProjectDetails();
-    }, [id]);
+    }, [id, user.uid]);
 
 
-    console.log(id);
-    console.log(projectDetails);
+    // console.log(user.uid)
+    // console.log(id);
+    // console.log(projectDetails.owner_uid);
+
 
     return (
         <> {projectDetails ? (
@@ -105,17 +119,13 @@ export default function Details() {
                                 <img
                                     className="img-fluid w-100 rounded mb-5 details-picture"
                                     src={projectDetails.img}
-                                    alt=""
+                                    alt="project image"
                                 />
 
                                 <h1 className="text-uppercase mb-4">
                                     {projectDetails.projectName}
                                 </h1>
 
-                                <p>
-                                    Bedrooms:
-                                    {projectDetails.bedrooms}
-                                </p>
                                 <p>
                                     Voluptua est takimata stet invidunt sed rebum nonumy stet, clita
                                     aliquyam dolores vero stet consetetur elitr takimata rebum sanctus.
@@ -125,17 +135,7 @@ export default function Details() {
                                     vero amet amet est dolor elitr, stet et no diam sit. Dolor erat
                                     justo dolore sit invidunt.
                                 </p>
-                                <p>
-                                    Diam dolor est labore duo invidunt ipsum clita et, sed et lorem
-                                    voluptua tempor invidunt at est sanctus sanctus. Clita dolores sit
-                                    kasd diam takimata justo diam lorem sed. Magna amet sed rebum eos.
-                                    Clita no magna no dolor erat diam tempor rebum consetetur, sanctus
-                                    labore sed nonumy diam lorem amet eirmod. No at tempor sea diam
-                                    kasd, takimata ea nonumy elitr sadipscing gubergren erat. Gubergren
-                                    at lorem invidunt sadipscing rebum sit amet ut ut, voluptua diam
-                                    dolores at sadipscing stet. Clita dolor amet dolor ipsum vero ea ea
-                                    eos.
-                                </p>
+
                             </div>
                             {/* Blog Detail End */}
 
@@ -217,33 +217,28 @@ export default function Details() {
                             </div>
                             {/* Category End */}
 
-                            <div className="mb-5">
-                                <h3 className="text-uppercase mb-4">Your Options</h3>
-                                <div key={id} className="d-flex flex-wrap m-n1">
-                                    <Link to="" className="btn btn-outline-dark m-1">
-                                        Edit
-                                        {/* {editItem} */}
-                                    </Link>
-                                    <button className="btn btn-outline-dark m-1" onClick={() => handleDeleteClick(id)}>
-                                        Delete
-                                    </button>
-                                    {/* Render the DeleteModal if isVisible state is true */}
-                                    {isDeleteModalVisible && (
-                                        <DeleteModal
-                                            itemToDelete={itemToDeleteId}
-                                            onDelete={handleDeleteConfirm}
-                                            onCancel={handleDeleteCancel} />
-                                    )}
+                            {isOwner && (
+                                <div className="mb-5">
+                                    <h3 className="text-uppercase mb-4">Your Options</h3>
+                                    <div key={id} className="d-flex flex-wrap m-n1">
+                                        <Link to="" className="btn btn-outline-dark m-1">
+                                            Edit
+                                            {/* {editItem} */}
+                                        </Link>
+                                        <button className="btn btn-outline-dark m-1" onClick={() => handleDeleteClick(id)}>
+                                            Delete
+                                        </button>
+                                        {/* Render the DeleteModal if isVisible state is true */}
+                                        {isDeleteModalVisible && (
+                                            <DeleteModal
+                                                itemToDelete={itemToDeleteId}
+                                                onDelete={handleDeleteConfirm}
+                                                onCancel={handleDeleteCancel} />
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
+                            )}
 
-
-
-                            {/* Image Start */}
-                            <div className="mb-5">
-                                <img src="img/blog-1.jpg" alt="" className="img-fluid rounded" />
-                            </div>
-                            {/* Image End */}
                             {/* Tags Start */}
                             <div className="mb-5">
                                 <h3 className="text-uppercase mb-4">Tag Cloud</h3>
