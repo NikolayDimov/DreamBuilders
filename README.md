@@ -46,7 +46,7 @@ DreamBuilders is a web application designed to simplify the process of planning 
 1. Clone the repository:
 
    ```bash
-* git clone https://github.com/your-username/dream-builders.git
+   git clone https://github.com/your-username/dream-builders.git
 * cd dream-builders
 * npm run dev
 
