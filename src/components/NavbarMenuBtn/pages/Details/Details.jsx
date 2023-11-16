@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { doc, getDoc, deleteDoc } from 'firebase/firestore';
+import { doc, getDoc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { firestore_db } from '../../../../firebase';
 import { useAuth } from '../../../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import DeleteModal from '../Delete/Delete';
+// import { useProjectDetails } from '../../../../contexts/ProjectDetailsContext';
 
 import './Details.css';
 
@@ -14,12 +15,55 @@ export default function Details() {
     const { user } = useAuth();
     const nav = useNavigate();
     const { id } = useParams(); // Access the "id" parameter from the URL
+
     const [projectDetails, setProjectDetails] = useState(null);
     const [isOwner, setIsOwner] = useState(false);
 
     const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
     const [itemToDeleteId, setItemToDeleteId] = useState(null);
-    // const [editItem, setEditItem] = useState(null);
+
+    // const { projectEditDetails, setProjectEditDetails } = useProjectDetails();
+
+
+
+    const fetchProjectDetails = async () => {
+        try {
+            const projectRef = doc(firestore_db, 'houses', id);
+            const projectDoc = await getDoc(projectRef);
+
+            if (projectDoc.exists()) {
+                const projectData = projectDoc.data();
+                setProjectDetails(projectData);
+
+                if (projectData) {
+                    setIsOwner(user.uid && user.uid === projectData.owner_uid);
+                } else {
+                    console.log("Project data is null");
+                }
+
+            } else {
+                console.log("Project not found");
+            }
+        } catch (error) {
+            console.error("Error fetching project details:", error);
+        }
+    };
+
+
+
+    const handleEditClick = async () => {
+        try {
+            // Fetch project details and wait for it to complete
+            await fetchProjectDetails();
+
+            // Now projectDetails should be updated, and you can navigate
+            console.log('State to pass:', { projectDetails });
+            nav(`/catalog/${id}/edit`, { state: { projectDetails } });
+        } catch (error) {
+            console.error('Error fetching project details:', error);
+        }
+    };
+
 
 
     const handleDeleteClick = (id) => {
@@ -48,43 +92,9 @@ export default function Details() {
     };
 
 
-    // const handleEditItem = async () => {
-    //     try {
-    //         const itemRef = doc(firestore_db, 'items', editItem.id);
-    //         await updateDoc(itemRef, { name: editItem.name });
-    //         setEditItem(null);
-    //     } catch (error) {
-    //         console.error('Error editing item:', error);
-    //     }
-    // };
-
-
 
 
     useEffect(() => {
-        const fetchProjectDetails = async () => {
-            try {
-                const projectRef = doc(firestore_db, 'houses', id);
-                const projectDoc = await getDoc(projectRef);
-
-                if (projectDoc.exists()) {
-                    const projectData = projectDoc.data();
-                    setProjectDetails(projectData);
-
-                    if (projectData) {
-                        setIsOwner(user.uid && user.uid === projectData.owner_uid);
-                    } else {
-                        console.log("Project data is null");
-                    }
-
-                } else {
-                    console.log("Project not found");
-                }
-            } catch (error) {
-                console.error("Error fetching project details:", error);
-            }
-        };
-
         fetchProjectDetails();
     }, [id, user.uid]);
 
@@ -221,10 +231,9 @@ export default function Details() {
                                 <div className="mb-5">
                                     <h3 className="text-uppercase mb-4">Your Options</h3>
                                     <div key={id} className="d-flex flex-wrap m-n1">
-                                        <Link to="" className="btn btn-outline-dark m-1">
-                                            Edit
-                                            {/* {editItem} */}
-                                        </Link>
+
+                                        <Link to={`/catalog/${id}/edit`} className="btn btn-outline-dark m-1" onClick={handleEditClick}>Edit</Link>
+
                                         <button className="btn btn-outline-dark m-1" onClick={() => handleDeleteClick(id)}>
                                             Delete
                                         </button>

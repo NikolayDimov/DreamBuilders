@@ -29,7 +29,7 @@ export default function CatalogItem({ item }) {
                     <h4 className="text-uppercase mb-3">
                         {item.projectName}
                     </h4>
-                    <Link to={`/details/${item.id}`}>
+                    <Link to={`/catalog/${item.id}`}>
                         <p className="text-uppercase fw-bold">
                             {user?.uid && item.owner_uid === user.uid
                                 ? <span className='viewMyProject'>View My Project</span>

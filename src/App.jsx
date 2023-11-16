@@ -21,32 +21,40 @@ import MyProjects from './components/NavbarMenuBtn/pages/MyProjects/MyProjects';
 import Logout from './components/NavbarMenuBtn/auth/Logout';
 import Create from './components/NavbarMenuBtn/pages/Create/Create';
 import DeleteModal from './components/NavbarMenuBtn/pages/Delete/Delete';
+import Edit from './components/NavbarMenuBtn/pages/Edit/Edit';
+import { ProjectDetailsProvider } from './contexts/ProjectDetailsContext';
 
 
 function App() {
 
 	return (
 		<AuthProvider>
-			<Navbar />
+			<ProjectDetailsProvider>
+				<Navbar />
 
-			<Routes>
-				<Route path='/' element={<Home />} />
-				<Route path='/contacts' element={<Contacts />} />
-				<Route path='/about' element={<About />} />
-				<Route path='/service' element={<Service />} />
-				<Route path='/login' element={<Login />} />
-				<Route path='/catalog' element={<Catalog />} />
-				<Route path='/details/:id' element={<Details />} />
-				<Route path='/login' element={<Login />} />
-				<Route path='/register' element={<Register />} />
-				<Route path='/myProjects' element={<MyProjects />} />
-				<Route path='/create' element={<Create />} />
-				<Route path='/logout' element={<Logout />} />
-				<Route path='/delete' element={<DeleteModal />} />
-			</Routes>
+				<Routes>
+					<Route path='/' element={<Home />} />
+					<Route path='/contacts' element={<Contacts />} />
+					<Route path='/about' element={<About />} />
+					<Route path='/service' element={<Service />} />
+					<Route path='/login' element={<Login />} />
+					<Route path='/catalog' element={<Catalog />} />
+					<Route path='/login' element={<Login />} />
+					<Route path='/register' element={<Register />} />
+					<Route path='/myProjects' element={<MyProjects />} />
+					<Route path='/create' element={<Create />} />
+					<Route path='/logout' element={<Logout />} />
+					<Route path='/delete' element={<DeleteModal />} />
 
-			<Footer />
-			<BackToTheTop />
+					<Route path='/catalog/:id' element={<Details />} />
+					<Route path='/catalog/:id/edit' element={<Edit />} />
+
+
+				</Routes>
+
+				<Footer />
+				<BackToTheTop />
+			</ProjectDetailsProvider>
 		</AuthProvider>
 	);
 }
