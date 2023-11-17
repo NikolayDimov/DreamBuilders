@@ -13,7 +13,6 @@ import './Create.css';
 export default function Create() {
     const nav = useNavigate();
     const { user } = useAuth();
-    // console.log(user.uid);
     const userCollectionRef = collection(firestore_db, 'houses');
 
     const [projectName, setProjectName] = useState('');
@@ -67,6 +66,7 @@ export default function Create() {
                                     id="projectName"
                                     value={projectName}
                                     onChange={(e) => setProjectName(e.target.value)}
+                                    required
                                 />
                             </div>
 

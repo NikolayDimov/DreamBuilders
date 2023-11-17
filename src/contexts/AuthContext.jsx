@@ -9,15 +9,34 @@ const AuthContext = createContext();
 
 
 export function AuthProvider({ children }) {
+    // from firestore
+    // const isAuthenticatedUser = fetch('Authenticated')
+    // const [refreshToken, setRefreshToken] = useState(isAuthenticatedUser.refreshToen);
+    // if (refreshToken === refreshTokenLocalStorage) {
+    //     Navigate('.logout'),
+    //     setItemInLocal('', '')
+    // }
+    // safe refresh token in local sorage 'abcd'
+    //setItemInLocal('refreshToen', token)
+    //1. fetch user/data
+    //1.2 compare saved token in local storage with received token
+    //2. safe user data in state
+
+    //3. login....
+
+    const isUserLoggedIn = localStorage.getItem('isUserLoggedIn') === 'true'
+    const userDataFromLocalStorage = JSON.parse(localStorage.getItem('userData'))
+
     const nav = useNavigate();
     const [user, setUser] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(isUserLoggedIn);
 
     const login = async (email, password) => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             setIsLoggedIn(true);
             nav('/myProjects');
+            localStorage.setItem('isUserLoggedIn', 'true')
         } catch (error) {
             console.error('Login error:', error);
         }
@@ -37,6 +56,8 @@ export function AuthProvider({ children }) {
         try {
             await signOut(auth);
             setIsLoggedIn(false);
+            localStorage.setItem('isUserLoggedIn', 'false')
+            localStorage.setItem('userData', JSON.stringify({}))
             nav('/');
         } catch (error) {
             console.error('Logout error:', error);
@@ -47,8 +68,10 @@ export function AuthProvider({ children }) {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUser(user);
+                localStorage.setItem('userData', JSON.stringify(user))
             } else {
                 setUser('');
+                localStorage.setItem('userData', JSON.stringify({}))
             }
         });
 
@@ -56,7 +79,7 @@ export function AuthProvider({ children }) {
     }, [nav]);
 
     const values = {
-        user,
+        user: isUserLoggedIn ? userDataFromLocalStorage : user,
         login,
         register,
         logout,

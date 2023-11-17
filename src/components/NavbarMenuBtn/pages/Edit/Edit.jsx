@@ -14,7 +14,7 @@ export default function Edit() {
 
     const location = useLocation();
     console.log('Location State:', location.state);
-    const { projectDetails } = location.state ?? {};
+    const { projectDetails } = location.state;
 
     const [editedProjectName, setEditedProjectName] = useState(projectDetails.name);
 
@@ -22,7 +22,7 @@ export default function Edit() {
 
     useEffect(() => {
         // Use projectDetails directly without fetching from Firestore
-        console.log('Project Details:', projectDetails);
+        //console.log('Project Details:', location);
     }, [projectDetails]);
 
     const handleProjectNameChange = (e) => {
@@ -40,7 +40,7 @@ export default function Edit() {
 
                 <div className="form-block-create mx-auto">
                     <div className="title">
-                        <h3>Edit you own house {(projectDetails.email.split('@'))[0]} </h3>
+                        <h3>Edit you own house {(projectDetails.owner_email.split('@'))[0] || ''} </h3>
                     </div>
                     <form >
 
