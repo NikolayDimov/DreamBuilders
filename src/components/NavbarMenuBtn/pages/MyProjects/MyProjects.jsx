@@ -73,7 +73,7 @@ export default function MyProjects() {
                         {/* Blog Detail End */}
 
                         {/* Comment Form Start */}
-                        <div className="bg-light p-5">
+                        <div className="bg-light p-5 myProject-comment-section">
                             <h3 className="text-uppercase mb-4">Leave a comment</h3>
                             <form>
                                 <div className="row g-3">

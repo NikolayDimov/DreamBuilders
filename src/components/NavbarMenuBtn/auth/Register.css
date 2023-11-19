@@ -106,8 +106,9 @@ label {
 }
 
 
-.control:hover input ~ .control__indicator, .control input:focus ~ .control__indicator {
-  background: #ccc;
+.control:hover input~.control__indicator,
+.control input:focus~.control__indicator {
+    background: #ccc;
 }
 
 .control__indicator {
@@ -120,11 +121,11 @@ label {
     border-radius: 4px;
 }
 
-.control input:checked ~ .control__indicator {
+.control input:checked~.control__indicator {
     background: #fb771a;
-  }
+}
 
-.control input:checked ~ .control__indicator::after {
+.control input:checked~.control__indicator::after {
     display: block;
     color: #fff;
 }
@@ -182,7 +183,7 @@ input[type="submit"].btn-block {
 }
 
 .btn-margin {
-    margin-left: 0 !important;
+    margin-left: 0;
 }
 
 .control .caption {

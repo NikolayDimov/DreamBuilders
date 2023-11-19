@@ -181,7 +181,7 @@ label {
 }
 
 .btn-margin {
-    margin-left: 0 !important;
+    margin-left: 0;
 }
 
 .control .caption {

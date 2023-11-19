@@ -201,7 +201,7 @@ export default function Create() {
 
                         </section>
 
-                        <button className="btn btn-block btn-primary btn-margin" type="submit">Create</button>
+                        <button className="btn btn-primary create-btn" type="submit">Create</button>
 
                     </form>
 

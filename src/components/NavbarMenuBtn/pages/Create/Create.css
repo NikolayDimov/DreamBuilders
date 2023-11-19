@@ -181,7 +181,7 @@ label {
 }
 
 .btn-margin {
-    margin-left: 0 !important;
+    margin-left: 0;
 }
 
 .control .caption {
@@ -231,4 +231,10 @@ button {
 
 .form-group:last-child textarea {
     height: auto;
+}
+
+.create-btn {
+    width: 50%;
+    margin: 0 auto;
+    display: block;
 }

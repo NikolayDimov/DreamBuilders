@@ -21,7 +21,7 @@ p {
 .flex-two-buttons {
     display: flex;
     justify-content: space-evenly;
-   
+
     margin-bottom: 2em;
 }
 
@@ -37,11 +37,12 @@ p {
 .createBtn:hover,
 .catalogBtn:hover {
     box-shadow: 2px 5px 18px 1px #615757;
-    /* color:#fff;
-    background-color:#040F28;
-    border-color:#040F28 */
 }
 
 .text-banner {
     color: #fd5d14;
+}
+
+.myProject-comment-section {
+    height: auto;
 }
