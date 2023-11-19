@@ -4,7 +4,7 @@
 import Logout from '../../auth/Logout';
 import { Link } from 'react-router-dom';
 
-import './MyProject.css';
+import './Profile.css';
 
 
 export default function MyProjects() {
