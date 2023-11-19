@@ -17,19 +17,19 @@ export function AuthProvider({ children }) {
     //     setItemInLocal('', '')
     // }
     // safe refresh token in local sorage 'abcd'
-    //setItemInLocal('refreshToen', token)
-    //1. fetch user/data
-    //1.2 compare saved token in local storage with received token
-    //2. safe user data in state
+    // setItemInLocal('refreshToen', token)
+    // 1. fetch user/data
+    // 1.2 compare saved token in local storage with received token
+    // 2. safe user data in state
+    // 3. login....
 
-    //3. login....
-
-    const isUserLoggedIn = localStorage.getItem('isUserLoggedIn') === 'true'
-    const userDataFromLocalStorage = JSON.parse(localStorage.getItem('userData'))
+    const isUserLoggedIn = localStorage.getItem('isUserLoggedIn') === 'true';
+    const userDataFromLocalStorage = JSON.parse(localStorage.getItem('userData'));
 
     const nav = useNavigate();
     const [user, setUser] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(isUserLoggedIn);
+
 
     const login = async (email, password) => {
         try {
@@ -47,6 +47,7 @@ export function AuthProvider({ children }) {
             await createUserWithEmailAndPassword(auth, email, password);
             setIsLoggedIn(true);
             nav('/myProjects');
+            localStorage.setItem('isUserLoggedIn', 'true')
         } catch (error) {
             console.error('Registration error:', error);
         }

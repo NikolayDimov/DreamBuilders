@@ -64,6 +64,7 @@ export default function Create() {
                                     className="form-control"
                                     placeholder="Enter name"
                                     id="projectName"
+                                    name="projectName"
                                     value={projectName}
                                     onChange={(e) => setProjectName(e.target.value)}
                                     required
@@ -183,6 +184,7 @@ export default function Create() {
                                     className="form-control"
                                     placeholder="Enter picture"
                                     id="projectName"
+                                    name="img"
                                     value={img}
                                     onChange={(e) => setImg(e.target.value)}
                                 />

@@ -1,38 +1,78 @@
 import { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
-// import { useProjectDetails } from '../../../../contexts/ProjectDetailsContext';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
+import { firestore_db } from '../../../../firebase';
+import { doc, updateDoc } from 'firebase/firestore';
 
 import './Edit.css';
 
 
 
 export default function Edit() {
-    // const { id } = useParams();
-    // const { projectEditDetails } = useProjectDetails();
-
     const location = useLocation();
-    console.log('Location State:', location.state);
-    const { projectDetails } = location.state;
+    const nav = useNavigate();
+    const { id } = useParams();
 
-    const [editedProjectName, setEditedProjectName] = useState(projectDetails.name);
+    const [projectDetails, setProjectDetails] = useState(null);
 
 
 
     useEffect(() => {
-        // Use projectDetails directly without fetching from Firestore
-        //console.log('Project Details:', location);
-    }, [projectDetails]);
+        const fetchData = async () => {
+            if (location.state && location.state.projectDetails) {
+                setProjectDetails(location.state.projectDetails);
+            } else {
+                console.error('No project details found in location.state');
+            }
+        };
 
-    const handleProjectNameChange = (e) => {
-        setEditedProjectName(e.target.value);
+        fetchData();
+    }, [location.state]);
+
+    // console.log(projectDetails);
+    // console.log(id);
+
+
+    const changeHandler = (e) => {
+        setProjectDetails(projectDetails => ({ ...projectDetails, [e.target.name]: e.target.value }));
+
     };
 
+    const handleEditSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            if (projectDetails) {
+                const projectDetailsRef = doc(firestore_db, 'houses', id);
+
+                await updateDoc(projectDetailsRef, {
+                    projectName: projectDetails.projectName,
+                    category: projectDetails.category,
+                    bedrooms: projectDetails.bedrooms,
+                    bathrooms: projectDetails.bathrooms,
+                    garage: projectDetails.garage,
+                    pool: projectDetails.pool,
+                    img: projectDetails.img,
+                });
+
+                console.log('Project details updated successfully');
+                nav(`/catalog/${id}`);
+            } else {
+                console.error('No project details found to update');
+            }
+        } catch (error) {
+            console.error('Error updating project details:', error);
+        }
+    };
+
+
     if (!projectDetails) {
-        // Handle the case where projectEditDetails is undefined
         return <p>Loading project details...</p>;
     }
+
+
+
 
     return (
         <div className="container-create">
@@ -42,7 +82,7 @@ export default function Edit() {
                     <div className="title">
                         <h3>Edit you own house {(projectDetails.owner_email.split('@'))[0] || ''} </h3>
                     </div>
-                    <form >
+                    <form onSubmit={handleEditSubmit}>
 
                         <section className='inputs-fields'>
 
@@ -53,8 +93,9 @@ export default function Edit() {
                                     className="form-control"
                                     placeholder="Enter name"
                                     id="projectName"
-                                    value={projectDetails.name}
-                                    onChange={handleProjectNameChange}
+                                    name="projectName"
+                                    value={projectDetails.projectName}
+                                    onChange={(e) => changeHandler(e)}
                                 />
                             </div>
 
@@ -67,7 +108,7 @@ export default function Edit() {
                                     name="category"
                                     id="category"
                                     value={projectDetails.category}
-                                    onChange={handleProjectNameChange}
+                                    onChange={(e) => changeHandler(e)}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="oneStoryHouse">One-Story House</option>
@@ -87,7 +128,7 @@ export default function Edit() {
                                     name="bedrooms"
                                     id="bedrooms"
                                     value={projectDetails.bedrooms}
-                                    onChange={handleProjectNameChange}
+                                    onChange={(e) => changeHandler(e)}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="one">1</option>
@@ -107,7 +148,7 @@ export default function Edit() {
                                     name="bathrooms"
                                     id="bathrooms"
                                     value={projectDetails.bathrooms}
-                                    onChange={handleProjectNameChange}
+                                    onChange={(e) => changeHandler(e)}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="one">1</option>
@@ -130,7 +171,7 @@ export default function Edit() {
                                 </p>
                                 <select className="form-control" name="garage" id="garage"
                                     value={projectDetails.garage}
-                                    onChange={handleProjectNameChange}
+                                    onChange={(e) => changeHandler(e)}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="oneCarGarage">One-Car Garage</option>
@@ -152,7 +193,7 @@ export default function Edit() {
                                 </p>
                                 <select className="form-control" name="pool" id="pool"
                                     value={projectDetails.pool}
-                                    onChange={handleProjectNameChange}
+                                    onChange={(e) => changeHandler(e)}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="small">Small: 5 x 4 m</option>
@@ -171,14 +212,15 @@ export default function Edit() {
                                     className="form-control"
                                     placeholder="Enter picture"
                                     id="projectName"
+                                    name="img"
                                     value={projectDetails.img}
-                                    onChange={handleProjectNameChange}
+                                    onChange={(e) => changeHandler(e)}
                                 />
                             </div>
 
                         </section>
 
-                        <button className="btn btn-block btn-primary btn-margin" type="submit">Create</button>
+                        <button className="btn btn-block btn-primary btn-margin" type="submit">Edit</button>
 
                     </form>
 

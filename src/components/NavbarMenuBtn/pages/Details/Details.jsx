@@ -57,7 +57,7 @@ export default function Details() {
             await fetchProjectDetails();
 
             // Now projectDetails should be updated, and you can navigate
-            console.log('State to pass:', { projectDetails });
+            // console.log('State to pass:', { projectDetails });
             nav(`/catalog/${id}/edit`, { state: { projectDetails } });
         } catch (error) {
             console.error('Error fetching project details:', error);
@@ -96,7 +96,7 @@ export default function Details() {
 
     useEffect(() => {
         fetchProjectDetails();
-    }, [id, user.uid]);
+    }, [id, user.uid, fetchProjectDetails]);
 
 
     // console.log(user.uid)
