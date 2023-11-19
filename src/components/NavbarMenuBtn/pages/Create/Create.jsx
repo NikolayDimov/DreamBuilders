@@ -1,10 +1,11 @@
-/* eslint-disable no-unused-vars */
-
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
+import { useAuth } from '../../../../contexts/AuthContext';
 import { firestore_db } from '../../../../firebase';
 import { collection, addDoc } from 'firebase/firestore';
-import { useAuth } from '../../../../contexts/AuthContext';
-import { useNavigate } from "react-router-dom";
+
+import Validation from '../../../../utils/validation';
 
 import './Create.css';
 
@@ -15,15 +16,27 @@ export default function Create() {
     const { user } = useAuth();
     const userCollectionRef = collection(firestore_db, 'houses');
 
-    const [projectName, setProjectName] = useState('');
-    const [category, setCategory] = useState('');
-    const [bedrooms, setBedrooms] = useState('');
-    const [bathrooms, setBathrooms] = useState('');
-    const [garage, setGarage] = useState('');
-    const [pool, setPool] = useState('');
-    const [img, setImg] = useState('');
-    const [descripion, setDescription] = useState('');
 
+    const [createdValues, setCreatedValues] = useState({
+        projectName: '',
+        category: '',
+        bedrooms: '',
+        bathrooms: '',
+        garage: '',
+        pool: '',
+        img: '',
+        description: ''
+    });
+
+    const [errors, setErrors] = useState({});
+    function handleValidation(e) {
+        e.preventDefault();
+        setErrors(Validation(createdValues));
+    }
+
+    const changeHandler = (e) => {
+        setCreatedValues(state => ({ ...state, [e.target.name]: e.target.value }));
+    };
 
     async function createHouse(e) {
         e.preventDefault();
@@ -31,14 +44,14 @@ export default function Create() {
             await addDoc(userCollectionRef, {
                 owner_uid: user.uid,
                 owner_email: user.email,
-                projectName: projectName,
-                category: category,
-                bedrooms: bedrooms,
-                bathrooms: bathrooms,
-                garage: garage,
-                pool: pool,
-                img: img,
-                descripion: descripion,
+                projectName: createdValues.projectName,
+                category: createdValues.category,
+                bedrooms: createdValues.bedrooms,
+                bathrooms: createdValues.bathrooms,
+                garage: createdValues.garage,
+                pool: createdValues.pool,
+                img: createdValues.img,
+                description: createdValues.description,
                 createdAt: new Date().toISOString(),
             });
             nav('/catalog');
@@ -67,10 +80,13 @@ export default function Create() {
                                     placeholder="Enter name"
                                     id="projectName"
                                     name="projectName"
-                                    value={projectName}
-                                    onChange={(e) => setProjectName(e.target.value)}
-                                    required
+                                    value={createdValues.projectName}
+                                    onChange={(e) => {
+                                        changeHandler(e);
+                                        handleValidation(e);
+                                    }}
                                 />
+                                {errors.projectName && <p className="errors">{errors.projectName}</p>}
                             </div>
 
                             <div className="form-group">
@@ -81,9 +97,11 @@ export default function Create() {
                                     className="form-control"
                                     name="category"
                                     id="category"
-                                    value={category}
-                                    onChange={(e) => setCategory(e.target.value)}
-                                    required
+                                    value={createdValues.category}
+                                    onChange={(e) => {
+                                        changeHandler(e);
+                                        handleValidation(e);
+                                    }}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="One-Story House">One-Story House</option>
@@ -92,6 +110,7 @@ export default function Create() {
                                     <option value="Town House">Town House</option>
                                     <option value="Mansion">Mansion</option>
                                 </select>
+                                {errors.category && <p className="errors">{errors.category}</p>}
                             </div>
 
                             <div className="form-group">
@@ -102,8 +121,8 @@ export default function Create() {
                                     className="form-control"
                                     name="bedrooms"
                                     id="bedrooms"
-                                    value={bedrooms}
-                                    onChange={(e) => setBedrooms(e.target.value)}
+                                    value={createdValues.bedrooms}
+                                    onChange={changeHandler}
                                     required
                                 >
                                     <option value="" disabled>Select...</option>
@@ -124,8 +143,8 @@ export default function Create() {
                                     className="form-control"
                                     name="bathrooms"
                                     id="bathrooms"
-                                    value={bathrooms}
-                                    onChange={(e) => setBathrooms(e.target.value)}
+                                    value={createdValues.bathrooms}
+                                    onChange={changeHandler}
                                     required
                                 >
                                     <option value="" disabled>Select...</option>
@@ -142,8 +161,8 @@ export default function Create() {
                                     <label htmlFor="garage">Garage</label>
                                 </p>
                                 <select className="form-control" name="garage" id="garage"
-                                    value={garage}
-                                    onChange={(e) => setGarage(e.target.value)}
+                                    value={createdValues.garage}
+                                    onChange={changeHandler}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="One-Car Garage">One-Car Garage</option>
@@ -158,8 +177,8 @@ export default function Create() {
                                     <label htmlFor="pool">Pool</label>
                                 </p>
                                 <select className="form-control" name="pool" id="pool"
-                                    value={pool}
-                                    onChange={(e) => setPool(e.target.value)}
+                                    value={createdValues.pool}
+                                    onChange={changeHandler}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="Small">Small</option>
@@ -179,8 +198,8 @@ export default function Create() {
                                     placeholder="Enter picture"
                                     id="projectName"
                                     name="img"
-                                    value={img}
-                                    onChange={(e) => setImg(e.target.value)}
+                                    value={createdValues.img}
+                                    onChange={changeHandler}
                                     required
                                 />
                             </div>
@@ -192,10 +211,10 @@ export default function Create() {
                                     type="text"
                                     className="form-control"
                                     placeholder="Description text"
-                                    id="descripion"
-                                    name="descripion"
-                                    value={descripion}
-                                    onChange={(e) => setDescription(e.target.value)}
+                                    id="description"
+                                    name="description"
+                                    value={createdValues.description}
+                                    onChange={changeHandler}
                                 ></textarea>
                             </div>
 

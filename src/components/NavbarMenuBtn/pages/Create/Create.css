@@ -238,3 +238,7 @@ button {
     margin: 0 auto;
     display: block;
 }
+
+.errors {
+    color: red;
+}

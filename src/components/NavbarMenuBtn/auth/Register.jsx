@@ -34,12 +34,12 @@ function Register() {
                         </div>
                         <form onSubmit={handleRegister}>
                             <div className="form-group first">
-                                <label htmlFor="username">Email</label>
+                                <label htmlFor="email">Email</label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     placeholder="Enter your Email"
-                                    id="username"
+                                    id="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />

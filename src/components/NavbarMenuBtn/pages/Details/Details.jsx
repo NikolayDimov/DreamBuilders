@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { doc, getDoc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, deleteDoc } from 'firebase/firestore';
 import { firestore_db } from '../../../../firebase';
 import { useAuth } from '../../../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
@@ -136,7 +136,7 @@ export default function Details() {
 
                                 <h3>Description of the project</h3>
                                 <p>
-                                    {projectDetails.descripion}
+                                    {projectDetails.description}
                                 </p>
 
                             </div>

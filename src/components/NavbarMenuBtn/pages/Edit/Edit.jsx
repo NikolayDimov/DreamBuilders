@@ -54,6 +54,7 @@ export default function Edit() {
                     garage: projectDetails.garage,
                     pool: projectDetails.pool,
                     img: projectDetails.img,
+                    description: projectDetails.description,
                 });
 
                 console.log('Project details updated successfully');
@@ -218,9 +219,23 @@ export default function Edit() {
                                 />
                             </div>
 
+                            <div className="form-group">
+                                <label htmlFor="desctiption">Description</label>
+                                <textarea
+                                    rows="4"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Description text"
+                                    id="description"
+                                    name="description"
+                                    value={projectDetails.description}
+                                    onChange={(e) => changeHandler(e)}
+                                ></textarea>
+                            </div>
+
                         </section>
 
-                        <button className="btn btn-block btn-primary btn-margin" type="submit">Edit</button>
+                        <button className="btn btn-primary edit-btn" type="submit">Edit</button>
 
                     </form>
 
