@@ -53,7 +53,7 @@ export default function Navbar() {
 						</Link>
 
 						{isLoggedIn &&
-							<Link to="/myProjects" className="nav-item nav-link bg-primary text-white ms-3 d-none d-lg-block">
+							<Link to="/profile" className="nav-item nav-link bg-primary text-white ms-3 d-none d-lg-block">
 								{(user.email.split('@'))[0]} &apos;s Projects<i className="bi bi-arrow-right" />
 							</Link>
 						}

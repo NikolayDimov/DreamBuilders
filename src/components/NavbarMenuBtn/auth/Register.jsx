@@ -17,7 +17,6 @@ function Register() {
         e.preventDefault();
         try {
             await register(email, password);
-            // If registration is successful, the user will be redirected to '/myProjects' automatically by the AuthProvider.
         } catch (error) {
             console.error('Registration error:', error);
             console.error('Registration error message:', error.message);

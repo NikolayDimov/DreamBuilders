@@ -47,7 +47,7 @@ export default function Catalog() {
                     </h6>
                     <h6 className="text-white m-0 px-3">/</h6>
                     {isLoggedIn &&
-                        <h6 className="text-uppercase text-white m-0"><Link to="/myProjects">My Project Page</Link></h6>
+                        <h6 className="text-uppercase text-white m-0"><Link to="/profile">My Project Page</Link></h6>
                     }
                 </div>
             </div>

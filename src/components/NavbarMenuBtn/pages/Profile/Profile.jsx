@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import './Profile.css';
 
 
-export default function MyProjects() {
+export default function Profile() {
 
 
     return (
