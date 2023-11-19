@@ -126,24 +126,17 @@ export default function Details() {
                             {/* Blog Detail Start */}
                             <div className="mb-5">
 
-                                <img
-                                    className="img-fluid w-100 rounded mb-5 details-picture"
-                                    src={projectDetails.img}
-                                    alt="project image"
-                                />
-
                                 <h1 className="text-uppercase mb-4">
                                     {projectDetails.projectName}
                                 </h1>
 
+                                <img className="img-fluid w-100 rounded mb-5 details-picture"
+                                    src={projectDetails.img}
+                                    alt="project image" />
+
+                                <h3>Description of the project</h3>
                                 <p>
-                                    Voluptua est takimata stet invidunt sed rebum nonumy stet, clita
-                                    aliquyam dolores vero stet consetetur elitr takimata rebum sanctus.
-                                    Sit sed accusam stet sit nonumy kasd diam dolores, sanctus lorem
-                                    kasd duo dolor dolor vero sit et. Labore ipsum duo sanctus amet eos
-                                    et. Consetetur no sed et aliquyam ipsum justo et, clita lorem sit
-                                    vero amet amet est dolor elitr, stet et no diam sit. Dolor erat
-                                    justo dolore sit invidunt.
+                                    {projectDetails.descripion}
                                 </p>
 
                             </div>
@@ -250,38 +243,12 @@ export default function Details() {
 
                             {/* Tags Start */}
                             <div className="mb-5">
-                                <h3 className="text-uppercase mb-4">Tag Cloud</h3>
+                                <h3 className="text-uppercase mb-4">All of my projects</h3>
                                 <div className="d-flex flex-wrap m-n1">
                                     <a href="" className="btn btn-outline-dark m-1">
-                                        Marketing
+                                        Check it
                                     </a>
-                                    <a href="" className="btn btn-outline-dark m-1">
-                                        SEO
-                                    </a>
-                                    <a href="" className="btn btn-outline-dark m-1">
-                                        Writing
-                                    </a>
-                                    <a href="" className="btn btn-outline-dark m-1">
-                                        Consulting
-                                    </a>
-                                    <a href="" className="btn btn-outline-dark m-1">
-                                        Design
-                                    </a>
-                                    <a href="" className="btn btn-outline-dark m-1">
-                                        Development
-                                    </a>
-                                    <a href="" className="btn btn-outline-dark m-1">
-                                        Marketing
-                                    </a>
-                                    <a href="" className="btn btn-outline-dark m-1">
-                                        SEO
-                                    </a>
-                                    <a href="" className="btn btn-outline-dark m-1">
-                                        Writing
-                                    </a>
-                                    <a href="" className="btn btn-outline-dark m-1">
-                                        Consulting
-                                    </a>
+
                                 </div>
                             </div>
                             {/* Tags End */}

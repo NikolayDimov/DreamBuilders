@@ -22,6 +22,7 @@ export default function Create() {
     const [garage, setGarage] = useState('');
     const [pool, setPool] = useState('');
     const [img, setImg] = useState('');
+    const [descripion, setDescription] = useState('');
 
 
     async function createHouse(e) {
@@ -37,6 +38,7 @@ export default function Create() {
                 garage: garage,
                 pool: pool,
                 img: img,
+                descripion: descripion,
                 createdAt: new Date().toISOString(),
             });
             nav('/catalog');
@@ -81,13 +83,14 @@ export default function Create() {
                                     id="category"
                                     value={category}
                                     onChange={(e) => setCategory(e.target.value)}
+                                    required
                                 >
                                     <option value="" disabled>Select...</option>
-                                    <option value="oneStoryHouse">One-Story House</option>
-                                    <option value="twoStoryHouse">Two-Story House</option>
-                                    <option value="threeStoryHouse">Three-Story House</option>
-                                    <option value="townHouse">Town House</option>
-                                    <option value="mansion">Mansion</option>
+                                    <option value="One-Story House">One-Story House</option>
+                                    <option value="Two-Story House">Two-Story House</option>
+                                    <option value="Three-Story House">Three-Story House</option>
+                                    <option value="Town House">Town House</option>
+                                    <option value="Mansion">Mansion</option>
                                 </select>
                             </div>
 
@@ -101,13 +104,15 @@ export default function Create() {
                                     id="bedrooms"
                                     value={bedrooms}
                                     onChange={(e) => setBedrooms(e.target.value)}
+                                    required
                                 >
                                     <option value="" disabled>Select...</option>
-                                    <option value="one">1</option>
-                                    <option value="two">2</option>
-                                    <option value="three">3</option>
-                                    <option value="four">4</option>
-                                    <option value="five">5</option>
+                                    <option value="one">one</option>
+                                    <option value="two">two</option>
+                                    <option value="three">three</option>
+                                    <option value="four">four</option>
+                                    <option value="five">five</option>
+                                    <option value="six">six</option>
                                 </select>
                             </div>
 
@@ -121,23 +126,18 @@ export default function Create() {
                                     id="bathrooms"
                                     value={bathrooms}
                                     onChange={(e) => setBathrooms(e.target.value)}
+                                    required
                                 >
                                     <option value="" disabled>Select...</option>
-                                    <option value="one">1</option>
-                                    <option value="two">2</option>
-                                    <option value="three">3</option>
-                                    <option value="four">4</option>
+                                    <option value="one">one</option>
+                                    <option value="two">two</option>
+                                    <option value="three">three</option>
+                                    <option value="four">four</option>
+                                    <option value="five">five</option>
                                 </select>
                             </div>
 
                             <div className="form-group">
-                                {/* <p>
-                                    <label className="control control--checkbox mb-3 mb-sm-2">
-                                        <input type="checkbox" defaultChecked="" />
-                                        <span className="caption">Garage</span>
-                                        <div className="control__indicator" />
-                                    </label>
-                                </p> */}
                                 <p>
                                     <label htmlFor="garage">Garage</label>
                                 </p>
@@ -146,20 +146,14 @@ export default function Create() {
                                     onChange={(e) => setGarage(e.target.value)}
                                 >
                                     <option value="" disabled>Select...</option>
-                                    <option value="oneCarGarage">One-Car Garage</option>
-                                    <option value="twoCarGarage">Two-Car Garage</option>
-                                    <option value="threeCarGarage">Three-Car Garage</option>
+                                    <option value="One-Car Garage">One-Car Garage</option>
+                                    <option value="wo-Car Garage">Two-Car Garage</option>
+                                    <option value="Three-Car Garage">Three-Car Garage</option>
+                                    <option value="Four-Car Garage">Four-Car Garage</option>
                                 </select>
                             </div>
 
                             <div className="form-group">
-                                {/* <p>
-                                    <label className="control control--checkbox mb-3 mb-sm-2">
-                                        <input type="checkbox" defaultChecked="" />
-                                        <span className="caption">Pool</span>
-                                        <div className="control__indicator" />
-                                    </label>
-                                </p> */}
                                 <p>
                                     <label htmlFor="pool">Pool</label>
                                 </p>
@@ -168,12 +162,12 @@ export default function Create() {
                                     onChange={(e) => setPool(e.target.value)}
                                 >
                                     <option value="" disabled>Select...</option>
-                                    <option value="small">Small: 5 x 4 m</option>
-                                    <option value="medium">Medium: 7 x 4 m</option>
-                                    <option value="large">Large: 10 x 5 m</option>
-                                    <option value="extraLarge">Extra Large: 15 x 6 m</option>
-                                    <option value="circle">circle</option>
-                                    <option value="nonStandardShape">non-standard shape</option>
+                                    <option value="Small">Small</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Large">Large</option>
+                                    <option value="Extra Large">Extra Large</option>
+                                    <option value="Circle">Circle</option>
+                                    <option value="Non-standard Shape">Non-standard Shape</option>
                                 </select>
                             </div>
 
@@ -187,7 +181,22 @@ export default function Create() {
                                     name="img"
                                     value={img}
                                     onChange={(e) => setImg(e.target.value)}
+                                    required
                                 />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="desctiption">Description</label>
+                                <textarea
+                                    rows="4"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Description text"
+                                    id="descripion"
+                                    name="descripion"
+                                    value={descripion}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                ></textarea>
                             </div>
 
                         </section>
@@ -199,6 +208,6 @@ export default function Create() {
                 </div>
 
             </div>
-        </div>
+        </div >
     );
 }

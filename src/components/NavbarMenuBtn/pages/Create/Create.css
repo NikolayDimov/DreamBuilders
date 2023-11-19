@@ -106,8 +106,9 @@ label {
 }
 
 
-.control:hover input ~ .control__indicator, .control input:focus ~ .control__indicator {
-  background: #ccc;
+.control:hover input~.control__indicator,
+.control input:focus~.control__indicator {
+    background: #ccc;
 }
 
 .control__indicator {
@@ -120,11 +121,11 @@ label {
     border-radius: 4px;
 }
 
-.control input:checked ~ .control__indicator {
+.control input:checked~.control__indicator {
     background: #fb771a;
-  }
+}
 
-.control input:checked ~ .control__indicator::after {
+.control input:checked~.control__indicator::after {
     display: block;
     color: #fff;
 }
@@ -215,6 +216,19 @@ button {
 }
 
 .form-group {
-   margin-right: 20px;
-   flex-basis: 30%;
+    margin-right: 20px;
+    flex-basis: 30%;
+}
+
+
+
+
+.form-group:last-child {
+    flex-basis: 96%;
+    width: 100%;
+
+}
+
+.form-group:last-child textarea {
+    height: auto;
 }
