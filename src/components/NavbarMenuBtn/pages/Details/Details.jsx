@@ -115,7 +115,7 @@ export default function Details() {
                             <Link to="/">Home</Link>
                         </h6>
                         <h6 className="text-white m-0 px-3">/</h6>
-                        <h6 className="text-uppercase text-white m-0">Back</h6>
+                        <h6 className="text-uppercase text-white m-0"><Link to="/catalog">Catalog</Link></h6>
                     </div>
                 </div>
                 {/* Page Header Start */}
