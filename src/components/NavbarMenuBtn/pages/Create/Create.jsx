@@ -5,7 +5,6 @@ import { useAuth } from '../../../../contexts/AuthContext';
 import { firestore_db } from '../../../../firebase';
 import { collection, addDoc } from 'firebase/firestore';
 
-import Validation from '../../../../utils/validation';
 
 import './Create.css';
 
@@ -28,11 +27,6 @@ export default function Create() {
         description: ''
     });
 
-    const [errors, setErrors] = useState({});
-    function handleValidation(e) {
-        e.preventDefault();
-        setErrors(Validation(createdValues));
-    }
 
     const changeHandler = (e) => {
         setCreatedValues(state => ({ ...state, [e.target.name]: e.target.value }));
@@ -81,12 +75,8 @@ export default function Create() {
                                     id="projectName"
                                     name="projectName"
                                     value={createdValues.projectName}
-                                    onChange={(e) => {
-                                        changeHandler(e);
-                                        handleValidation(e);
-                                    }}
+                                    onChange={(e) => changeHandler(e)}
                                 />
-                                {errors.projectName && <p className="errors">{errors.projectName}</p>}
                             </div>
 
                             <div className="form-group">
@@ -98,10 +88,7 @@ export default function Create() {
                                     name="category"
                                     id="category"
                                     value={createdValues.category}
-                                    onChange={(e) => {
-                                        changeHandler(e);
-                                        handleValidation(e);
-                                    }}
+                                    onChange={(e) => changeHandler(e)}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="One-Story House">One-Story House</option>
@@ -110,7 +97,6 @@ export default function Create() {
                                     <option value="Town House">Town House</option>
                                     <option value="Mansion">Mansion</option>
                                 </select>
-                                {errors.category && <p className="errors">{errors.category}</p>}
                             </div>
 
                             <div className="form-group">

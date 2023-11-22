@@ -35,8 +35,8 @@ export function AuthProvider({ children }) {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             setIsLoggedIn(true);
-            nav('/profile');
             localStorage.setItem('isUserLoggedIn', 'true')
+            nav('/profile');
         } catch (error) {
             console.error('Login error:', error);
         }
@@ -46,8 +46,8 @@ export function AuthProvider({ children }) {
         try {
             await createUserWithEmailAndPassword(auth, email, password);
             setIsLoggedIn(true);
-            nav('/profile');
             localStorage.setItem('isUserLoggedIn', 'true')
+            nav('/profile');
         } catch (error) {
             console.error('Registration error:', error);
         }

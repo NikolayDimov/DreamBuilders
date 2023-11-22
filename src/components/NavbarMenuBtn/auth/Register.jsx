@@ -1,4 +1,5 @@
 import { useState } from "react";
+// import { useForm } from 'react-hook-form'
 import { useAuth } from '../../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 
@@ -11,6 +12,7 @@ function Register() {
     const { register } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    // const { registerHook, formState: { errors } } = useForm();
 
 
     const handleRegister = async (e) => {
@@ -41,6 +43,7 @@ function Register() {
                                     placeholder="Enter your Email"
                                     id="email"
                                     value={email}
+                                    // {...registerHook('email', { required: 'Email name is required' })}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
@@ -54,6 +57,7 @@ function Register() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
+                                {errors.email && <p>{errors.email.message}</p>}
                             </div>
                             <div className="d-sm-flex mb-5 align-items-center">
                                 <label className="control control--checkbox mb-3 mb-sm-0">
