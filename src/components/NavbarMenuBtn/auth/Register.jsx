@@ -57,7 +57,7 @@ function Register() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
-                                {errors.email && <p>{errors.email.message}</p>}
+                                {/* {errors.email && <p>{errors.email.message}</p>} */}
                             </div>
                             <div className="d-sm-flex mb-5 align-items-center">
                                 <label className="control control--checkbox mb-3 mb-sm-0">
