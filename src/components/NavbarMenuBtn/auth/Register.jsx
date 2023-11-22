@@ -13,6 +13,7 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     // const { registerHook, formState: { errors } } = useForm();
+    const hasError = password.length < 6
 
 
     const handleRegister = async (e) => {
@@ -46,6 +47,7 @@ function Register() {
                                     // {...registerHook('email', { required: 'Email name is required' })}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
+
                             </div>
                             <div className="form-group last mb-3">
                                 <label htmlFor="password">Password</label>
@@ -57,6 +59,7 @@ function Register() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
+                                {hasError && <span>Email should be longer</span>}
                                 {/* {errors.email && <p>{errors.email.message}</p>} */}
                             </div>
                             <div className="d-sm-flex mb-5 align-items-center">
