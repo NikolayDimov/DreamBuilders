@@ -28,7 +28,7 @@ export default function Edit() {
         };
 
         fetchData();
-    }, [location.state]);
+    }, [location.state], id);
 
     // console.log(projectDetails);
     // console.log(id);
@@ -132,11 +132,12 @@ export default function Edit() {
                                     onChange={(e) => changeHandler(e)}
                                 >
                                     <option value="" disabled>Select...</option>
-                                    <option value="one">1</option>
-                                    <option value="two">2</option>
-                                    <option value="three">3</option>
-                                    <option value="four">4</option>
-                                    <option value="five">5</option>
+                                    <option value="one">one</option>
+                                    <option value="two">two</option>
+                                    <option value="three">three</option>
+                                    <option value="four">four</option>
+                                    <option value="five">five</option>
+                                    <option value="six">six</option>
                                 </select>
                             </div>
 
@@ -152,21 +153,15 @@ export default function Edit() {
                                     onChange={(e) => changeHandler(e)}
                                 >
                                     <option value="" disabled>Select...</option>
-                                    <option value="one">1</option>
-                                    <option value="two">2</option>
-                                    <option value="three">3</option>
-                                    <option value="four">4</option>
+                                    <option value="one">one</option>
+                                    <option value="two">two</option>
+                                    <option value="three">three</option>
+                                    <option value="four">four</option>
+                                    <option value="five">five</option>
                                 </select>
                             </div>
 
                             <div className="form-group">
-                                {/* <p>
-                                    <label className="control control--checkbox mb-3 mb-sm-2">
-                                        <input type="checkbox" defaultChecked="" />
-                                        <span className="caption">Garage</span>
-                                        <div className="control__indicator" />
-                                    </label>
-                                </p> */}
                                 <p>
                                     <label htmlFor="garage">Garage</label>
                                 </p>
@@ -175,20 +170,14 @@ export default function Edit() {
                                     onChange={(e) => changeHandler(e)}
                                 >
                                     <option value="" disabled>Select...</option>
-                                    <option value="oneCarGarage">One-Car Garage</option>
-                                    <option value="twoCarGarage">Two-Car Garage</option>
-                                    <option value="threeCarGarage">Three-Car Garage</option>
+                                    <option value="One-Car Garage">One-Car Garage</option>
+                                    <option value="Two-Car Garage">Two-Car Garage</option>
+                                    <option value="Three-Car Garage">Three-Car Garage</option>
+                                    <option value="Four-Car Garage">Four-Car Garage</option>
                                 </select>
                             </div>
 
                             <div className="form-group">
-                                {/* <p>
-                                    <label className="control control--checkbox mb-3 mb-sm-2">
-                                        <input type="checkbox" defaultChecked="" />
-                                        <span className="caption">Pool</span>
-                                        <div className="control__indicator" />
-                                    </label>
-                                </p> */}
                                 <p>
                                     <label htmlFor="pool">Pool</label>
                                 </p>
@@ -197,12 +186,12 @@ export default function Edit() {
                                     onChange={(e) => changeHandler(e)}
                                 >
                                     <option value="" disabled>Select...</option>
-                                    <option value="small">Small: 5 x 4 m</option>
-                                    <option value="medium">Medium: 7 x 4 m</option>
-                                    <option value="large">Large: 10 x 5 m</option>
-                                    <option value="extraLarge">Extra Large: 15 x 6 m</option>
-                                    <option value="circle">circle</option>
-                                    <option value="nonStandardShape">non-standard shape</option>
+                                    <option value="Small">Small</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Large">Large</option>
+                                    <option value="Extra Large">Extra Large</option>
+                                    <option value="Circle">Circle</option>
+                                    <option value="Non-standard Shape">Non-standard Shape</option>
                                 </select>
                             </div>
 

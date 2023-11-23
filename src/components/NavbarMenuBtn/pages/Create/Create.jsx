@@ -152,7 +152,7 @@ export default function Create() {
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="One-Car Garage">One-Car Garage</option>
-                                    <option value="wo-Car Garage">Two-Car Garage</option>
+                                    <option value="Two-Car Garage">Two-Car Garage</option>
                                     <option value="Three-Car Garage">Three-Car Garage</option>
                                     <option value="Four-Car Garage">Four-Car Garage</option>
                                 </select>
