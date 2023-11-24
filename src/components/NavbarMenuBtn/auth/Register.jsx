@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import { useForm } from 'react-hook-form'
 import { useAuth } from '../../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 
@@ -10,16 +9,22 @@ import './Register.css';
 
 function Register() {
     const { register } = useAuth();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    // const { registerHook, formState: { errors } } = useForm();
-    const hasError = password.length < 6
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
 
+    const [values, setValues] = useState({
+        email: '',
+        password: '',
+        confirmPassword: ''
+    });
+
+
+    console.log(`email: ${values.email}, password: ${values.password}`);
 
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            await register(email, password);
+            await register(values.email, values.password);
         } catch (error) {
             console.error('Registration error:', error);
             console.error('Registration error message:', error.message);
@@ -43,9 +48,10 @@ function Register() {
                                     className="form-control"
                                     placeholder="Enter your Email"
                                     id="email"
-                                    value={email}
-                                    // {...registerHook('email', { required: 'Email name is required' })}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    name="email"
+                                    value={values.email}
+                                    // onChange={(e) => setEmail(e.target.value }
+                                    onChange={(e) => setValues({ ...values, email: e.target.value })}
                                 />
 
                             </div>
@@ -56,11 +62,12 @@ function Register() {
                                     className="form-control"
                                     placeholder="Enter your Password"
                                     id="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    name="password"
+                                    value={values.password}
+                                    onChange={(e) => setValues({ ...values, password: e.target.value })}
+
                                 />
-                                {hasError && <span>Email should be longer</span>}
-                                {/* {errors.email && <p>{errors.email.message}</p>} */}
+
                             </div>
                             <div className="d-sm-flex mb-5 align-items-center">
                                 <label className="control control--checkbox mb-3 mb-sm-0">
@@ -68,11 +75,6 @@ function Register() {
                                     <span className="caption">Remember me</span>
                                     <div className="control__indicator" />
                                 </label>
-                                {/* <span className="ml-auto">
-                                        <a href="#" className="forgot-pass">
-                                            Forgot Password
-                                        </a>
-                                    </span> */}
                             </div>
                             <button className="btn btn-block btn-primary btn-margin" type="submit">Create Account</button>
 
