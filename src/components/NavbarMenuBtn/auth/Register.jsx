@@ -132,7 +132,6 @@ function Register() {
                                     name="email"
                                     value={values.email}
                                     onChange={changeHandler}
-                                    required
                                 />
                                 {emailError && <p className='error'>{emailError}</p>}
                             </div>
@@ -147,7 +146,6 @@ function Register() {
                                     name="password"
                                     value={values.password}
                                     onChange={changeHandler}
-                                    required
                                 />
                                 {passwordError && <p className='error'>{passwordError}</p>}
                             </div>
@@ -162,7 +160,6 @@ function Register() {
                                     name="confirmPassword"
                                     value={values.confirmPassword}
                                     onChange={changeHandler}
-                                    required
                                 />
                                 {confirmPassError && <p className='error'>{confirmPassError}</p>}
                             </div>

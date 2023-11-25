@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from '../../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import './Login.css';
@@ -7,18 +7,92 @@ import './Login.css';
 
 function Login() {
     const { login } = useAuth();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [firebaseError, setFirebaseError] = useState('');
+
+    const [values, setValues] = useState({
+        email: '',
+        password: '',
+    });
+
+
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+
+    // Function to validate email
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let isEmailValid = true;
+        setEmailError('');
+
+        if (email === '') {
+            setEmailError('Email is required');
+            isEmailValid = false;
+            return isEmailValid;
+        }
+
+        if (!emailRegex.test(email)) {
+            setEmailError('Provide a valid email address');
+            isEmailValid = false;
+            return isEmailValid;
+        }
+
+        return isEmailValid;
+    }
+
+
+    // Function to validate password
+    function validatePassword(pass) {
+
+        let isPasswordValid = true;
+        setPasswordError('');
+
+        if (pass === '') {
+            setPasswordError('Password is required');
+            isPasswordValid = false;
+            return isPasswordValid;
+        }
+
+        if (pass.length < 6 || pass.length > 12) {
+            setPasswordError('Password must be between 6 and 12 characters long');
+            isPasswordValid = false;
+            return isPasswordValid;
+        }
+
+        return isPasswordValid;
+    }
+
+
+    const changeHandler = (e) => {
+        setValues((state) => ({ ...state, [e.target.name]: e.target.value }));
+    };
 
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-          await login(email, password);
+            let isEmailValid = validateEmail(values.email);
+            let isPasswordValid = validatePassword(values.password);
+
+            if (!isEmailValid || !isPasswordValid) {
+                console.log(`email: ${values.email}`);
+                console.log(`password: ${values.password}`);
+            } else {
+                await login(values.email, values.password);
+            }
         } catch (error) {
-          console.error('Login error:', error);
+            console.error('Login error:', error);
+            console.error('login error message:', error.message);
+            let errorMessage = 'Invalid email or password. Please try again.';
+
+            // Check if the error from Firebase has more specific information
+            if (error.code === 400) {
+                errorMessage = 'Invalid email or password. Please check your credentials and try again.';
+            }
+
+            console.log('Setting firebase error:', errorMessage);
+            setFirebaseError(errorMessage);
         }
-      };
+    };
 
 
 
@@ -30,29 +104,39 @@ function Login() {
                         <div className="title">
                             <h3>Login</h3>
                         </div>
-                        <form onSubmit={handleLogin}>
+                        <form onSubmit={handleLogin} noValidate>
+
                             <div className="form-group first">
                                 <label htmlFor="username">Email</label>
                                 <input
-                                    type="text"
+                                    type="email"
                                     className="form-control"
-                                    placeholder="Enter your Email"
-                                    id="username"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Enter your email"
+                                    id="email"
+                                    name="email"
+                                    value={values.email}
+                                    onChange={changeHandler}
                                 />
+                                {emailError && <p className='error'>{emailError}</p>}
                             </div>
+
                             <div className="form-group last mb-3">
                                 <label htmlFor="password">Password</label>
                                 <input
                                     type="password"
                                     className="form-control"
-                                    placeholder="Enter your Password"
+                                    placeholder="Enter your password"
                                     id="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    name="password"
+                                    value={values.password}
+                                    onChange={changeHandler}
                                 />
+                                {passwordError && <p className='error'>{passwordError}</p>}
                             </div>
+
+                            {firebaseError}
+                            {firebaseError && <p className='error'>{firebaseError}</p>}
+
                             <div className="d-sm-flex mb-5 align-items-center">
                                 <label className="control control--checkbox mb-3 mb-sm-0">
                                     <input type="checkbox" defaultChecked="checked" />

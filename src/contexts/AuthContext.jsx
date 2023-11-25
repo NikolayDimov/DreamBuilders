@@ -38,7 +38,7 @@ export function AuthProvider({ children }) {
             localStorage.setItem('isUserLoggedIn', 'true')
             nav('/profile');
         } catch (error) {
-            console.error('Login error:', error);
+            console.error('Login error:', error.message);
         }
     };
 
