@@ -39,6 +39,8 @@ export function AuthProvider({ children }) {
             nav('/profile');
         } catch (error) {
             console.error('Login error:', error.message);
+            console.error('Error in login function:', error);
+            return Promise.reject(error);
         }
     };
 

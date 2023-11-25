@@ -78,23 +78,18 @@ function Login() {
                 console.log(`password: ${values.password}`);
             } else {
                 await login(values.email, values.password);
+                console.log('Login successful.');
             }
         } catch (error) {
             console.error('Login error:', error);
             console.error('login error message:', error.message);
-            let errorMessage = 'Invalid email or password. Please try again.';
 
-            // Check if the error from Firebase has more specific information
-            if (error.code === 400) {
-                errorMessage = 'Invalid email or password. Please check your credentials and try again.';
-            }
-
+            let errorMessage = 'Invalid email or password!';
             console.log('Setting firebase error:', errorMessage);
             setFirebaseError(errorMessage);
-        }
-    };
+        };
 
-
+    }
 
     return (
         <div className="container-login">
@@ -134,8 +129,9 @@ function Login() {
                                 {passwordError && <p className='error'>{passwordError}</p>}
                             </div>
 
-                            {firebaseError}
+
                             {firebaseError && <p className='error'>{firebaseError}</p>}
+
 
                             <div className="d-sm-flex mb-5 align-items-center">
                                 <label className="control control--checkbox mb-3 mb-sm-0">
