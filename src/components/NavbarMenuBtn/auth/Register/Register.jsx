@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../../../../contexts/AuthContext';
+import { useRegsterFormError } from './RegisterErrorHadnler'
 import { Link } from 'react-router-dom';
 
 import './Register.css';
@@ -16,74 +17,12 @@ function Register() {
     });
 
 
-    const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-    const [confirmPassError, setConfirmPassError] = useState('');
-
-    // Function to validate email
-    function validateEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        let isEmailValid = true;
-        setEmailError('');
-
-        if (email === '') {
-            setEmailError('Email is required');
-            isEmailValid = false;
-            return isEmailValid;
-        }
-
-        if (!emailRegex.test(email)) {
-            setEmailError('Provide a valid email address');
-            isEmailValid = false;
-            return isEmailValid;
-        }
-
-        return isEmailValid;
-    }
-
-
-    // Function to validate password
-    function validatePassword(pass) {
-
-        let isPasswordValid = true;
-        setPasswordError('');
-
-        if (pass === '') {
-            setPasswordError('Password is required');
-            isPasswordValid = false;
-            return isPasswordValid;
-        }
-
-        if (pass.length < 6 || pass.length > 12) {
-            setPasswordError('Password must be between 6 and 12 characters long');
-            isPasswordValid = false;
-            return isPasswordValid;
-        }
-
-        return isPasswordValid;
-    }
-
-
-    // Function to validate confirmPassword
-    function validateConfirmPassword(confirmPass) {
-
-        let isConfirmPassword = true;
-        setConfirmPassError('');
-
-        if (confirmPass === '') {
-            setConfirmPassError('Confirm Password is required');
-            isConfirmPassword = false;
-            return isConfirmPassword;
-        }
-
-        if (confirmPass != values.password) {
-            setConfirmPassError('Passwords do not match');
-            isConfirmPassword = false;
-            return isConfirmPassword;
-        }
-
-        return isConfirmPassword;
-    }
+    const {
+        formErrors,
+        validateEmail,
+        validatePassword,
+        validateConfirmPassword
+    } = useRegsterFormError();
 
 
 
@@ -104,6 +43,7 @@ function Register() {
                 console.log(`confirmPass: ${values.confirmPassword}`);
             } else {
                 await register(values.email, values.password);
+                console.log('Register successful.');
             }
         } catch (error) {
             console.error('Registration error:', error);
@@ -133,7 +73,7 @@ function Register() {
                                     value={values.email}
                                     onChange={changeHandler}
                                 />
-                                {emailError && <p className='error'>{emailError}</p>}
+                                {formErrors.email && <p className='error'>{formErrors.email}</p>}
                             </div>
 
                             <div className="form-group last mb-3">
@@ -147,7 +87,7 @@ function Register() {
                                     value={values.password}
                                     onChange={changeHandler}
                                 />
-                                {passwordError && <p className='error'>{passwordError}</p>}
+                                {formErrors.password && <p className='error'>{formErrors.password}</p>}
                             </div>
 
                             <div className="form-group last mb-3">
@@ -161,7 +101,7 @@ function Register() {
                                     value={values.confirmPassword}
                                     onChange={changeHandler}
                                 />
-                                {confirmPassError && <p className='error'>{confirmPassError}</p>}
+                                {formErrors.confirmPassword && <p className='error'>{formErrors.confirmPassword}</p>}
                             </div>
 
                             <div className="d-sm-flex mb-5 align-items-center">
