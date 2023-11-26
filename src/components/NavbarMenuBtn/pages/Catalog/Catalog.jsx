@@ -58,7 +58,7 @@ export default function Catalog() {
                 {isLoading ? (
                     // Show a spinner or loading message while data is being fetched
                     <div className="text-center">
-                        <span class="loader"></span>
+                        <span className="loader"></span>
                     </div>
                 ) : (
                     // Render the content when data has been loaded

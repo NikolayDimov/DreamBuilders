@@ -54,9 +54,7 @@ export function useRegsterFormError() {
             setFormErrors((errors) => ({ ...errors, confirmPassword: 'Confirm Password is required' }));
             isConfirmPassword = false;
             return isConfirmPassword;
-        }
-
-        if (confirmPassword != password) {
+        } else if (confirmPassword != password) {
             setFormErrors((errors) => ({ ...errors, confirmPassword: 'Passwords do not match' }));
             isConfirmPassword = false;
             return isConfirmPassword;

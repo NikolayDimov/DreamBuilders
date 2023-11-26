@@ -39,6 +39,28 @@ export default function Create() {
 
 
 
+    const handleProjectNamelBlur = () => {
+        validateProjectName(createdValues.projectName);
+    };
+
+    const handleCategoryBlur = () => {
+        validateCategory(createdValues.category);
+    };
+
+    const handleBedroomsBlur = () => {
+        validateBedrooms(createdValues.bedrooms);
+    };
+
+    const handleBathroomsBlur = () => {
+        validateBathrooms(createdValues.bathrooms);
+    };
+
+    const handleImageBlur = () => {
+        validateImage(createdValues.image);
+    };
+
+
+
     const changeHandler = (e) => {
         setCreatedValues(state => ({ ...state, [e.target.name]: e.target.value }));
     };
@@ -100,6 +122,7 @@ export default function Create() {
                                     name="projectName"
                                     value={createdValues.projectName}
                                     onChange={(e) => changeHandler(e)}
+                                    onBlur={handleProjectNamelBlur}
                                 />
                                 {formErrors.projectName && <p className='error'>{formErrors.projectName}</p>}
                             </div>
@@ -114,6 +137,7 @@ export default function Create() {
                                     id="category"
                                     value={createdValues.category}
                                     onChange={(e) => changeHandler(e)}
+                                    onBlur={handleCategoryBlur}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="One-Story House">One-Story House</option>
@@ -135,7 +159,7 @@ export default function Create() {
                                     id="bedrooms"
                                     value={createdValues.bedrooms}
                                     onChange={changeHandler}
-                                    required
+                                    onBlur={handleBedroomsBlur}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="one">one</option>
@@ -158,7 +182,7 @@ export default function Create() {
                                     id="bathrooms"
                                     value={createdValues.bathrooms}
                                     onChange={changeHandler}
-                                    required
+                                    onBlur={handleBathroomsBlur}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="one">one</option>
@@ -214,7 +238,7 @@ export default function Create() {
                                     name="img"
                                     value={createdValues.img}
                                     onChange={changeHandler}
-                                    required
+                                    onBlur={handleImageBlur}
                                 />
                                 {formErrors.image && <p className='error'>{formErrors.image}</p>}
                             </div>
