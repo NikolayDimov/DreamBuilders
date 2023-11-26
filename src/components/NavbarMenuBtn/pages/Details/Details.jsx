@@ -254,15 +254,14 @@ export default function Details() {
                             {/* Tags End */}
                             {/* Plain Text Start */}
                             <div>
-                                <h3 className="text-uppercase mb-4">Plain Text</h3>
+                                <h3 className="text-uppercase mb-4">Like this project?</h3>
                                 <div className="bg-light rounded text-center" style={{ padding: 30 }}>
                                     <p>
-                                        Vero sea et accusam justo dolor accusam lorem consetetur, dolores
-                                        sit amet sit dolor clita kasd justo, diam accusam no sea ut tempor
-                                        magna takimata, amet sit et diam dolor ipsum amet diam
+                                        If you like this project and find it really cool, you're welcome to use it for a project at your future home.
+                                        Just get in touch with us, and we'll provide you with details about the project and pricing.
                                     </p>
                                     <a href="" className="btn btn-primary py-2 px-4">
-                                        Read More
+                                        Contact Us
                                     </a>
                                 </div>
                             </div>
