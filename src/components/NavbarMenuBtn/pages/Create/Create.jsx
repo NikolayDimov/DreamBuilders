@@ -39,6 +39,7 @@ export default function Create() {
     });
 
 
+    // This object replace all 5 function below
     const {
         handleProjectNameBlur,
         handleCategoryBlur,
@@ -84,7 +85,7 @@ export default function Create() {
             let isImageValid = validateImage(createdValues.img);
 
             if (!isProjectNameValid || !isCategoryValid || !isBedroomsValid || !isBathroomsValid || !isImageValid) {
-                console.log(`projectName: ${createdValues.projectName}`);
+                console.log(`Values can no be empty strings`);
             } else {
                 await addDoc(userCollectionRef, {
                     owner_uid: user.uid,
@@ -99,6 +100,8 @@ export default function Create() {
                     description: createdValues.description,
                     createdAt: new Date().toISOString(),
                 });
+
+                console.log('Project created successfully');
                 nav('/catalog');
             }
 
@@ -106,6 +109,8 @@ export default function Create() {
             console.error(error);
         }
     }
+
+
 
     return (
         <div className="container-create">

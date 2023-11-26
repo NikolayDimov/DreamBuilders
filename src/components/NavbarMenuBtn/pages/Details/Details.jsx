@@ -274,7 +274,7 @@ export default function Details() {
             </div>)
             : (
                 <div className="text-center loading-text">
-                    <span class="loader"></span>
+                    <span className="loader"></span>
                 </div>
             )}
         </>

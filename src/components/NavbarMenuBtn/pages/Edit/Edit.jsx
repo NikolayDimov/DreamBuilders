@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { useEditFormError } from './EditErrorHadnler'
 
 import { firestore_db } from '../../../../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
@@ -10,6 +11,7 @@ import './Edit.css';
 
 
 export default function Edit() {
+
     const location = useLocation();
     const nav = useNavigate();
     const { id } = useParams();
@@ -20,8 +22,9 @@ export default function Edit() {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (location.state && location.state.projectDetails) {
-                setProjectDetails(location.state.projectDetails);
+            if (location.state && location.state?.projectDetails) {
+                const valuesComingFromLocationState = location.state?.projectDetails;
+                setProjectDetails(valuesComingFromLocationState);
             } else {
                 console.error('No project details found in location.state');
             }
@@ -32,6 +35,26 @@ export default function Edit() {
 
     // console.log(projectDetails);
     // console.log(id);
+
+
+
+    const {
+        formErrors,
+        validateProjectName,
+        validateCategory,
+        validateBedrooms,
+        validateBathrooms,
+        validateImage,
+        getBlurHandlers
+    } = useEditFormError();
+
+    const {
+        handleProjectNameBlur,
+        handleCategoryBlur,
+        handleBedroomsBlur,
+        handleBathroomsBlur,
+        handleImageBlur,
+    } = getBlurHandlers(projectDetails);
 
 
     const changeHandler = (e) => {
@@ -46,19 +69,31 @@ export default function Edit() {
             if (projectDetails) {
                 const projectDetailsRef = doc(firestore_db, 'houses', id);
 
-                await updateDoc(projectDetailsRef, {
-                    projectName: projectDetails.projectName,
-                    category: projectDetails.category,
-                    bedrooms: projectDetails.bedrooms,
-                    bathrooms: projectDetails.bathrooms,
-                    garage: projectDetails.garage,
-                    pool: projectDetails.pool,
-                    img: projectDetails.img,
-                    description: projectDetails.description,
-                });
+                let isProjectNameValid = validateProjectName(projectDetails.projectName);
+                let isCategoryValid = validateCategory(projectDetails.category);
+                let isBedroomsValid = validateBedrooms(projectDetails.bedrooms);
+                let isBathroomsValid = validateBathrooms(projectDetails.bathrooms);
+                let isImageValid = validateImage(projectDetails.img);
 
-                console.log('Project details updated successfully');
-                nav(`/catalog/${id}`);
+                if (!isProjectNameValid || !isCategoryValid || !isBedroomsValid || !isBathroomsValid || !isImageValid) {
+                    console.log(`Values can no be empty strings`);
+                } else {
+                    await updateDoc(projectDetailsRef, {
+                        projectName: projectDetails.projectName,
+                        category: projectDetails.category,
+                        bedrooms: projectDetails.bedrooms,
+                        bathrooms: projectDetails.bathrooms,
+                        garage: projectDetails.garage,
+                        pool: projectDetails.pool,
+                        img: projectDetails.img,
+                        description: projectDetails.description,
+                    });
+
+                    console.log('Project details updated successfully');
+                    nav(`/catalog/${id}`);
+                }
+
+
             } else {
                 console.error('No project details found to update');
             }
@@ -83,7 +118,7 @@ export default function Edit() {
                     <div className="title">
                         <h3>Edit you own house {(projectDetails.owner_email.split('@'))[0] || ''} </h3>
                     </div>
-                    <form onSubmit={handleEditSubmit}>
+                    <form onSubmit={handleEditSubmit} noValidate>
 
                         <section className='inputs-fields'>
 
@@ -97,7 +132,9 @@ export default function Edit() {
                                     name="projectName"
                                     value={projectDetails.projectName}
                                     onChange={(e) => changeHandler(e)}
+                                    onBlur={handleProjectNameBlur}
                                 />
+                                {formErrors.projectName && <p className='error'>{formErrors.projectName}</p>}
                             </div>
 
                             <div className="form-group">
@@ -110,6 +147,7 @@ export default function Edit() {
                                     id="category"
                                     value={projectDetails.category}
                                     onChange={(e) => changeHandler(e)}
+                                    onBlur={handleCategoryBlur}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="oneStoryHouse">One-Story House</option>
@@ -118,6 +156,7 @@ export default function Edit() {
                                     <option value="townHouse">Town House</option>
                                     <option value="mansion">Mansion</option>
                                 </select>
+                                {formErrors.category && <p className='error'>{formErrors.category}</p>}
                             </div>
 
                             <div className="form-group">
@@ -130,6 +169,7 @@ export default function Edit() {
                                     id="bedrooms"
                                     value={projectDetails.bedrooms}
                                     onChange={(e) => changeHandler(e)}
+                                    onBlur={handleBedroomsBlur}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="one">one</option>
@@ -139,6 +179,7 @@ export default function Edit() {
                                     <option value="five">five</option>
                                     <option value="six">six</option>
                                 </select>
+                                {formErrors.bedrooms && <p className='error'>{formErrors.bedrooms}</p>}
                             </div>
 
                             <div className="form-group">
@@ -151,6 +192,7 @@ export default function Edit() {
                                     id="bathrooms"
                                     value={projectDetails.bathrooms}
                                     onChange={(e) => changeHandler(e)}
+                                    onBlur={handleBathroomsBlur}
                                 >
                                     <option value="" disabled>Select...</option>
                                     <option value="one">one</option>
@@ -159,6 +201,7 @@ export default function Edit() {
                                     <option value="four">four</option>
                                     <option value="five">five</option>
                                 </select>
+                                {formErrors.bathrooms && <p className='error'>{formErrors.bathrooms}</p>}
                             </div>
 
                             <div className="form-group">
@@ -196,7 +239,7 @@ export default function Edit() {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="Picture">Picture</label>
+                                <label htmlFor="Picture">Project Image</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -205,7 +248,9 @@ export default function Edit() {
                                     name="img"
                                     value={projectDetails.img}
                                     onChange={(e) => changeHandler(e)}
+                                    onBlur={handleImageBlur}
                                 />
+                                {formErrors.image && <p className='error'>{formErrors.image}</p>}
                             </div>
 
                             <div className="form-group">
