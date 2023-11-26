@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useFormError } from './CreateErrorHadnler'; // Import the useForm hook
 
 import { useAuth } from '../../../../contexts/AuthContext';
 import { firestore_db } from '../../../../firebase';
@@ -15,6 +16,15 @@ export default function Create() {
     const { user } = useAuth();
     const userCollectionRef = collection(firestore_db, 'houses');
 
+    const {
+        formErrors,
+        validateProjectName,
+        validateCategory,
+        validateBedrooms,
+        validateBathrooms,
+        validateImage
+    } = useFormError();
+
 
     const [createdValues, setCreatedValues] = useState({
         projectName: '',
@@ -28,27 +38,40 @@ export default function Create() {
     });
 
 
+
     const changeHandler = (e) => {
         setCreatedValues(state => ({ ...state, [e.target.name]: e.target.value }));
     };
 
+
     async function createHouse(e) {
         e.preventDefault();
         try {
-            await addDoc(userCollectionRef, {
-                owner_uid: user.uid,
-                owner_email: user.email,
-                projectName: createdValues.projectName,
-                category: createdValues.category,
-                bedrooms: createdValues.bedrooms,
-                bathrooms: createdValues.bathrooms,
-                garage: createdValues.garage,
-                pool: createdValues.pool,
-                img: createdValues.img,
-                description: createdValues.description,
-                createdAt: new Date().toISOString(),
-            });
-            nav('/catalog');
+            let isProjectNameValid = validateProjectName(createdValues.projectName);
+            let isCategoryValid = validateCategory(createdValues.category);
+            let isBedroomsValid = validateBedrooms(createdValues.bedrooms);
+            let isBathroomsValid = validateBathrooms(createdValues.bathrooms);
+            let isImageValid = validateImage(createdValues.img);
+
+            if (!isProjectNameValid || !isCategoryValid || !isBedroomsValid || !isBathroomsValid || !isImageValid) {
+                console.log(`projectName: ${createdValues.projectName}`);
+            } else {
+                await addDoc(userCollectionRef, {
+                    owner_uid: user.uid,
+                    owner_email: user.email,
+                    projectName: createdValues.projectName,
+                    category: createdValues.category,
+                    bedrooms: createdValues.bedrooms,
+                    bathrooms: createdValues.bathrooms,
+                    garage: createdValues.garage,
+                    pool: createdValues.pool,
+                    img: createdValues.img,
+                    description: createdValues.description,
+                    createdAt: new Date().toISOString(),
+                });
+                nav('/catalog');
+            }
+
         } catch (error) {
             console.error(error);
         }
@@ -62,7 +85,8 @@ export default function Create() {
                     <div className="title">
                         <h3>Create you own house {(user.email.split('@'))[0]} </h3>
                     </div>
-                    <form onSubmit={createHouse}>
+
+                    <form onSubmit={createHouse} noValidate>
 
                         <section className='inputs-fields'>
 
@@ -77,6 +101,7 @@ export default function Create() {
                                     value={createdValues.projectName}
                                     onChange={(e) => changeHandler(e)}
                                 />
+                                {formErrors.projectName && <p className='error'>{formErrors.projectName}</p>}
                             </div>
 
                             <div className="form-group">
@@ -97,6 +122,7 @@ export default function Create() {
                                     <option value="Town House">Town House</option>
                                     <option value="Mansion">Mansion</option>
                                 </select>
+                                {formErrors.category && <p className='error'>{formErrors.category}</p>}
                             </div>
 
                             <div className="form-group">
@@ -119,6 +145,7 @@ export default function Create() {
                                     <option value="five">five</option>
                                     <option value="six">six</option>
                                 </select>
+                                {formErrors.bedrooms && <p className='error'>{formErrors.bedrooms}</p>}
                             </div>
 
                             <div className="form-group">
@@ -140,6 +167,7 @@ export default function Create() {
                                     <option value="four">four</option>
                                     <option value="five">five</option>
                                 </select>
+                                {formErrors.bathrooms && <p className='error'>{formErrors.bathrooms}</p>}
                             </div>
 
                             <div className="form-group">
@@ -177,7 +205,7 @@ export default function Create() {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="Picture">Picture</label>
+                                <label htmlFor="Picture">Project Image</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -188,6 +216,7 @@ export default function Create() {
                                     onChange={changeHandler}
                                     required
                                 />
+                                {formErrors.image && <p className='error'>{formErrors.image}</p>}
                             </div>
 
                             <div className="form-group">

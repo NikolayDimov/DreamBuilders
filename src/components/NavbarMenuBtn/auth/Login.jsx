@@ -88,8 +88,8 @@ function Login() {
             console.log('Setting firebase error:', errorMessage);
             setFirebaseError(errorMessage);
         };
-
     }
+
 
     return (
         <div className="container-login">
