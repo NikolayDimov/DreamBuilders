@@ -260,9 +260,9 @@ export default function Details() {
                                         If you like this project and find it really cool, you're welcome to use it for a project at your future home.
                                         Just get in touch with us, and we'll provide you with details about the project and pricing.
                                     </p>
-                                    <a href="" className="btn btn-primary py-2 px-4">
+                                    <Link to="/contacts" className="btn btn-primary py-2 px-4">
                                         Contact Us
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                             {/* Plain Text End */}
@@ -273,7 +273,9 @@ export default function Details() {
                 {/* Blog End */}
             </div>)
             : (
-                <p>Loading project details...</p>
+                <div className="text-center loading-text">
+                    <span class="loader"></span>
+                </div>
             )}
         </>
 
