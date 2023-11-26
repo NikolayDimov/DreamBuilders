@@ -86,12 +86,27 @@ export function useCreateFormError() {
 
 
 
+
+    const getBlurHandlers = (createdValues) => {
+        return {
+            handleProjectNameBlur: () => validateProjectName(createdValues.projectName),
+            handleCategoryBlur: () => validateCategory(createdValues.category),
+            handleBedroomsBlur: () => validateBedrooms(createdValues.bedrooms),
+            handleBathroomsBlur: () => validateBathrooms(createdValues.bathrooms),
+            handleImageBlur: () => validateImage(createdValues.img),
+        };
+    };
+
+
+
+
     return {
         formErrors,
         validateProjectName,
         validateCategory,
         validateBedrooms,
         validateBathrooms,
-        validateImage
+        validateImage,
+        getBlurHandlers
     };
 }

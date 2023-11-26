@@ -22,7 +22,8 @@ export default function Create() {
         validateCategory,
         validateBedrooms,
         validateBathrooms,
-        validateImage
+        validateImage,
+        getBlurHandlers
     } = useCreateFormError();
 
 
@@ -38,26 +39,33 @@ export default function Create() {
     });
 
 
+    const {
+        handleProjectNameBlur,
+        handleCategoryBlur,
+        handleBedroomsBlur,
+        handleBathroomsBlur,
+        handleImageBlur,
+    } = getBlurHandlers(createdValues);
 
-    const handleProjectNamelBlur = () => {
-        validateProjectName(createdValues.projectName);
-    };
+    // const handleProjectNamelBlur = () => {
+    //     validateProjectName(createdValues.projectName);
+    // };
 
-    const handleCategoryBlur = () => {
-        validateCategory(createdValues.category);
-    };
+    // const handleCategoryBlur = () => {
+    //     validateCategory(createdValues.category);
+    // };
 
-    const handleBedroomsBlur = () => {
-        validateBedrooms(createdValues.bedrooms);
-    };
+    // const handleBedroomsBlur = () => {
+    //     validateBedrooms(createdValues.bedrooms);
+    // };
 
-    const handleBathroomsBlur = () => {
-        validateBathrooms(createdValues.bathrooms);
-    };
+    // const handleBathroomsBlur = () => {
+    //     validateBathrooms(createdValues.bathrooms);
+    // };
 
-    const handleImageBlur = () => {
-        validateImage(createdValues.image);
-    };
+    // const handleImageBlur = () => {
+    //     validateImage(createdValues.image);
+    // };
 
 
 
@@ -122,7 +130,7 @@ export default function Create() {
                                     name="projectName"
                                     value={createdValues.projectName}
                                     onChange={(e) => changeHandler(e)}
-                                    onBlur={handleProjectNamelBlur}
+                                    onBlur={handleProjectNameBlur}
                                 />
                                 {formErrors.projectName && <p className='error'>{formErrors.projectName}</p>}
                             </div>
