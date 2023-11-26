@@ -23,6 +23,15 @@ function Login() {
     } = useLoginFormError();
 
 
+    const handleEmailBlur = () => {
+        validateEmail(values.email);
+    };
+
+    const handlePasswordBlur = () => {
+        validatePassword(values.password);
+    };
+
+
 
 
     const changeHandler = (e) => {
@@ -74,6 +83,7 @@ function Login() {
                                     name="email"
                                     value={values.email}
                                     onChange={changeHandler}
+                                    onBlur={handleEmailBlur}
                                 />
                                 {formErrors.email && <p className='error'>{formErrors.email}</p>}
                             </div>
@@ -88,6 +98,7 @@ function Login() {
                                     name="password"
                                     value={values.password}
                                     onChange={changeHandler}
+                                    onBlur={handlePasswordBlur}
                                 />
                                 {formErrors.password && <p className='error'>{formErrors.password}</p>}
                             </div>

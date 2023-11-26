@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { values } from './Register'
+
 
 export function useRegsterFormError() {
-    const { value_pass } = values.password;
 
     const [formErrors, setFormErrors] = useState({
         email: '',
@@ -10,54 +9,60 @@ export function useRegsterFormError() {
         confirmPassword: ''
     });
 
+
     function validateEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let isEmailValid = true;
-        setFormErrors((errors) => ({ ...errors, email: '' }));
 
         if (email === '') {
             setFormErrors((errors) => ({ ...errors, email: 'Email is required' }));
             isEmailValid = false;
-        }
-        if (!emailRegex.test(email)) {
+        } else if (!emailRegex.test(email)) {
             setFormErrors((errors) => ({ ...errors, email: 'Provide a valid email address' }));
             isEmailValid = false;
+        } else {
+            // Clear the error
+            setFormErrors((errors) => ({ ...errors, email: '' }));
         }
 
         return isEmailValid;
-    };
+    }
 
     function validatePassword(password) {
         let isPasswordValid = true;
-        setFormErrors((errors) => ({ ...errors, password: '' }));
 
         if (password === '') {
-            setFormErrors((errors) => ({ ...errors, password: 'Password from the list' }));
+            setFormErrors((errors) => ({ ...errors, password: 'Password is required' }));
             isPasswordValid = false;
-        }
-
-        if (pass.length < 6 || pass.length > 12) {
+        } else if (password.length < 6 || password.length > 12) {
             setFormErrors((errors) => ({ ...errors, password: 'Password must be between 6 and 12 characters long' }));
             isPasswordValid = false;
+        } else {
+            // Clear the error
+            setFormErrors((errors) => ({ ...errors, password: '' }));
         }
 
         return isPasswordValid;
-    };
+    }
 
-    function validateConfirmPassword(confirmPassword) {
+
+
+    function validateConfirmPassword(confirmPassword, password) {
         let isConfirmPassword = true;
-        setFormErrors((errors) => ({ ...errors, confirmPassword: '' }));
 
-        if (confirmPass === '') {
+        if (confirmPassword === '') {
             setFormErrors((errors) => ({ ...errors, confirmPassword: 'Confirm Password is required' }));
             isConfirmPassword = false;
             return isConfirmPassword;
         }
 
-        if (confirmPass != value_pass) {
+        if (confirmPassword != password) {
             setFormErrors((errors) => ({ ...errors, confirmPassword: 'Passwords do not match' }));
             isConfirmPassword = false;
             return isConfirmPassword;
+        } else {
+            // Clear the error
+            setFormErrors((errors) => ({ ...errors, confirmPassword: '' }));
         }
 
         return isConfirmPassword;

@@ -1,7 +1,7 @@
 // import { useState, useEffect } from 'react';
 // import { firestore_db } from '../../firebase';
 // import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
-import Logout from '../../auth/Logout';
+import Logout from '../../auth/Logout/Logout';
 import { Link } from 'react-router-dom';
 
 import './Profile.css';

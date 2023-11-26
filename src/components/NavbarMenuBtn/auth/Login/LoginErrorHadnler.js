@@ -9,36 +9,38 @@ export function useLoginFormError() {
     function validateEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let isEmailValid = true;
-        setFormErrors((errors) => ({ ...errors, email: '' }));
 
         if (email === '') {
             setFormErrors((errors) => ({ ...errors, email: 'Email is required' }));
             isEmailValid = false;
-        }
-        if (!emailRegex.test(email)) {
+        } else if (!emailRegex.test(email)) {
             setFormErrors((errors) => ({ ...errors, email: 'Provide a valid email address' }));
             isEmailValid = false;
-        }
+        } else {
+            // Clear the error
+            setFormErrors((errors) => ({ ...errors, email: '' }));
 
-        return isEmailValid;
-    };
+            return isEmailValid;
+        }
+    }
 
     function validatePassword(password) {
         let isPasswordValid = true;
-        setFormErrors((errors) => ({ ...errors, password: '' }));
 
         if (password === '') {
-            setFormErrors((errors) => ({ ...errors, password: 'Password from the list' }));
+            setFormErrors((errors) => ({ ...errors, password: 'Password is required' }));
             isPasswordValid = false;
-        }
-
-        if (pass.length < 6 || pass.length > 12) {
+        } else if (password.length < 6 || password.length > 12) {
             setFormErrors((errors) => ({ ...errors, password: 'Password must be between 6 and 12 characters long' }));
             isPasswordValid = false;
+        } else {
+            // Clear the error
+            setFormErrors((errors) => ({ ...errors, password: '' }));
         }
 
         return isPasswordValid;
-    };
+    }
+
 
 
 
@@ -48,3 +50,4 @@ export function useLoginFormError() {
         validatePassword,
     };
 }
+

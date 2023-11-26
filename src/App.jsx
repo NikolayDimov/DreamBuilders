@@ -15,9 +15,9 @@ import Service from './components/common/Service';
 import Catalog from './components/NavbarMenuBtn/pages/Catalog/Catalog';
 import Details from './components/NavbarMenuBtn/pages/Details/Details';
 
-import Login from './components/NavbarMenuBtn/auth/Login';
-import Register from './components/NavbarMenuBtn/auth/Register';
-import Logout from './components/NavbarMenuBtn/auth/Logout';
+import Login from './components/NavbarMenuBtn/auth/Login/Login';
+import Register from './components/NavbarMenuBtn/auth/Register/Register';
+import Logout from './components/NavbarMenuBtn/auth/Logout/Logout';
 import Create from './components/NavbarMenuBtn/pages/Create/Create';
 import DeleteModal from './components/NavbarMenuBtn/pages/Delete/Delete';
 import Edit from './components/NavbarMenuBtn/pages/Edit/Edit';

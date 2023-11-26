@@ -26,6 +26,19 @@ function Register() {
 
 
 
+    const handleEmailBlur = () => {
+        validateEmail(values.email);
+    };
+
+    const handlePasswordBlur = () => {
+        validatePassword(values.password);
+    };
+
+    const handleConfirmPasswordBlur = () => {
+        validateConfirmPassword(values.password);
+    };
+
+
     const changeHandler = (e) => {
         setValues((state) => ({ ...state, [e.target.name]: e.target.value }));
     };
@@ -35,7 +48,7 @@ function Register() {
         try {
             let isEmailValid = validateEmail(values.email);
             let isPasswordValid = validatePassword(values.password);
-            let isConfirmPasswordValid = validateConfirmPassword(values.confirmPassword);
+            let isConfirmPasswordValid = validateConfirmPassword(values.confirmPassword, values.password);
 
             if (!isEmailValid || !isPasswordValid || !isConfirmPasswordValid) {
                 console.log(`email: ${values.email}`);
@@ -72,6 +85,7 @@ function Register() {
                                     name="email"
                                     value={values.email}
                                     onChange={changeHandler}
+                                    onBlur={handleEmailBlur}
                                 />
                                 {formErrors.email && <p className='error'>{formErrors.email}</p>}
                             </div>
@@ -86,6 +100,7 @@ function Register() {
                                     name="password"
                                     value={values.password}
                                     onChange={changeHandler}
+                                    onBlur={handlePasswordBlur}
                                 />
                                 {formErrors.password && <p className='error'>{formErrors.password}</p>}
                             </div>
@@ -100,6 +115,7 @@ function Register() {
                                     name="confirmPassword"
                                     value={values.confirmPassword}
                                     onChange={changeHandler}
+                                    onBlur={handleConfirmPasswordBlur}
                                 />
                                 {formErrors.confirmPassword && <p className='error'>{formErrors.confirmPassword}</p>}
                             </div>
