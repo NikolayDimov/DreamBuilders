@@ -1,22 +1,24 @@
-import { useState } from "react";
-import { useAuth } from '../../../contexts/AuthContext';
+import { useState } from 'react';
+import { useAuth } from '../../../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
-import './Login.css';
+
+import './Register.css';
 
 
-
-function Login() {
-    const { login } = useAuth();
-    const [firebaseError, setFirebaseError] = useState('');
+function Register() {
+    const { register } = useAuth();
+    // const { errors, validateForm } = useFormValidation();
 
     const [values, setValues] = useState({
         email: '',
         password: '',
+        confirmPassword: ''
     });
 
 
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [confirmPassError, setConfirmPassError] = useState('');
 
     // Function to validate email
     function validateEmail(email) {
@@ -62,47 +64,66 @@ function Login() {
     }
 
 
+    // Function to validate confirmPassword
+    function validateConfirmPassword(confirmPass) {
+
+        let isConfirmPassword = true;
+        setConfirmPassError('');
+
+        if (confirmPass === '') {
+            setConfirmPassError('Confirm Password is required');
+            isConfirmPassword = false;
+            return isConfirmPassword;
+        }
+
+        if (confirmPass != values.password) {
+            setConfirmPassError('Passwords do not match');
+            isConfirmPassword = false;
+            return isConfirmPassword;
+        }
+
+        return isConfirmPassword;
+    }
+
+
+
     const changeHandler = (e) => {
         setValues((state) => ({ ...state, [e.target.name]: e.target.value }));
     };
 
-
-    const handleLogin = async (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
         try {
             let isEmailValid = validateEmail(values.email);
             let isPasswordValid = validatePassword(values.password);
+            let isConfirmPasswordValid = validateConfirmPassword(values.confirmPassword);
 
-            if (!isEmailValid || !isPasswordValid) {
+            if (!isEmailValid || !isPasswordValid || !isConfirmPasswordValid) {
                 console.log(`email: ${values.email}`);
                 console.log(`password: ${values.password}`);
+                console.log(`confirmPass: ${values.confirmPassword}`);
             } else {
-                await login(values.email, values.password);
-                console.log('Login successful.');
+                await register(values.email, values.password);
             }
         } catch (error) {
-            console.error('Login error:', error);
-            console.error('login error message:', error.message);
-
-            let errorMessage = 'Invalid email or password!';
-            console.log('Setting firebase error:', errorMessage);
-            setFirebaseError(errorMessage);
-        };
-    }
+            console.error('Registration error:', error);
+            console.error('Registration error message:', error.message);
+        }
+    };
 
 
     return (
-        <div className="container-login">
+        <div className="container-register">
             <div className="row align-items-center justify-content-center">
                 <div className="col-md-12">
                     <div className="form-block mx-auto">
                         <div className="title">
-                            <h3>Login</h3>
+                            <h3>Register</h3>
                         </div>
-                        <form onSubmit={handleLogin} noValidate>
+                        <form onSubmit={handleRegister} noValidate>
 
                             <div className="form-group first">
-                                <label htmlFor="username">Email</label>
+                                <label htmlFor="email">Email</label>
                                 <input
                                     type="email"
                                     className="form-control"
@@ -129,9 +150,19 @@ function Login() {
                                 {passwordError && <p className='error'>{passwordError}</p>}
                             </div>
 
-
-                            {firebaseError && <p className='error'>{firebaseError}</p>}
-
+                            <div className="form-group last mb-3">
+                                <label htmlFor="confirmPassword">Confirm Password</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    placeholder="Confirm your password"
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    value={values.confirmPassword}
+                                    onChange={changeHandler}
+                                />
+                                {confirmPassError && <p className='error'>{confirmPassError}</p>}
+                            </div>
 
                             <div className="d-sm-flex mb-5 align-items-center">
                                 <label className="control control--checkbox mb-3 mb-sm-0">
@@ -139,18 +170,14 @@ function Login() {
                                     <span className="caption">Remember me</span>
                                     <div className="control__indicator" />
                                 </label>
-                                <span className="ml-auto">
-                                    <a href="#" className="forgot-pass">
-                                        Forgot Password
-                                    </a>
-                                </span>
                             </div>
-                            <button className="btn btn-block btn-primary btn-margin" type="submit">Log In</button>
 
+                            <button className="btn btn-block btn-primary btn-margin" type="submit">Create Account</button>
                         </form>
+
                         <div className="register-link">
-                            <p className="register">{`You don't have an account`}</p>
-                            <Link to="/register" className="register register-link-to">Register here</Link>
+                            <p className="login-link">{`You already have an account`}</p>
+                            <Link to="/login" className="login-link login-link-to">Login here</Link>
                         </div>
                     </div>
                 </div>
@@ -160,4 +187,4 @@ function Login() {
 }
 
 
-export default Login;
+export default Register;

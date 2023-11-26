@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function useFormError() {
+export function useCreateFormError() {
     const [formErrors, setFormErrors] = useState({
         projectName: '',
         category: '',
