@@ -12,16 +12,16 @@ import Home from './components/common/Home/Home';
 import Contacts from './components/common/Contacts';
 import About from './components/common/About';
 import Service from './components/common/Service';
-import Catalog from './components/NavbarMenuBtn/pages/Catalog/Catalog';
-import Details from './components/NavbarMenuBtn/pages/Details/Details';
+import Catalog from './components/menu/pages/Catalog/Catalog';
+import Details from './components/menu/pages/Details/Details';
 
-import Login from './components/NavbarMenuBtn/auth/Login/Login';
-import Register from './components/NavbarMenuBtn/auth/Register/Register';
-import Logout from './components/NavbarMenuBtn/auth/Logout/Logout';
-import Create from './components/NavbarMenuBtn/pages/Create/Create';
-import DeleteModal from './components/NavbarMenuBtn/pages/Delete/Delete';
-import Edit from './components/NavbarMenuBtn/pages/Edit/Edit';
-import Profile from './components/NavbarMenuBtn/pages/Profile/Profile';
+import Login from './components/menu/auth/Login/Login';
+import Register from './components/menu/auth/Register/Register';
+import Logout from './components/menu/auth/Logout/Logout';
+import Create from './components/menu/pages/Create/Create';
+import DeleteModal from './components/menu/pages/Delete/Delete';
+import Edit from './components/menu/pages/Edit/Edit';
+import Profile from './components/menu/pages/Profile/Profile';
 
 
 function App() {

@@ -17,3 +17,11 @@ export default function AuthGuard(props) {
         </>
     )
 }
+
+
+
+
+// in App.js
+// <Route path='/create' element={<AuthGuard><Create /></AuthGuard>} />
+// <Route path='/catalog/:id/edit' element={<AuthGuard><Edit /></AuthGuard>} />
+// <Route path='/logout' element={<AuthGuard><Logout /></AuthGuard>} />
