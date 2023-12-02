@@ -7,7 +7,6 @@
     display: none;
     justify-content: center;
     align-items: center;
-    scroll-behavior: auto;
 }
 
 .modal-overlay {
