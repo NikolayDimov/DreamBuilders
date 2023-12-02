@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-
 import { AuthProvider } from './contexts/AuthContext';
+import AuthGuard from './components/guards/BaseAuthGuard'
 
 import './App.module.css';
 
@@ -40,7 +40,7 @@ function App() {
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/profile' element={<Profile />} />
-				<Route path='/create' element={<Create />} />
+				<Route path='/create' element={<AuthGuard><Create /></AuthGuard>} />
 				<Route path='/logout' element={<Logout />} />
 				<Route path='/delete' element={<DeleteModal />} />
 

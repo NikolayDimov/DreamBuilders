@@ -64,6 +64,7 @@ export function AuthProvider({ children }) {
             nav('/');
         } catch (error) {
             console.error('Logout error:', error);
+            nav('/login');
         }
     };
 
