@@ -1,13 +1,15 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { doc, getDoc, deleteDoc } from 'firebase/firestore';
+import { doc, getDoc, getDocs, deleteDoc, collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { firestore_db } from '../../../../firebase';
 import { useAuth } from '../../../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import DeleteModal from '../Delete/Delete';
 // import { useProjectDetails } from '../../../../contexts/ProjectDetailsContext';
+
+import * as commentService from '../../../../services/commentService';
 
 import './Details.css';
 
@@ -24,6 +26,16 @@ export default function Details() {
 
     // const { projectEditDetails, setProjectEditDetails } = useProjectDetails();
 
+    const [commentForm, setCommentForm] = useState({
+        name: '',
+        email: '',
+        comment: '',
+    });
+
+    const [comments, setComments] = useState([]);
+
+
+
 
 
     const fetchProjectDetails = async () => {
@@ -37,6 +49,13 @@ export default function Details() {
 
                 if (projectData) {
                     setIsOwner(user.uid && user.uid === projectData.owner_uid);
+
+                    // Fetch comments
+                    const commentsCollection = collection(firestore_db, 'houses', id, 'comments');
+                    const commentsSnapshot = await getDocs(commentsCollection);
+                    const commentsData = commentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    setComments(commentsData);
+
                 } else {
                     console.log("Project data is null");
                 }
@@ -96,12 +115,55 @@ export default function Details() {
 
     useEffect(() => {
         fetchProjectDetails();
-    }, [id, user.uid, fetchProjectDetails]);
+    }, [id, user.uid]);
 
 
     // console.log(user.uid)
     // console.log(id);
     // console.log(projectDetails.owner_uid);
+
+
+
+    // Comments -----------------------
+    const addCommentHandler = async (event) => {
+        event.preventDefault();
+
+        const { name, email, commentText } = commentForm;
+        // console.log(commentForm)
+
+        // Validate form values
+        if (!name || !email || !commentText) {
+            // Handle form validation error (you can display an error message)
+            return;
+        }
+
+        try {
+            // Add the comment to Firestore
+            const commentsCollection = collection(firestore_db, 'houses', id, 'comments');
+            await addDoc(commentsCollection, {
+                name,
+                email,
+                commentText,
+                timestamp: serverTimestamp(),
+            });
+
+            // Optionally, you can reset the form fields or update the comments state
+            setCommentForm({
+                name: '',
+                email: '',
+                commentText: '',
+            });
+
+            // Fetch project details to refresh the comments list if needed
+            await fetchProjectDetails();
+        } catch (error) {
+            console.error('Error adding comment:', error);
+            // Handle the error (display an error message, etc.)
+            console.log('Full error object:', error);
+        }
+
+    };
+
 
 
     return (
@@ -142,14 +204,33 @@ export default function Details() {
                             </div>
                             {/* Blog Detail End */}
 
+                            {/* Comment List Start */}
+                            <div className="mb-5">
+                                <h3 className="text-uppercase mb-4">Comments</h3>
+                                {comments.map(comment => (
+                                    <div key={comment.id} className="d-flex mb-4">
+                                        {/* You can customize the comment display as per your UI */}
+                                        <div className="ps-3">
+                                            <h6>{comment.name}</h6>
+                                            <p>{comment.commentText}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            {/* Comment List End */}
+
+
                             {/* Comment Form Start */}
                             <div className="bg-light p-5">
                                 <h3 className="text-uppercase mb-4">Leave a comment</h3>
-                                <form>
+                                <form onSubmit={addCommentHandler}>
                                     <div className="row g-3">
                                         <div className="col-12 col-sm-6">
                                             <input
                                                 type="text"
+                                                name="name"
+                                                value={commentForm.name}
+                                                onChange={(e) => setCommentForm({ ...commentForm, name: e.target.value })}
                                                 className="form-control bg-white border-0"
                                                 placeholder="Your Name"
                                                 style={{ height: 55 }}
@@ -158,23 +239,22 @@ export default function Details() {
                                         <div className="col-12 col-sm-6">
                                             <input
                                                 type="email"
+                                                name="email"
+                                                value={commentForm.email}
+                                                onChange={(e) => setCommentForm({ ...commentForm, email: e.target.value })}
                                                 className="form-control bg-white border-0"
                                                 placeholder="Your Email"
                                                 style={{ height: 55 }}
                                             />
                                         </div>
                                         <div className="col-12">
-                                            <input
-                                                type="text"
-                                                className="form-control bg-white border-0"
-                                                placeholder="Website"
-                                                style={{ height: 55 }}
-                                            />
-                                        </div>
-                                        <div className="col-12">
                                             <textarea
+                                                name="comment"
+                                                value={commentForm.commentText}
+                                                onChange={(e) => setCommentForm({ ...commentForm, commentText: e.target.value })}
                                                 className="form-control bg-white border-0"
-                                                rows={5}
+                                                rows={6}
+                                                cols={5}
                                                 placeholder="Comment"
                                                 defaultValue={""}
                                             />
