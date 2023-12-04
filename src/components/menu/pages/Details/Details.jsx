@@ -1,22 +1,25 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { doc, getDoc, getDocs, deleteDoc, collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, getDocs, deleteDoc, collection } from 'firebase/firestore';
 import { firestore_db } from '../../../../firebase';
 import { useAuth } from '../../../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import DeleteModal from '../Delete/Delete';
+
+// Comments
 import { addCommentHandler } from './ProjectComments/commentService';
 import { formatTimestamp } from '../../../../utils/formatTimeStamp';
 import { useCommentsFormError } from './ProjectComments/CommentsErrorHandler';
+import { ProjectCommentsRenderer } from './ProjectComments/ProjectComments';
 
-// Not to be in context - To be in service
-// import { useProjectDetails } from '../../../../contexts/ProjectDetailsContext';
+import { ProjectDetailsRenderer } from './ProjectDetails/ProjectDetails';
+import { ProjectDescriptionRenderer } from './ProjectDescription/ProjectDescription';
 
-import * as commentService from './ProjectComments/commentService';
 
 import './Details.css';
+
 
 export default function Details() {
     const { user } = useAuth();
@@ -209,40 +212,12 @@ export default function Details() {
                 <div className="container-fluid py-6 px-5">
                     <div className="row g-5">
                         <div className="col-lg-8">
-                            {/* Blog Detail Start */}
-                            <div className="mb-5">
-
-                                <h1 className="text-uppercase mb-4">
-                                    {projectDetails.projectName}
-                                </h1>
-
-                                <img className="img-fluid w-100 rounded mb-5 details-picture"
-                                    src={projectDetails.img}
-                                    alt="project image" />
-
-                                <h3>Description of the project</h3>
-                                <p>
-                                    {projectDetails.description}
-                                </p>
-
-                            </div>
-                            {/* Blog Detail End */}
+                            {/* Description Start */}
+                            <ProjectDescriptionRenderer projectDetails={projectDetails} />
+                            {/* Description End */}
 
                             {/* Comment List Start */}
-                            <div className="mb-5">
-                                <h3 className="text-uppercase mb-4">Comments</h3>
-                                {comments.map(comment => (
-                                    <div key={comment.id} className="d-flex mb-4">
-                                        {/* You can customize the comment display as per your UI */}
-                                        <div className="ps-3">
-                                            <h6>{comment.name}</h6>
-                                            <p>{comment.commentText}</p>
-                                            <p>{formatTimestamp(comment.timestamp)}</p>
-                                            {/* <p>{comment.timestamp}</p> */}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                            <ProjectCommentsRenderer comments={comments} formatTimestamp={formatTimestamp} />
                             {/* Comment List End */}
 
 
@@ -304,33 +279,11 @@ export default function Details() {
                         <div className="col-lg-4">
 
                             {/* Category Start */}
-                            <div className="mb-5">
-                                <h3 className="text-uppercase mb-4">Project Details</h3>
-                                <section className="d-flex flex-column justify-content-start bg-light p-4">
-                                    <p className="h6 text-uppercase mb-4 default-orange-color">
-                                        <img className="details-icons" src="../../../../public/img/icon-floors.svg" alt="icon-floors" />
-                                        Category - {projectDetails.category}
-                                    </p>
-                                    <p className="h6 text-uppercase mb-4 default-orange-color">
-                                        <img className="details-icons" src="../../../../public/img/icon-beds.svg" alt="icon-beds" />
-                                        Bedrooms - {projectDetails.bedrooms}
-                                    </p>
-                                    <p className="h6 text-uppercase mb-4 default-orange-color">
-                                        <img className="details-icons" src="../../../../public/img/icon-baths.svg" alt="icon-baths" />
-                                        Bathrooms - {projectDetails.bathrooms}
-                                    </p>
-                                    <p className="h6 text-uppercase mb-4 default-orange-color">
-                                        <img className="details-icons" src="../../../../public/img/icon-garages.svg" alt="icon-garage" />
-                                        Garage - {projectDetails.garage}
-                                    </p>
-                                    <p className="h6 text-uppercase mb-4 default-orange-color">
-                                        <img className="details-icons" src="../../../../public/img/icon-pool.png" alt="icon-pool" />
-                                        Pool - {projectDetails.pool}
-                                    </p>
-                                </section>
-                            </div>
+                            <ProjectDetailsRenderer projectDetails={projectDetails} />
                             {/* Category End */}
 
+
+                            {/* Your Options Section Start*/}
                             {isOwner && (
                                 <div className="mb-5">
                                     <h3 className="text-uppercase mb-4">Your Options</h3>
@@ -351,6 +304,7 @@ export default function Details() {
                                     </div>
                                 </div>
                             )}
+                            {/* Your Options Section End*/}
 
                             {/* Tags Start */}
                             <div className="mb-5">
@@ -363,6 +317,7 @@ export default function Details() {
                                 </div>
                             </div>
                             {/* Tags End */}
+
                             {/* Plain Text Start */}
                             <div>
                                 <h3 className="text-uppercase mb-4">Like this project?</h3>
