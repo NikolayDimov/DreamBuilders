@@ -18,8 +18,6 @@ import { ProjectDetailsRenderer } from './ProjectDetails/ProjectDetails';
 import { ProjectDescriptionRenderer } from './ProjectDescription/ProjectDescription';
 
 // import { fetchProjectDetails } from './detailsFetchService';
-
-
 import './Details.css';
 
 
@@ -153,6 +151,11 @@ export default function Details() {
 
 
     // Comments functionality
+    const commentsChangeHandler = (e) => {
+        setCommentFormValues(state => ({ ...state, [e.target.name]: e.target.value }));
+    };
+
+
     const resetCommentForm = () => {
         // Reset the form fields
         setCommentFormValues({
@@ -190,11 +193,6 @@ export default function Details() {
     return (
         <> {projectDetails ? (
             <div>
-                {/* <ProjectDescription project={project} /> (title, image, description)
-                <ProjectDetails /> (details, edit, delete)
-                <ProjectComments comments={comments} addComment={addCommentHandler}></>*/}
-
-
                 {/* Page Header Start */}
                 <div className="container-fluid page-header">
                     <h1 className="display-3 text-uppercase text-white mb-3">Project Detail</h1>
@@ -233,7 +231,8 @@ export default function Details() {
                                                 name="name"
                                                 placeholder="Your Name"
                                                 value={commentFormValues.name}
-                                                onChange={(e) => setCommentFormValues({ ...commentFormValues, name: e.target.value })}
+                                                // onChange={(e) => setCommentFormValues({ ...commentFormValues, name: e.target.value })}
+                                                onChange={(e) => commentsChangeHandler(e)}
                                                 onBlur={handleCommentNameBlur}
                                             />
                                             {formErrors.name && <p className='error'>{formErrors.name}</p>}
@@ -246,7 +245,8 @@ export default function Details() {
                                                 name="email"
                                                 placeholder="Your Email"
                                                 value={commentFormValues.email}
-                                                onChange={(e) => setCommentFormValues({ ...commentFormValues, email: e.target.value })}
+                                                // onChange={(e) => setCommentFormValues({ ...commentFormValues, email: e.target.value })}
+                                                onChange={(e) => commentsChangeHandler(e)}
                                                 onBlur={handleCommentEmailBlur}
                                             />
                                             {formErrors.email && <p className='error'>{formErrors.email}</p>}
@@ -259,7 +259,8 @@ export default function Details() {
                                                 name="commentText"
                                                 placeholder="Comment"
                                                 value={commentFormValues.commentText}
-                                                onChange={(e) => setCommentFormValues({ ...commentFormValues, commentText: e.target.value })}
+                                                // onChange={(e) => setCommentFormValues({ ...commentFormValues, commentText: e.target.value })}
+                                                onChange={(e) => commentsChangeHandler(e)}
                                                 onBlur={handleCommentTextBlur}
                                             />
                                             {formErrors.commentText && <p className='error'>{formErrors.commentText}</p>}

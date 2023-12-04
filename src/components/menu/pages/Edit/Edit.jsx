@@ -9,7 +9,6 @@ import { doc, updateDoc } from 'firebase/firestore';
 import './Edit.css';
 
 
-
 export default function Edit() {
 
     const location = useLocation();
@@ -17,7 +16,6 @@ export default function Edit() {
     const { id } = useParams();
 
     const [projectDetails, setProjectDetails] = useState(null);
-
 
 
     useEffect(() => {
@@ -35,8 +33,6 @@ export default function Edit() {
 
     // console.log(projectDetails);
     // console.log(id);
-
-
 
     const {
         formErrors,
@@ -106,8 +102,6 @@ export default function Edit() {
     if (!projectDetails) {
         return <p>Loading project details...</p>;
     }
-
-
 
 
     return (

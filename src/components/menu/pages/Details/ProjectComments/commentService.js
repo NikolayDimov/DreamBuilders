@@ -7,7 +7,7 @@ export const addCommentHandler = async (id, commentForm, fetchProjectDetails, re
 
     // Validate form values
     if (!name || !email || !commentText) {
-        // Handle form validation error (you can display an error message)
+        console.log(`Values can no be empty strings`);
         return;
     }
 
