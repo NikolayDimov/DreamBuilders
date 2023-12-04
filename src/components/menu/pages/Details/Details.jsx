@@ -213,66 +213,71 @@ export default function Details() {
                             <ProjectDescriptionRenderer projectDetails={projectDetails} />
                             {/* Description End */}
 
+
                             {/* Comment List Start */}
-                            <ProjectCommentsRenderer comments={comments} formatTimestamp={formatTimestamp} />
+                            {user && (
+                                <ProjectCommentsRenderer comments={comments} formatTimestamp={formatTimestamp} />
+                            )}
                             {/* Comment List End */}
 
 
                             {/* Comment Form Start */}
-                            <div className="bg-light p-5">
-                                <h3 className="text-uppercase mb-4">Leave a comment</h3>
-                                <form onSubmit={addCommentHandlerWrapper} noValidate>
-                                    <div className="row g-3">
-                                        <div className="col-12 col-sm-6">
-                                            <input
-                                                className="form-control bg-white border-0"
-                                                style={{ height: 55 }}
-                                                type="text"
-                                                name="name"
-                                                placeholder="Your Name"
-                                                value={commentFormValues.name}
-                                                // onChange={(e) => setCommentFormValues({ ...commentFormValues, name: e.target.value })}
-                                                onChange={(e) => commentsChangeHandler(e)}
-                                                onBlur={handleCommentNameBlur}
-                                            />
-                                            {formErrors.name && <p className='error'>{formErrors.name}</p>}
+                            {user && (
+                                <div className="bg-light p-5">
+                                    <h3 className="text-uppercase mb-4">Leave a comment</h3>
+                                    <form onSubmit={addCommentHandlerWrapper} noValidate>
+                                        <div className="row g-3">
+                                            <div className="col-12 col-sm-6">
+                                                <input
+                                                    className="form-control bg-white border-0"
+                                                    style={{ height: 55 }}
+                                                    type="text"
+                                                    name="name"
+                                                    placeholder="Your Name"
+                                                    value={commentFormValues.name}
+                                                    // onChange={(e) => setCommentFormValues({ ...commentFormValues, name: e.target.value })}
+                                                    onChange={(e) => commentsChangeHandler(e)}
+                                                    onBlur={handleCommentNameBlur}
+                                                />
+                                                {formErrors.name && <p className='error'>{formErrors.name}</p>}
+                                            </div>
+                                            <div className="col-12 col-sm-6">
+                                                <input
+                                                    className="form-control bg-white border-0"
+                                                    style={{ height: 55 }}
+                                                    type="email"
+                                                    name="email"
+                                                    placeholder="Your Email"
+                                                    value={commentFormValues.email}
+                                                    // onChange={(e) => setCommentFormValues({ ...commentFormValues, email: e.target.value })}
+                                                    onChange={(e) => commentsChangeHandler(e)}
+                                                    onBlur={handleCommentEmailBlur}
+                                                />
+                                                {formErrors.email && <p className='error'>{formErrors.email}</p>}
+                                            </div>
+                                            <div className="col-12">
+                                                <textarea
+                                                    className="form-control bg-white border-0"
+                                                    rows={3}
+                                                    style={{ height: 'auto' }}
+                                                    name="commentText"
+                                                    placeholder="Comment"
+                                                    value={commentFormValues.commentText}
+                                                    // onChange={(e) => setCommentFormValues({ ...commentFormValues, commentText: e.target.value })}
+                                                    onChange={(e) => commentsChangeHandler(e)}
+                                                    onBlur={handleCommentTextBlur}
+                                                />
+                                                {formErrors.commentText && <p className='error'>{formErrors.commentText}</p>}
+                                            </div>
+                                            <div className="col-12">
+                                                <button className="btn btn-primary w-100 py-3" type="submit">
+                                                    Leave Your Comment
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div className="col-12 col-sm-6">
-                                            <input
-                                                className="form-control bg-white border-0"
-                                                style={{ height: 55 }}
-                                                type="email"
-                                                name="email"
-                                                placeholder="Your Email"
-                                                value={commentFormValues.email}
-                                                // onChange={(e) => setCommentFormValues({ ...commentFormValues, email: e.target.value })}
-                                                onChange={(e) => commentsChangeHandler(e)}
-                                                onBlur={handleCommentEmailBlur}
-                                            />
-                                            {formErrors.email && <p className='error'>{formErrors.email}</p>}
-                                        </div>
-                                        <div className="col-12">
-                                            <textarea
-                                                className="form-control bg-white border-0"
-                                                rows={3}
-                                                style={{ height: 'auto' }}
-                                                name="commentText"
-                                                placeholder="Comment"
-                                                value={commentFormValues.commentText}
-                                                // onChange={(e) => setCommentFormValues({ ...commentFormValues, commentText: e.target.value })}
-                                                onChange={(e) => commentsChangeHandler(e)}
-                                                onBlur={handleCommentTextBlur}
-                                            />
-                                            {formErrors.commentText && <p className='error'>{formErrors.commentText}</p>}
-                                        </div>
-                                        <div className="col-12">
-                                            <button className="btn btn-primary w-100 py-3" type="submit">
-                                                Leave Your Comment
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                                    </form>
+                                </div>
+                            )}
                             {/* Comment Form End */}
                         </div>
                         {/* Sidebar Start */}
