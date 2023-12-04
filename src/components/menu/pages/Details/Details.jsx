@@ -7,9 +7,14 @@ import { useAuth } from '../../../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import DeleteModal from '../Delete/Delete';
+import { addCommentHandler } from './ProjectComments/commentService';
+import { formatTimestamp } from '../../../../utils/formatTimeStamp';
+import { useCommentsFormError } from './ProjectComments/CommentsErrorHandler';
+
+// Not to be in context - To be in service
 // import { useProjectDetails } from '../../../../contexts/ProjectDetailsContext';
 
-import * as commentService from '../../../../services/commentService';
+import * as commentService from './ProjectComments/commentService';
 
 import './Details.css';
 
@@ -29,19 +34,34 @@ export default function Details() {
 
 
     // Comments state - write comments to firestore
-    const [commentForm, setCommentForm] = useState({
+    const [commentFormValues, setCommentFormValues] = useState({
         name: '',
         email: '',
-        comment: '',
+        commentText: '',
     });
 
     // Comments state - read comments from firestore
     const [comments, setComments] = useState([]);
 
+    // Error Validator
+    const {
+        formErrors,
+        validateCommentName,
+        validateCommentEmail,
+        validateCommentText,
+        getBlurHandlers,
+    } = useCommentsFormError();
 
+
+    const {
+        handleCommentNameBlur,
+        handleCommentEmailBlur,
+        handleCommentTextBlur
+    } = getBlurHandlers(commentFormValues);
 
 
     // Fetch data for Details page
+    // to export 
     const fetchProjectDetails = async () => {
         try {
             const projectRef = doc(firestore_db, 'houses', id);
@@ -120,7 +140,7 @@ export default function Details() {
 
     // Display details data to Details page
     useEffect(() => {
-        fetchProjectDetails();
+        fetchProjectDetails();  // to add id in fetchProjectDetails({id});
     }, [id, user.uid]);
 
 
@@ -130,59 +150,49 @@ export default function Details() {
 
 
 
-    // Comments -----------------------
-    const addCommentHandler = async (event) => {
+    // Comments functionality
+    const resetCommentForm = () => {
+        // Reset the form fields
+        setCommentFormValues({
+            name: '',
+            email: '',
+            commentText: '',
+        });
+    };
+
+    const addCommentHandlerWrapper = async (event) => {
         event.preventDefault();
-
-        const { name, email, commentText } = commentForm;
-        // console.log(commentForm)
-
-        // Validate form values
-        if (!name || !email || !commentText) {
-            // Handle form validation error (you can display an error message)
-            return;
-        }
-
         try {
-            // Add the comment to Firestore
-            const commentsCollection = collection(firestore_db, 'houses', id, 'comments');
-            await addDoc(commentsCollection, {
-                name,
-                email,
-                commentText,
-                timestamp: serverTimestamp(),
-            });
+            let isCommentNameValid = validateCommentName(commentFormValues.name);
+            let isEmailValid = validateCommentEmail(commentFormValues.email);
+            let isCommentTextValid = validateCommentText(commentFormValues.commentText);
 
-            // Reset the form fields
-            setCommentForm({
-                name: '',
-                email: '',
-                commentText: '',
-            });
+            if (!isCommentNameValid || !isEmailValid || !isCommentTextValid) {
+                console.log(`Values can no be empty strings`);
+            } else {
 
-            // Fetch project details to refresh the comments list if needed
-            await fetchProjectDetails();
-
+                // Pass the required parameters to the addCommentHandler function
+                await addCommentHandler(id, commentFormValues, fetchProjectDetails, resetCommentForm);
+            }
         } catch (error) {
-            console.error('Error adding comment:', error);
-            console.log('Log Error adding comment:', error);
+            console.error(error);
         }
 
+
     };
 
-    const formatTimestamp = (timestamp) => {
-        const date = new Date(timestamp.seconds * 1000); // Convert seconds to milliseconds
-        return date.toLocaleString(); // Customize this based on your preferred date/time format
-    };
-
-
-    console.log('commentForm', commentForm);
-    console.log('comments', comments);
+    // console.log('commentFormValues', commentFormValues);
+    // console.log('comments', comments);
 
 
     return (
         <> {projectDetails ? (
             <div>
+                {/* <ProjectDescription project={project} /> (title, image, description)
+                <ProjectDetails /> (details, edit, delete)
+                <ProjectComments comments={comments} addComment={addCommentHandler}></>*/}
+
+
                 {/* Page Header Start */}
                 <div className="container-fluid page-header">
                     <h1 className="display-3 text-uppercase text-white mb-3">Project Detail</h1>
@@ -239,7 +249,7 @@ export default function Details() {
                             {/* Comment Form Start */}
                             <div className="bg-light p-5">
                                 <h3 className="text-uppercase mb-4">Leave a comment</h3>
-                                <form onSubmit={addCommentHandler}>
+                                <form onSubmit={addCommentHandlerWrapper} noValidate>
                                     <div className="row g-3">
                                         <div className="col-12 col-sm-6">
                                             <input
@@ -248,9 +258,11 @@ export default function Details() {
                                                 type="text"
                                                 name="name"
                                                 placeholder="Your Name"
-                                                value={commentForm.name}
-                                                onChange={(e) => setCommentForm({ ...commentForm, name: e.target.value })}
+                                                value={commentFormValues.name}
+                                                onChange={(e) => setCommentFormValues({ ...commentFormValues, name: e.target.value })}
+                                                onBlur={handleCommentNameBlur}
                                             />
+                                            {formErrors.name && <p className='error'>{formErrors.name}</p>}
                                         </div>
                                         <div className="col-12 col-sm-6">
                                             <input
@@ -259,20 +271,24 @@ export default function Details() {
                                                 type="email"
                                                 name="email"
                                                 placeholder="Your Email"
-                                                value={commentForm.email}
-                                                onChange={(e) => setCommentForm({ ...commentForm, email: e.target.value })}
+                                                value={commentFormValues.email}
+                                                onChange={(e) => setCommentFormValues({ ...commentFormValues, email: e.target.value })}
+                                                onBlur={handleCommentEmailBlur}
                                             />
+                                            {formErrors.email && <p className='error'>{formErrors.email}</p>}
                                         </div>
                                         <div className="col-12">
                                             <textarea
                                                 className="form-control bg-white border-0"
                                                 rows={3}
                                                 style={{ height: 'auto' }}
-                                                name="comment"
+                                                name="commentText"
                                                 placeholder="Comment"
-                                                value={commentForm.commentText}
-                                                onChange={(e) => setCommentForm({ ...commentForm, commentText: e.target.value })}
+                                                value={commentFormValues.commentText}
+                                                onChange={(e) => setCommentFormValues({ ...commentFormValues, commentText: e.target.value })}
+                                                onBlur={handleCommentTextBlur}
                                             />
+                                            {formErrors.commentText && <p className='error'>{formErrors.commentText}</p>}
                                         </div>
                                         <div className="col-12">
                                             <button className="btn btn-primary w-100 py-3" type="submit">

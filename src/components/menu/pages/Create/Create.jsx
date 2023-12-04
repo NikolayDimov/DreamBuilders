@@ -16,6 +16,7 @@ export default function Create() {
     const { user } = useAuth();
     const userCollectionRef = collection(firestore_db, 'houses');
 
+    // Error Validator
     const {
         formErrors,
         validateProjectName,

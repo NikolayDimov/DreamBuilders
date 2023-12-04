@@ -3,7 +3,7 @@ import { useAuth } from '../../../../contexts/AuthContext';
 import { useState, useEffect } from 'react';
 import { firestore_db } from '../../../../firebase';
 import { collection, getDocs } from 'firebase/firestore';
-import CatalogItem from '../CatalogItem/CatalogItem';
+import CatalogItem from './CatalogItem/CatalogItem';
 
 import './Catalog.css';
 

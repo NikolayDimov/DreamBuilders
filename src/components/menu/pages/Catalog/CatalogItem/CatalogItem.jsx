@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { formatDate } from "../../../../utils/formatDAte";
-import { useAuth } from '../../../../contexts/AuthContext';
+import { formatDate } from "../../../../../utils/formatDAte";
+import { useAuth } from '../../../../../contexts/AuthContext';
 
 import './CatalogItem.css';
 

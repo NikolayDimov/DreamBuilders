@@ -1,7 +1,6 @@
 .bg-light {
     border-radius: 10px;
     box-shadow: 4px 4px 8px -3px #615757;
-    height: 100%;
 }
 
 .bg-light:hover {
