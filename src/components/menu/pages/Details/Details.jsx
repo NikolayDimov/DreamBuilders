@@ -16,28 +16,32 @@ import './Details.css';
 export default function Details() {
     const { user } = useAuth();
     const nav = useNavigate();
-    const { id } = useParams(); // Access the "id" parameter from the URL
+    const { id } = useParams(); // Access the id parameter from the URL
 
+    // Details state
     const [projectDetails, setProjectDetails] = useState(null);
+    // isOwner state
     const [isOwner, setIsOwner] = useState(false);
 
+    // Delete state
     const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
     const [itemToDeleteId, setItemToDeleteId] = useState(null);
 
-    // const { projectEditDetails, setProjectEditDetails } = useProjectDetails();
 
+    // Comments state - write comments to firestore
     const [commentForm, setCommentForm] = useState({
         name: '',
         email: '',
         comment: '',
     });
 
+    // Comments state - read comments from firestore
     const [comments, setComments] = useState([]);
 
 
 
 
-
+    // Fetch data for Details page
     const fetchProjectDetails = async () => {
         try {
             const projectRef = doc(firestore_db, 'houses', id);
@@ -70,6 +74,7 @@ export default function Details() {
 
 
 
+    // Edit function
     const handleEditClick = async () => {
         try {
             // Fetch project details and wait for it to complete
@@ -85,6 +90,7 @@ export default function Details() {
 
 
 
+    // Delete function
     const handleDeleteClick = (id) => {
         setItemToDeleteId(id);
         setIsDeleteModalVisible(true);
@@ -112,7 +118,7 @@ export default function Details() {
 
 
 
-
+    // Display details data to Details page
     useEffect(() => {
         fetchProjectDetails();
     }, [id, user.uid]);
@@ -147,7 +153,7 @@ export default function Details() {
                 timestamp: serverTimestamp(),
             });
 
-            // Optionally, you can reset the form fields or update the comments state
+            // Reset the form fields
             setCommentForm({
                 name: '',
                 email: '',
@@ -156,14 +162,22 @@ export default function Details() {
 
             // Fetch project details to refresh the comments list if needed
             await fetchProjectDetails();
+
         } catch (error) {
             console.error('Error adding comment:', error);
-            // Handle the error (display an error message, etc.)
-            console.log('Full error object:', error);
+            console.log('Log Error adding comment:', error);
         }
 
     };
 
+    const formatTimestamp = (timestamp) => {
+        const date = new Date(timestamp.seconds * 1000); // Convert seconds to milliseconds
+        return date.toLocaleString(); // Customize this based on your preferred date/time format
+    };
+
+
+    console.log('commentForm', commentForm);
+    console.log('comments', comments);
 
 
     return (
@@ -213,6 +227,8 @@ export default function Details() {
                                         <div className="ps-3">
                                             <h6>{comment.name}</h6>
                                             <p>{comment.commentText}</p>
+                                            <p>{formatTimestamp(comment.timestamp)}</p>
+                                            {/* <p>{comment.timestamp}</p> */}
                                         </div>
                                     </div>
                                 ))}
@@ -227,36 +243,35 @@ export default function Details() {
                                     <div className="row g-3">
                                         <div className="col-12 col-sm-6">
                                             <input
+                                                className="form-control bg-white border-0"
+                                                style={{ height: 55 }}
                                                 type="text"
                                                 name="name"
+                                                placeholder="Your Name"
                                                 value={commentForm.name}
                                                 onChange={(e) => setCommentForm({ ...commentForm, name: e.target.value })}
-                                                className="form-control bg-white border-0"
-                                                placeholder="Your Name"
-                                                style={{ height: 55 }}
                                             />
                                         </div>
                                         <div className="col-12 col-sm-6">
                                             <input
+                                                className="form-control bg-white border-0"
+                                                style={{ height: 55 }}
                                                 type="email"
                                                 name="email"
+                                                placeholder="Your Email"
                                                 value={commentForm.email}
                                                 onChange={(e) => setCommentForm({ ...commentForm, email: e.target.value })}
-                                                className="form-control bg-white border-0"
-                                                placeholder="Your Email"
-                                                style={{ height: 55 }}
                                             />
                                         </div>
                                         <div className="col-12">
                                             <textarea
+                                                className="form-control bg-white border-0"
+                                                rows={3}
+                                                style={{ height: 'auto' }}
                                                 name="comment"
+                                                placeholder="Comment"
                                                 value={commentForm.commentText}
                                                 onChange={(e) => setCommentForm({ ...commentForm, commentText: e.target.value })}
-                                                className="form-control bg-white border-0"
-                                                rows={6}
-                                                cols={5}
-                                                placeholder="Comment"
-                                                defaultValue={""}
                                             />
                                         </div>
                                         <div className="col-12">
