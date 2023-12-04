@@ -17,6 +17,8 @@ import { ProjectCommentsRenderer } from './ProjectComments/ProjectComments';
 import { ProjectDetailsRenderer } from './ProjectDetails/ProjectDetails';
 import { ProjectDescriptionRenderer } from './ProjectDescription/ProjectDescription';
 
+// import { fetchProjectDetails } from './detailsFetchService';
+
 
 import './Details.css';
 
@@ -64,7 +66,6 @@ export default function Details() {
 
 
     // Fetch data for Details page
-    // to export 
     const fetchProjectDetails = async () => {
         try {
             const projectRef = doc(firestore_db, 'houses', id);
@@ -140,17 +141,15 @@ export default function Details() {
     };
 
 
-
     // Display details data to Details page
     useEffect(() => {
-        fetchProjectDetails();  // to add id in fetchProjectDetails({id});
+        fetchProjectDetails();
     }, [id, user.uid]);
 
 
     // console.log(user.uid)
     // console.log(id);
     // console.log(projectDetails.owner_uid);
-
 
 
     // Comments functionality
