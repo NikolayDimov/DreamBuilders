@@ -12,6 +12,8 @@ export default function Catalog() {
     // const { user } = useAuth();
 
     const [items, setItems] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(3); // Adjust the number of items per page as needed
     const [isLoading, setIsLoading] = useState(true);
 
 
@@ -33,6 +35,15 @@ export default function Catalog() {
 
         fetchItems();
     }, []);
+
+
+    // Logic to calculate the current items based on pagination
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+
+    // Change page
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
 
 
@@ -84,6 +95,46 @@ export default function Catalog() {
                             )}
 
                         </article>
+
+                        <div className="col-12">
+                            <nav aria-label="Page navigation">
+                                <ul className="pagination pagination-lg justify-content-center m-0">
+                                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                                        <Link
+                                            className="page-link rounded-0"
+                                            to={`/catalog/${currentPage - 1}`}
+                                            aria-label="Previous"
+                                            onClick={() => paginate(currentPage - 1)}
+                                        >
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span className="sr-only">Previous</span>
+                                        </Link>
+                                    </li>
+                                    {Array.from({ length: Math.ceil(items.length / itemsPerPage) }).map((_, index) => (
+                                        <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                                            <Link
+                                                className="page-link"
+                                                to={`/catalog/${index + 1}`}
+                                                onClick={() => paginate(index + 1)}
+                                            >
+                                                {index + 1}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                    <li className={`page-item ${currentPage === Math.ceil(items.length / itemsPerPage) ? 'disabled' : ''}`}>
+                                        <Link
+                                            className="page-link rounded-0"
+                                            to={`/catalog/${currentPage + 1}`}
+                                            aria-label="Next"
+                                            onClick={() => paginate(currentPage + 1)}
+                                        >
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span className="sr-only">Next</span>
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </>
                 )}
             </div>
