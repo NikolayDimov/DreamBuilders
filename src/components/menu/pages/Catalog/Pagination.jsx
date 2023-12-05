@@ -11,7 +11,8 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
 
     return (
         <nav aria-label="Page navigation">
-            <ul class="pagination pagination-lg justify-content-center m-0">
+            <ul className="pagination pagination-lg justify-content-center m-0">
+
                 {pageNumbers.map(number => (
                     <li key={number} className='page-item'>
                         <Link to={`#${number}`} onClick={() => paginate(number)} className='page-link'>
@@ -19,9 +20,14 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
                         </Link>
                     </li>
                 ))}
+
             </ul>
         </nav>
     );
 };
 
 export default Pagination;
+
+
+
+
