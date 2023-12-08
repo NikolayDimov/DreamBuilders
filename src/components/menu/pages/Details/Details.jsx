@@ -80,6 +80,7 @@ export default function Details() {
                     const commentsCollection = collection(firestore_db, 'houses', id, 'comments');
                     const commentsSnapshot = await getDocs(commentsCollection);
                     const commentsData = commentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    commentsData.sort((a, b) => b.timestamp - a.timestamp);
                     setComments(commentsData);
 
                 } else {
