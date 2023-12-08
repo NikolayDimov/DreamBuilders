@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Topbar from './Topbar';
 import emailjs from 'emailjs-com';
+import { sendEmail } from '../../utils/emailSend';
 
-emailjs.init('zIwYogPUgOzwv3j1A');
-
-
+import './Contacts.css';
 
 
 export default function Contacts() {
@@ -12,33 +11,29 @@ export default function Contacts() {
     const [email, setEmail] = useState('');
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
+    // Initialize EmailJS once when the component mounts
+    useEffect(() => {
+        emailjs.init("zIwYogPUgOzwv3j1A");
+    }, []);
 
     // Handle form submission
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        const bodyMessage = `   
-        User: ${username}
-        Email: ${email}
-        Subject: ${subject}
-        Message: ${message}
-        `;
-
         try {
-            await emailjs.send('service_n93cqyp', 'template_6m1zvsj', {
-                to_email: 'niki9999n@gmail.com',
-                from_name: username,
-                from_email: email,
-                subject,
-                message: bodyMessage,
-            });
-
+            await sendEmail(username, email, subject, message);
             // Handle success
             console.log('Email sent successfully!');
+            setSuccessMessage('Email sent successfully!');
+            setErrorMessage(''); // Clear any previous error messages
         } catch (error) {
             // Handle error
             console.error('Error sending email:', error);
+            setSuccessMessage('');
+            setErrorMessage('Error sending email: ' + error.message);
         }
 
         // Reset form fields
@@ -93,7 +88,7 @@ export default function Contacts() {
                         />
                     </div>
 
-                    <div className="col-lg-6">
+                    <div className="col-lg-5">
                         <div className="contact-form bg-light p-5">
                             <form onSubmit={handleFormSubmit} className="row g-3">
                                 <div className="col-12">
@@ -130,6 +125,7 @@ export default function Contacts() {
                                     <textarea
                                         className="form-control border-0"
                                         rows={4}
+                                        style={{ height: 'auto' }}
                                         placeholder="Message"
                                         value={message}
                                         onChange={(e) => setMessage(e.target.value)}
@@ -140,10 +136,18 @@ export default function Contacts() {
                                         Send Message
                                     </button>
                                 </div>
-                            </form>
 
+                                {successMessage && (
+                                    <div className="col-12 mt-3 text-success">{successMessage}</div>
+                                )}
+
+                                {errorMessage && (
+                                    <div className="col-12 mt-3 text-danger">{errorMessage}</div>
+                                )}
+                            </form>
                         </div>
                     </div>
+
                 </div>
             </div>
 

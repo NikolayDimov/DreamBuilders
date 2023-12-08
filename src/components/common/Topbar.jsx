@@ -8,7 +8,7 @@ export default function Topbar() {
                         <i className="bi bi-geo-alt fs-1 text-primary me-3" />
                         <div className="text-start">
                             <h6 className="text-uppercase fw-bold">Our Office</h6>
-                            <span>123 Street, New York, USA</span>
+                            <span>Port Varna 12, Varna, Bulgaria</span>
                         </div>
                     </div>
                 </div>
@@ -17,7 +17,7 @@ export default function Topbar() {
                         <i className="bi bi-envelope-open fs-1 text-primary me-3" />
                         <div className="text-start">
                             <h6 className="text-uppercase fw-bold">Email Us</h6>
-                            <span>info@example.com</span>
+                            <span>niki9999n@gmai.com</span>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,45 @@
+import { useState, useEffect } from 'react';
+import emailjs from 'emailjs-com';
+import { sendEmail } from '../../../../utils/emailSend';
+
+
 export default function Appointment() {
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [subject, setSubject] = useState('');
+    const [message, setMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+
+    // Initialize EmailJS once when the component mounts
+    useEffect(() => {
+        emailjs.init("zIwYogPUgOzwv3j1A");
+    }, []);
+
+    // Handle form submission
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            await sendEmail(username, email, subject, message);
+            // Handle success
+            // console.log('Email sent successfully!');
+            setSuccessMessage('Email sent successfully!');
+            setErrorMessage(''); // Clear any previous error messages
+        } catch (error) {
+            // Handle error
+            // console.error('Error sending email:', error);
+            setSuccessMessage('');
+            setErrorMessage('Error sending email: ' + error.message);
+        }
+
+        // Reset form fields
+        setUsername('');
+        setEmail('');
+        setSubject('');
+        setMessage('');
+    };
+
     return (
         <div className="container-fluid py-6 px-5">
             <div className="row gx-5">
@@ -9,76 +50,67 @@ export default function Appointment() {
                         </h1>
                     </div>
                     <p className="mb-5">
-                        Nonumy ipsum amet tempor takimata vero ea elitr. Diam diam ut et eos
-                        duo duo sed. Lorem elitr sadipscing eos et ut et stet justo, sit
-                        dolore et voluptua labore. Ipsum erat et ea ipsum magna sadipscing
-                        lorem. Sit lorem sea sanctus eos. Sanctus sit tempor dolores ipsum
-                        stet justo sit erat ea, sed diam sanctus takimata sit. Et at voluptua
-                        amet erat justo amet ea ipsum eos, eirmod accusam sea sed ipsum kasd
-                        ut.
+                        If you want to connect with us. If you like some project and find it really cool. If want more information for some existing house project.
+                        If You're having trouble creating your new project.
+                        Just get in touch with us, and we'll provide you with details about the project and pricing.
                     </p>
-                    <a className="btn btn-primary py-3 px-5" href="">
-                        Get A Quote
-                    </a>
                 </div>
-                <div className="col-lg-8">
-                    <div className="bg-light text-center p-5">
-                        <form>
-                            <div className="row g-3">
-                                <div className="col-12 col-sm-6">
-                                    <input
-                                        type="text"
-                                        className="form-control border-0"
-                                        placeholder="Your Name"
-                                        style={{ height: 55 }}
-                                    />
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                    <input
-                                        type="email"
-                                        className="form-control border-0"
-                                        placeholder="Your Email"
-                                        style={{ height: 55 }}
-                                    />
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                    <div className="date" id="date" data-target-input="nearest">
-                                        <input
-                                            type="text"
-                                            className="form-control border-0 datetimepicker-input"
-                                            placeholder="Call Back Date"
-                                            data-target="#date"
-                                            data-toggle="datetimepicker"
-                                            style={{ height: 55 }}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                    <div className="time" id="time" data-target-input="nearest">
-                                        <input
-                                            type="text"
-                                            className="form-control border-0 datetimepicker-input"
-                                            placeholder="Call Back Time"
-                                            data-target="#time"
-                                            data-toggle="datetimepicker"
-                                            style={{ height: 55 }}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col-12">
-                                    <textarea
-                                        className="form-control border-0"
-                                        rows={5}
-                                        placeholder="Message"
-                                        defaultValue={""}
-                                    />
-                                </div>
-                                <div className="col-12">
-                                    <button className="btn btn-primary w-100 py-3" type="submit">
-                                        Submit Request
-                                    </button>
-                                </div>
+                <div className="col-lg-6">
+                    <div className="contact-form bg-light p-5">
+                        <form onSubmit={handleFormSubmit} className="row g-3">
+                            <div className="col-12">
+                                <input
+                                    type="text"
+                                    className="form-control border-0"
+                                    placeholder="Your Name"
+                                    style={{ height: 55 }}
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                />
                             </div>
+                            <div className="col-12">
+                                <input
+                                    type="email"
+                                    className="form-control border-0"
+                                    placeholder="Your Email"
+                                    style={{ height: 55 }}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+                            <div className="col-12">
+                                <input
+                                    type="text"
+                                    className="form-control border-0"
+                                    placeholder="Subject"
+                                    style={{ height: 55 }}
+                                    value={subject}
+                                    onChange={(e) => setSubject(e.target.value)}
+                                />
+                            </div>
+                            <div className="col-12">
+                                <textarea
+                                    className="form-control border-0"
+                                    rows={4}
+                                    style={{ height: 'auto' }}
+                                    placeholder="Message"
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                />
+                            </div>
+                            <div className="col-12">
+                                <button className="btn btn-primary w-100 py-3" type="submit">
+                                    Send Message
+                                </button>
+                            </div>
+
+                            {successMessage && (
+                                <div className="col-12 mt-3 text-success">{successMessage}</div>
+                            )}
+
+                            {errorMessage && (
+                                <div className="col-12 mt-3 text-danger">{errorMessage}</div>
+                            )}
                         </form>
                     </div>
                 </div>
