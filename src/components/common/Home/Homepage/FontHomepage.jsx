@@ -22,8 +22,8 @@ export default function FontHomepage() {
                                 <h1 className="display-2 text-uppercase text-white mb-md-4">
                                     Build Your Dream House With Us
                                 </h1>
-                                
-                                {isLoggedIn 
+
+                                {isLoggedIn
                                     ? ''
                                     : <Link to="/register" className="btn btn-primary py-md-3 px-md-5 mt-2">Register</Link>
                                 }
@@ -38,9 +38,9 @@ export default function FontHomepage() {
                                 <h1 className="display-2 text-uppercase text-white mb-md-4">
                                     We Are Trusted For Your Project
                                 </h1>
-                                <a href="" className="btn btn-primary py-md-3 px-md-5 mt-2">
+                                <Link to="contacts" className="btn btn-primary py-md-3 px-md-5 mt-2">
                                     Contact Us
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
