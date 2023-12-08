@@ -47,9 +47,9 @@ function App() {
 					<Route path='/logout' element={<Logout />} />
 				</Route>
 
-				<Footer />
 			</Routes>
 
+			<Footer />
 			<BackToTheTop />
 		</AuthProvider>
 	);
