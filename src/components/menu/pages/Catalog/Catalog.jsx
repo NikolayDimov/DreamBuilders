@@ -26,16 +26,11 @@ export default function Catalog() {
                 const itemsCollection = collection(firestore_db, 'houses');
                 const querySnapshot = await getDocs(itemsCollection);
                 const itemsData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
                 // Convert createdAt strings to Date objects for accurate sorting
                 itemsData.forEach(item => {
                     item.createdAt = new Date(item.createdAt);
                 });
-
-                // Sort itemsData based on createdAt property in ascending order
                 itemsData.sort((a, b) => b.createdAt - a.createdAt);
-
-
                 setItems(itemsData);
             } catch (error) {
                 console.error("Error fetching items:", error);
@@ -76,7 +71,7 @@ export default function Catalog() {
             {/* Page Header Start */}
 
 
-            <div className="container-fluid py-6 px-5">
+            <div className="container-fluid py-6 px-5 container-catalog">
                 {isLoading ? (
                     // Show a spinner or loading message while data is being fetched
                     <div className="text-center">

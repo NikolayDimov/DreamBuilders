@@ -15,6 +15,7 @@ export default function Create() {
     const nav = useNavigate();
     const { user } = useAuth();
     const userCollectionRef = collection(firestore_db, 'houses');
+    const [successMessage, setSuccessMessage] = useState('');
 
     // Error Validator
     const {
@@ -102,6 +103,8 @@ export default function Create() {
                     createdAt: new Date().toISOString(),
                 });
 
+                // Set success message
+                setSuccessMessage('Project created successfully');
                 console.log('Project created successfully');
                 nav('/catalog');
             }
@@ -274,6 +277,13 @@ export default function Create() {
                         </section>
 
                         <button className="btn btn-primary create-btn" type="submit">Create</button>
+
+                        {/* Display success message */}
+                        {successMessage && (
+                            <div className="alert alert-success mt-3" role="alert">
+                                {successMessage}
+                            </div>
+                        )}
 
                     </form>
 
