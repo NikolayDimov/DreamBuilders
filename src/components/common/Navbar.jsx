@@ -12,8 +12,8 @@ export default function Navbar() {
 
 			<nav className="navbar navbar-expand-lg bg-dark bg-light-radial navbar-dark py-3 py-lg-0">
 				<Link to="/" className="navbar-brand">
-					<h1 className="m-0 display-4 text-uppercase text-white">
-						<i className="bi bi-building text-primary me-2" />WEBUILD
+					<h1 className="m-0 display-5 text-uppercase text-white">
+						<i className="bi bi-building text-primary me-2" />Dream Bulid
 					</h1>
 				</Link>
 				<button

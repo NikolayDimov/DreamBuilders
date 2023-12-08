@@ -11,7 +11,7 @@ export default function Footer() {
                         <Link to="/" className="navbar-brand">
                             <h1 className="m-0 display-4 text-uppercase text-white">
                                 <i className="bi bi-building text-primary me-2" />
-                                WEBUILD
+                                Dream Build
                             </h1>
                         </Link>
                         <p>
@@ -109,7 +109,7 @@ export default function Footer() {
                         <p className="mb-0">
                             Designed by{" "}
                             <a className="text-dark" href="https://htmlcodex.com">
-                                HTML Codex
+                                Dimov
                             </a>
                         </p>
                     </div>
