@@ -43,9 +43,9 @@ export default function Navbar() {
 								<Link to="/catalog" className="dropdown-item">
 									Catalog
 								</Link>
-								<Link to="/details" className="dropdown-item">
+								{/* <Link to="/details" className="dropdown-item">
 									Details
-								</Link>
+								</Link> */}
 							</div>
 						</div>
 						<Link to="/contacts" className="nav-item nav-link">

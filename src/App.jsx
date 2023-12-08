@@ -2,8 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import AuthGuard from './components/guards/AuthGuard';
 
-import './App.module.css';
-
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import BackToTheTop from './components/common/BackToTheTop';
