@@ -1,49 +1,10 @@
-import { useState, useEffect } from 'react';
 import Topbar from './Topbar';
-import emailjs from 'emailjs-com';
-import { sendEmail } from '../../utils/emailSend';
+import EmailForm from './EmailComponent/Email';
 
 import './Contacts.css';
 
 
 export default function Contacts() {
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [subject, setSubject] = useState('');
-    const [message, setMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-
-    // Initialize EmailJS once when the component mounts
-    useEffect(() => {
-        emailjs.init("zIwYogPUgOzwv3j1A");
-    }, []);
-
-    // Handle form submission
-    const handleFormSubmit = async (e) => {
-        e.preventDefault();
-
-        try {
-            await sendEmail(username, email, subject, message);
-            // Handle success
-            console.log('Email sent successfully!');
-            setSuccessMessage('Email sent successfully!');
-            setErrorMessage(''); // Clear any previous error messages
-        } catch (error) {
-            // Handle error
-            console.error('Error sending email:', error);
-            setSuccessMessage('');
-            setErrorMessage('Error sending email: ' + error.message);
-        }
-
-        // Reset form fields
-        setUsername('');
-        setEmail('');
-        setSubject('');
-        setMessage('');
-    };
-
-
     return (
         <>
             <Topbar />
@@ -90,61 +51,7 @@ export default function Contacts() {
 
                     <div className="col-lg-5">
                         <div className="contact-form bg-light p-5">
-                            <form onSubmit={handleFormSubmit} className="row g-3">
-                                <div className="col-12">
-                                    <input
-                                        type="text"
-                                        className="form-control border-0"
-                                        placeholder="Your Name"
-                                        style={{ height: 55 }}
-                                        value={username}
-                                        onChange={(e) => setUsername(e.target.value)}
-                                    />
-                                </div>
-                                <div className="col-12">
-                                    <input
-                                        type="email"
-                                        className="form-control border-0"
-                                        placeholder="Your Email"
-                                        style={{ height: 55 }}
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                </div>
-                                <div className="col-12">
-                                    <input
-                                        type="text"
-                                        className="form-control border-0"
-                                        placeholder="Subject"
-                                        style={{ height: 55 }}
-                                        value={subject}
-                                        onChange={(e) => setSubject(e.target.value)}
-                                    />
-                                </div>
-                                <div className="col-12">
-                                    <textarea
-                                        className="form-control border-0"
-                                        rows={4}
-                                        style={{ height: 'auto' }}
-                                        placeholder="Message"
-                                        value={message}
-                                        onChange={(e) => setMessage(e.target.value)}
-                                    />
-                                </div>
-                                <div className="col-12">
-                                    <button className="btn btn-primary w-100 py-3" type="submit">
-                                        Send Message
-                                    </button>
-                                </div>
-
-                                {successMessage && (
-                                    <div className="col-12 mt-3 text-success">{successMessage}</div>
-                                )}
-
-                                {errorMessage && (
-                                    <div className="col-12 mt-3 text-danger">{errorMessage}</div>
-                                )}
-                            </form>
+                            <EmailForm />
                         </div>
                     </div>
 
