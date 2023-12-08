@@ -132,6 +132,7 @@
 // Footer.jsx
 
 // Footer.jsx
+import React from 'react';  // Make sure to import React
 import FooterContent from './FooterContent';
 
 export default React.memo(FooterContent);
