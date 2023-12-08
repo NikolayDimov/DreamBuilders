@@ -5,7 +5,7 @@ import Appointment from './Homepage/Appointment';
 import Portfolio from './Homepage/Portfolio';
 import Team from './Homepage/Team';
 import Testimonial from './Homepage/Testimonial';
-import BlogPost from './Homepage/BlogPost';
+import LatestThreePosts from './Homepage/LatestThreePosts';
 
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
             <Portfolio />
             <Team />
             <Testimonial />
-            <BlogPost />
+            <LatestThreePosts />
         </>
     );
 }

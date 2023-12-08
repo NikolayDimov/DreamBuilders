@@ -1,0 +1,31 @@
+.bg-light {
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px -3px #615757;
+}
+
+.bg-light:hover {
+    box-shadow: 2px 5px 18px 1px #615757;
+    border-radius: 10px;
+}
+
+.fa-user {
+    margin-right: 10px;
+    color: #fd5d14;
+}
+
+.card-image {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.viewMyProject {
+    color: blue;
+}
+
+.latestThreePosts {
+    display: flex;
+    gap: 1em;
+}
