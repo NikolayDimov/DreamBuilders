@@ -1,5 +1,5 @@
 // FooterContent.jsx
-import React from 'react';  // Make sure to import React
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 function FooterContent() {
