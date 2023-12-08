@@ -21,7 +21,7 @@ export default function Footer() {
                         </p>
                         <p>
                             <i className="fa fa-map-marker-alt me-2" />
-                            123 Street, New York, USA
+                            Port Varna 12, Varna, Bulgaria
                         </p>
                         <p>
                             <i className="fa fa-phone-alt me-2" />

@@ -17,7 +17,7 @@ export default function Topbar() {
                         <i className="bi bi-envelope-open fs-1 text-primary me-3" />
                         <div className="text-start">
                             <h6 className="text-uppercase fw-bold">Email Us</h6>
-                            <span>niki9999n@gmai.com</span>
+                            <span>info@example.com</span>
                         </div>
                     </div>
                 </div>
