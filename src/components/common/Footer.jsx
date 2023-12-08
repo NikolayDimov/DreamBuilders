@@ -123,26 +123,17 @@
 
 
 
+
+
+
+
+
+
 // Footer.jsx
-import { useEffect, useState } from 'react';
 
-const Footer = () => {
-    const [Link, setLink] = useState(null);
+import { Link } from 'react-router-dom';
 
-    useEffect(() => {
-        const loadLink = async () => {
-            const module = await import('react-router-dom');
-            setLink(module.Link);
-        };
-
-        loadLink();
-    }, []);
-
-    if (!Link) {
-        // Render some placeholder or loading state while Link is being loaded
-        return null;
-    }
-
+function Footer() {
     return (
         <>
             <div className="footer container-fluid position-relative bg-dark bg-light-radial text-white-50 py-6 px-5">
@@ -257,6 +248,7 @@ const Footer = () => {
             </div>
         </>
     );
-};
+}
 
-export default Footer;
+export default React.memo(Footer);
+
