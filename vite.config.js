@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react()],
+    plugins: [ReactRefresh()],
     // esbuild: {
     //     target: "es2022", // or 'es2021'
     // },
