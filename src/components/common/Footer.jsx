@@ -1,8 +1,7 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Footer() {
-
-
+function Footer() {
     return (
         <>
             <div className="footer container-fluid position-relative bg-dark bg-light-radial text-white-50 py-6 px-5">
@@ -118,3 +117,5 @@ export default function Footer() {
         </>
     );
 }
+
+export default Footer;
