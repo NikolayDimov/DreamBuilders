@@ -10,6 +10,6 @@
 import ReactRefresh from "@vitejs/plugin-react-refresh";
 
 export default {
-    // plugins: [ReactRefresh()],
-    plugins: [react({ fastRefresh: false })],
+    plugins: [ReactRefresh()],
+    // plugins: [react({ fastRefresh: false })],
 };
