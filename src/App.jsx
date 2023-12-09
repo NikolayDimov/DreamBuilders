@@ -36,7 +36,6 @@ function App() {
 				<Route path='/service' element={<Service />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/catalog' element={<Catalog />} />
-				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/profile' element={<Profile />} />
 				<Route path='/delete' element={<DeleteModal />} />
