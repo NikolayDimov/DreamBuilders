@@ -52,7 +52,7 @@ export default function Navbar() {
 							Contact
 						</Link>
 
-						{isLoggedIn &&
+						{isLoggedIn && user?.email &&
 							<Link to="/profile" className="nav-item nav-link bg-primary text-white ms-3 d-none d-lg-block">
 								{(user.email.split('@'))[0]} &apos;s Projects<i className="bi bi-arrow-right" />
 							</Link>
